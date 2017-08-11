@@ -3,7 +3,7 @@
 import {expect} from 'chai'
 import React from 'react'
 import {shallow} from 'enzyme'
-import {UserHome} from './user-home'
+import {UserHome} from '../../client/components/user-home'
 
 describe('UserHome', () => {
   let userHome
