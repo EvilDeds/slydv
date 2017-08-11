@@ -1,20 +1,38 @@
 const React = require('react')
 const Embed = require('react-runkit')
+import {connect} from 'react-redux'
+
+
 
 const helloSource = `function test(num){return 'Hi, '+num+1;}test(8);`
 
-module.exports = class Runkit extends React.Component {
+
+class Runkit extends React.Component {
     constructor(){
         super();
         this.state={
-            code:''
+            code:'console.log("Hello, world")'
         };
-        this.handleChange=this.handleChange.bind(this);
     }
-    handleChange(event){
-        console.log('blargh',event.target.value);
-    }
+
     render() {
-        return <Embed source={ helloSource } readOnly={ false } onChange={this.onChange} />
+        // const getSource = node => {
+        //     setInterval(() => {
+        //         var iframe = document.getElementById('iframeId');
+        //        var innerDoc = iframe.contentDocument || iframe.contentWindow.document
+        // was trying to add in a reference to the iframe to access the underlying codemirror instance and use the codemirror values (or access the dom nodes)
+
+        //     }), 1000)
+        // } ref={getSource}
+        return (
+            <div>
+            <Embed source={ this.state.code } readOnly={ false }  onURLChanged={console.log} />
+            </div>
+            )
     }
 }
+
+
+
+
+export default Runkit
