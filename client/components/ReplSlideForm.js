@@ -2,12 +2,17 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import brace from 'brace';
+import AceEditor from 'react-ace';
+
+import 'brace/mode/java';
+import 'brace/theme/github';
 
 /* -------------- COMPONENT -------------- */
 
 const ReplSlideForm = (props) => {
   console.log('form props: ', props);
-  const {error, handleChange, handleSubmit} = props;
+  const { error, formReplSlide, handleChange, handleSubmit } = props;
 
   return (
     <div className="ReplSlideForm col-lg-9 offset-lg-3">
@@ -15,7 +20,7 @@ const ReplSlideForm = (props) => {
         <div className="form-group">
           <label className="col-md-4 control-label" htmlFor="slideTitle">* Slide title</label>
           <div className="col-md-5">
-          <input id="slideTitle" name="slideTitle" type="text" className="form-control input-md" />
+          <input id="slideTitle" name="slideTitle" type="text" className="form-control input-md" value={formReplSlide.slideTitle} />
           <span className="help-block">A slide title is optional</span>
           </div>
         </div>
@@ -23,14 +28,21 @@ const ReplSlideForm = (props) => {
         <div className="form-group">
           <label className="col-md-4 control-label" htmlFor="initialCode">Initial code</label>
           <div className="col-md-4">
-            <textarea className="form-control" id="initialCode" name="initialCode"></textarea>
+            <AceEditor
+              mode="javascript"
+              theme="github"
+              handleChange={handleChange}
+              name="CodePane"
+              editorProps={{$blockScrolling: true}}
+              value={formReplSlide.initialCode}
+            />
           </div>
         </div>
 
         <div className="form-group">
           <label className="col-md-4 control-label" htmlFor="speakerNotes">Speaker Notes</label>
           <div className="col-md-4">
-            <textarea className="form-control" id="speakerNotes" name="speakerNotes"></textarea>
+            <textarea className="form-control" id="speakerNotes" name="speakerNotes" value={formReplSlide.speakerNotes}></textarea>
           </div>
         </div>
 

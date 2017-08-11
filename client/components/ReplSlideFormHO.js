@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReplSlideForm from './ReplSlideForm';
-import { createReplSlide, changeReplSlide, fetchSingleReplSlide } from '../store/replSlide.js';
+import { createSlide, changeSlide, fetchSingleSlide } from '../store/slide.js';
 import store from '../store';
 
 /* -------------- COMPONENT -------------- */
@@ -14,7 +14,9 @@ function ReplSlideFormHO(Component, thunkCreator) {
       this.state = {
         slideId: null,
         slideToEdit: null,
-        formReplSlide: {}
+        formReplSlide: {
+          slideTitle: 'foooooooo'
+        }
       }
       this.handleChange = this.handleChange.bind(this);
     }
@@ -26,14 +28,14 @@ function ReplSlideFormHO(Component, thunkCreator) {
         this.state.slideId = this.props.match.params.slideId;
         // console.log('Component did mount. this.state:', this.state);
       }
-      store.dispatch(fetchSingleReplSlide(this.state.slideId));
+      store.dispatch(fetchSingleSlide(this.state.slideId));
     }
 
     componentWillReceiveProps(nextProps) {
       // console.log('nextProps: ', nextProps);
-      if(nextProps.singleReplSlide !== this.props.singleReplSlide) {
+      if(nextProps.singleSlide !== this.props.singleSlide) {
         this.setState({
-          formReplSlide: nextProps.singleReplSlide
+          formReplSlide: nextProps.singleSlide
         })
       }
     }
@@ -45,6 +47,7 @@ function ReplSlideFormHO(Component, thunkCreator) {
     }
 
     render() {
+      console.log('this.state.formReplSlide:', this.state.formReplSlide);
       return (
         <Component handleSubmit={ this.handleSubmit } handleChange={ this.handleChange } formReplSlide={ this.state.formReplSlide } { ...this.props } />
       )
@@ -58,19 +61,19 @@ function ReplSlideFormHO(Component, thunkCreator) {
 */
 const mapAddReplSlide = (state) => {
   return {
-    name: 'createReplSlide',
+    name: 'createSlide',
     displayName: 'Add REPL slide',
-    error: state.replSlide.singleReplSlide.error
+    error: state.slide.singleSlide.error
   };
 };
 
 const mapEditReplSlide = (state) => {
   // console.log('state:', state)
   return {
-    name: 'changeReplSlide',
+    name: 'changeSlide',
     displayName: 'Edit REPL slide',
-    error: state.replSlide.singleReplSlide.error,
-    singleReplSlide: state.replSlide.singleReplSlide || {}
+    error: state.slide.singleSlide.error,
+    singleSlide: state.slide.singleSlide || {}
   };
 };
 
@@ -82,7 +85,7 @@ const mapDispatchAdd = (dispatch) => {
       const initialCode = evt.target.initialCode.value;
       const speakerNotes = evt.target.speakerNotes.value;
       const changedReplSlide = { slideTitle, initialCode, speakerNotes };
-      dispatch(createReplSlide(newReplSlide));
+      dispatch(createSlide(newReplSlide));
       // Need to do state.setState({formReplSlide: {}}); and then redirect somewhere.
     }
   };
@@ -96,11 +99,11 @@ const mapDispatchEdit = (dispatch) => {
       const initialCode = evt.target.initialCode.value;
       const speakerNotes = evt.target.speakerNotes.value;
       const changedReplSlide = { slideTitle, initialCode, speakerNotes };
-      dispatch(changeReplSlide(slideId, changedReplSlide));
+      dispatch(changeSlide(slideId, changedReplSlide));
       // Need to do state.setState({formReplSlide: {}}); and then redirect somewhere.
     }
   };
 };
 
-export const AddReplSlide = connect(mapAddReplSlide, mapDispatchAdd)(ReplSlideFormHO(ReplSlideForm, createReplSlide));
-export const EditReplSlide = connect(mapEditReplSlide, mapDispatchEdit)(ReplSlideFormHO(ReplSlideForm, changeReplSlide));
+export const AddReplSlide = connect(mapAddReplSlide, mapDispatchAdd)(ReplSlideFormHO(ReplSlideForm, createSlide));
+export const EditReplSlide = connect(mapEditReplSlide, mapDispatchEdit)(ReplSlideFormHO(ReplSlideForm, changeSlide));
