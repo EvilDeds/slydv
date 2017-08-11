@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import {Main, Login, Signup, UserHome, ReplSlideForm} from './components'
 import {me} from './store'
 
 /**
@@ -23,6 +23,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route path='/makeslide' component={ReplSlideForm} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             {
