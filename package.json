@@ -35,6 +35,7 @@
     "react-redux": "^5.0.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-runkit": "^0.9.0",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
