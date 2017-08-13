@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 
 import {AddReplSlide} from './components/ReplSlideFormHO';
-import {Main, Login, Signup, UserHome, Runkit} from './components';
+import {Main, Login, Signup, UserHome, Runkit, UserDeckList} from './components';
 import {me} from './store'
 
 /**
@@ -26,6 +26,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path='/makeslide' component={AddReplSlide} />
+            <Route path='/users/:userId/decks' component={UserDeckList}/>
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route path='/runkit' component={Runkit} />
