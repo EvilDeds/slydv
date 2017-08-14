@@ -26,7 +26,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path='/makeslide' component={AddReplSlide} />
-            <Route path='/users/:userId/decks' component={UserDeckList}/>
+            <Route path='/:userId/decks' component={UserDeckList}/>
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route path='/runkit' component={Runkit} />

@@ -7,9 +7,7 @@ const GET_USER_DECK_LIST = 'GET_USER_DECK_LIST';
 
 // initial state
 
-const initialState = {
-	deckList : []
-}
+const defaultDeckList = []
 
 // action creators
 
@@ -17,24 +15,23 @@ const getUserDeckList = (deckList) => ({type: GET_USER_DECK_LIST, deckList});
 
 // thunk creators 
 
-export function fetchUserDeckList () {
+export function fetchUserDeckList (userId) {
     return function thunk (dispatch){
-        return axios.get('/api/users/:userId/decks')
-        .then(res => dispatch(getCatList(res.data)))
+        return axios.get(`/api/users/${userId}/decks`)
+        .then(res => dispatch(getUserDeckList(res.data)))
         .catch(error => { console.log(error)});
     };
 }
 
 //reducer 
 
-export default function (state = initialState, action) {
-  let newState = Object.assign({}, state);
+export default function (state = defaultDeckList, action) {
+  
   switch (action.type) {
     case GET_USER_DECK_LIST:
-      newState.deckList = action.deckList;
-      break;
+      return action.deckList;
     default:
       return state;
   }
-  return newState;
+  
 }
