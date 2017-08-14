@@ -8,10 +8,9 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db');
 const socketio = require('socket.io');
 
-const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
-
+const sessionStore = new SequelizeStore({ db });
 module.exports = app;
 
 /**
@@ -55,6 +54,7 @@ const createApp = () => {
   app.use('/users', require('./users'));
 
   // static file-serving middleware
+  app.use('/deque-pattern-library', express.static(path.join(__dirname, '..', '/node_modules/deque-pattern-library/dist')));
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
   // sends index.html
