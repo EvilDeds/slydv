@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 
 import {AddReplSlide} from './components/ReplSlideFormHO';
-import {Main, Login, Signup, UserHome, Runkit} from './components';
+import {Main, Login, Signup, UserHome, Runkit, SlideSample, SlideSample1} from './components';
 import {me} from './store'
 
 /**
@@ -29,6 +29,8 @@ class Routes extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route path='/runkit' component={Runkit} />
+            <Route path='/slidesample' component={SlideSample} />
+            <Route path='/slidesample1' component={SlideSample1} />
             {
               isLoggedIn &&
                 <Switch>
