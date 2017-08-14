@@ -51,7 +51,7 @@ const createApp = () => {
   // auth and api routes
   app.use('/auth', require('./auth'));
   app.use('/api', require('./api'));
-  app.use('/users', require('./users'));
+  // app.use('/users', require('./users'));
 
   // static file-serving middleware
   app.use('/deque-pattern-library', express.static(path.join(__dirname, '..', '/node_modules/deque-pattern-library/dist')));
