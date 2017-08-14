@@ -32,5 +32,4 @@ describe('Deck Model', () => {
   it('has chats', () => {
     expect(deck.chats).to.equal('chatty chat chat');
   });
-
 });
