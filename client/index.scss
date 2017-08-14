@@ -41,9 +41,9 @@ body {
 #main > section {
   margin: 4px;
   padding: 5px;
-  border: 1px solid #cccc33;
+  border: 1px solid #cc3;
   border-radius: 7pt;
-  background: #dddd88;
+  background: #dd8;
   flex: 3 1 60%;
   order: 2;
 }
@@ -55,9 +55,9 @@ body {
 #main > nav {
   margin: 4px;
   padding: 5px;
-  border: 1px solid #8888bb;
+  border: 1px solid #88b;
   border-radius: 7pt;
-  background: #ccccff;
+  background: #ccf;
   flex: 1 6 20%;
   min-width:200px;
   order: 1;
@@ -66,22 +66,23 @@ body {
 #main > aside {
   margin: 4px;
   padding: 5px;
-  border: 1px solid #8888bb;
+  border: 1px solid #88b;
   border-radius: 7pt;
-  background: #ccccff;
+  background: #ccf;
   flex: 1 6 20%;
   min-width:200px;
   order: 3;
 }
 
-header, footer {
+header,
+footer {
   display: block;
   margin: 4px;
   padding: 5px;
   min-height: 100px;
-  border: 1px solid #eebb55;
+  border: 1px solid #eb5;
   border-radius: 7pt;
-  background: #ffeebb;
+  background: #feb;
 }
 
 /* Too narrow to support three columns */
@@ -95,7 +96,10 @@ header, footer {
     order: 0;
   }
 
-  #main > nav, #main > aside, header, footer {
+  #main > nav,
+  #main > aside,
+  header,
+  footer {
     min-height: 50px;
     max-height: 50px;
   }
