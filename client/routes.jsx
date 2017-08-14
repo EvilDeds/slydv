@@ -7,6 +7,7 @@ import history from './history';
 
 import { AddReplSlide } from './components/ReplSlideFormHO';
 import { Main, Login, Signup, UserHome, Runkit } from './components';
+import { SlideSample, SlideSample1, SlideSample2, SlideSample3, SlideSample4, SlideSample5 } from './components';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
