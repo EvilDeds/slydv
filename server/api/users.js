@@ -1,21 +1,18 @@
-
 const router = require('express').Router();
 const { User, Deck } = require('../db/models');
 
 module.exports = router;
 
-
-
 router.get('/:userId/decks', (req, res, next) => {
-  console.log('in route')
+  // console.log('in route');
   Deck.findAll({
     where: {
-      userId: +req.params.userId
-    }
+      userId: +req.params.userId,
+    },
   })
     .then(decks => res.json(decks))
-    .catch(next)
-})
+    .catch(next);
+});
 
 router.get('/', (req, res, next) => {
   User.findAll({
