@@ -1,52 +1,48 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/java';
 import 'brace/theme/github';
 
 export default class Ace extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.state={
-      aceEditorValue:'function test(num) {\n  return num++;\n}\ntest(8);',
-      resultPane:'blob'
+    this.state = {
+      aceEditorValue: 'function test(num) {\n  return num++;\n}\ntest(8);',
+      resultPane: 'blob',
     };
-    this.onChange=this.onChange.bind(this);
-    this.onClick=this.onClick.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.state.aceEditorValue !== nextState.aceEditorValue) {
-      return false
-    } else {
-      return true;
+      return false;
     }
+
+    return true;
   }
 
   onChange(newValue) {
-    console.log('change', newValue, this.state);
+    // console.log('change', newValue, this.state);
     this.setState({
-      aceEditorValue: newValue
+      aceEditorValue: newValue,
     });
   }
 
-  onClick(){
-    console.log('result',eval(this.state.aceEditorValue));
-    var results=eval(this.state.aceEditorValue);
+  onClick() {
+    // console.log('result',eval(this.state.aceEditorValue));
+    const results = eval(this.state.aceEditorValue);
     this.setState({
-      resultPane: JSON.stringify(results)
+      resultPane: JSON.stringify(results),
     });
   }
 
-
-
-// Render editor
-  render(){
-    return(
+  // Render editor
+  render() {
+    return (
       <div>
-      <h1>HELLO</h1>
+        <h1>HELLO</h1>
         <div className="row">
           <div className="col-sm-6">
             <AceEditor
@@ -54,7 +50,7 @@ export default class Ace extends Component {
               theme="github"
               onChange={this.onChange}
               name="CodePane"
-              editorProps={{$blockScrolling: true}}
+              editorProps={{ $blockScrolling: true }}
               value={this.state.aceEditorValue}
             />
           </div>
@@ -64,13 +60,13 @@ export default class Ace extends Component {
               theme="github"
               onChange={this.onChange}
               name="ResultPane"
-              editorProps={{$blockScrolling: true}}
+              editorProps={{ $blockScrolling: true }}
               value={this.state.resultPane}
             />
           </div>
         </div>
-      <button onClick={this.onClick}>Run</button>
+        <button onClick={this.onClick}>Run</button>
       </div>
-    )
+    );
   }
 }

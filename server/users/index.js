@@ -1,8 +1,9 @@
-const router = require('express').Router()
-module.exports = router
+
+const router = require('express').Router();
+
 const {Deck} = require('../db/models')
 
-// router.use('/decks', require('./decks'))
+module.exports = router;
 
 router.get('/:userId/decks', (req, res, next) => {
   console.log('in route')
@@ -16,9 +17,8 @@ router.get('/:userId/decks', (req, res, next) => {
 })
 
 router.use((req, res, next) => {
-	console.log('in error handling')
-  const error = new Error('Not Found')
-  error.status = 404
-  next(error)
-})
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+});
 
