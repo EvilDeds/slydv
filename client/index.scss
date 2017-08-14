@@ -30,7 +30,7 @@ body {
 
 //parent
 #main {
-  min-height: 800px;
+  min-height: 575px;
   margin: 0;
   padding: 0;
   display: flex;
@@ -46,6 +46,10 @@ body {
   background: #dddd88;
   flex: 3 1 60%;
   order: 2;
+}
+#main > section.mid {
+  height: 400px;
+  align-self: flex-end;
 }
 
 #main > nav {
