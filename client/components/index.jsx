@@ -8,4 +8,4 @@ export { default as Main } from './main';
 export { default as UserHome } from './user-home';
 export { Login, Signup } from './auth-form';
 export { default as Runkit } from './Runkit';
-export {default as UserDeckList} from './UserDeckList';
+export { default as UserDeckList } from './UserDeckList';
