@@ -8,6 +8,7 @@ export { default as Main } from './main';
 export { default as UserHome } from './user-home';
 export { Login, Signup } from './auth-form';
 export { default as Runkit } from './Runkit';
+export { default as UserDeckList } from './UserDeckList';
 export { default as SlideSample } from './SlideSample';
 export { default as SlideSample1 } from './SlideSample1';
 export { default as SlideSample2 } from './SlideSample2';

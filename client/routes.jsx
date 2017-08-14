@@ -6,8 +6,20 @@ import PropTypes from 'prop-types';
 import history from './history';
 
 import { AddReplSlide } from './components/ReplSlideFormHO';
-import { Main, Login, Signup, UserHome, Runkit } from './components';
-import { SlideSample, SlideSample1, SlideSample2, SlideSample3, SlideSample4, SlideSample5 } from './components';
+import {
+  Login,
+  Main,
+  Runkit,
+  Signup,
+  SlideSample,
+  SlideSample1,
+  SlideSample2,
+  SlideSample3,
+  SlideSample4,
+  SlideSample5,
+  UserDeckList,
+  UserHome,
+} from './components';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -26,6 +38,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path="/makeslide" component={AddReplSlide} />
+            <Route path='/:userId/decks' component={UserDeckList}/>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runkit" component={Runkit} />
