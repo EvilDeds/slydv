@@ -21,5 +21,5 @@ Deck.hasMany(Slide);
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User, Deck, Slide
-}
+  User, Deck, Slide,
+};
