@@ -26,6 +26,11 @@ const Slide = db.define('slide', {
     type: Sequelize.STRING,
     defaultValue: null,
   },
+  // Change from prevId and nextId to positionInDeck prop
+  // Then can view what slide it is
+  // Also remove isHead then -> get from index in deck
+  // Add enum field for slide template
+
 });
 
 module.exports = Slide;

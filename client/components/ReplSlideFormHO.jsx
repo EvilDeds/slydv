@@ -5,6 +5,9 @@ import ReplSlideForm from './ReplSlideForm';
 import { createSlide, changeSlide, fetchSingleSlide } from '../store/slide';
 import store from '../store';
 
+// Revisit, check component state
+// Update prop types to reflect current models
+
 /* -------------- COMPONENT -------------- */
 
 function ReplSlideFormHO(Component) {
@@ -42,6 +45,14 @@ function ReplSlideFormHO(Component) {
 
       this.handleChange = this.handleChange.bind(this);
     }
+
+    // Add in some documentation
+    // Fill in with information from state?
+    // Local state comes from slide instance
+    // Add in componentWillUnmount to do autosaving
+    // Create slide on starting to have id and prepopulated information
+    // Maybe add alert to prompt user to save?
+    // stretch goals: add rollback feature
 
     componentDidMount() {
       // console.log('this.props: ', this.props);
