@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { MarkdownHeader } from './Markdown';
 
 export default class SlideSample extends Component {
   // master layout
   render() {
     return (
       <div>
-        <MarkdownHeader markdown="for Title Field or Site Header" />
+        <header>header for Title Field or Site Header</header>
         <div id="main">
           <nav>nav for Sidebar in Edit Mode</nav>
           <section>section</section>
