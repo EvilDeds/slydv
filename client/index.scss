@@ -18,6 +18,15 @@ body {
     display: inline-block;
     margin: 1em;
   }
+
+  .markdown {
+    p:first-child {
+      margin-top: 0em;
+    }
+    p:last-child {
+      margin-bottom: 0em;
+    }
+  }
 }
 
 
