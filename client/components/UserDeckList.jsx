@@ -11,12 +11,11 @@ class UserDeckList extends Component {
 
   componentDidMount() {
     console.log('component did mount props: ', this.props);
-    this.props.loadDecks(1);
+    this.props.loadDecks(this.props.user.id);
   }
 
   render() {
     const decks = this.props.deckList;
-    console.log('props: ', this.props);
     return (
       <div className="UserDeckList col-lg-9 offset-lg-3">
         <h3>Check out your decks!</h3>
