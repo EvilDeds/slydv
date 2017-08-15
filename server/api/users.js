@@ -12,8 +12,7 @@ router.put('/:userId/decks/:deckId', (req, res, next) => {
 })
 
 router.post('/:userId/decks', (req, res, next) => {
-  console.log('now we are REALLY gonna post a new deck')
-  Deck.create(req.body)
+  Deck.create(Object.assign({}, req.body, {userId : +req.params.userId}))
   .then( deck => res.json(deck))
   .catch(next);
 })
@@ -38,3 +37,5 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next);
 });
+
+

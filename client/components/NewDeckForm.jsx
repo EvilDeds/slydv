@@ -8,7 +8,7 @@ class NewDeckForm extends Component {
     super(props);
     this.state = {
       newDeck : {
-        userId : this.props.user.id, //should this be a setter method?  THIS SEEMS WRONG
+        // userId : this.props.user.id, //should this be a setter method?  THIS SEEMS WRONG
         deckTitle : "", 
         viewable : false, 
         chats : ""
@@ -23,8 +23,7 @@ class NewDeckForm extends Component {
   })
  }
    handleSubmit(){
-    console.log('state to submit' , this.state.newDeck);
-    this.props.sendDeck(this.props.user.id, this.props.newDeck);
+    this.props.sendDeck(Number(this.props.user.id), this.state.newDeck);
    }
    render(){
     return (
@@ -49,7 +48,8 @@ const mapState = (state) => ({
 
 })
 const mapDispatch = dispatch => ({
- sendDeck(userId, deck){ dispatch(postNewDeck(userId, deck))}
+ sendDeck(userId, deck){
+  dispatch(postNewDeck(userId, deck))}
 })
 
 export default connect(mapState, mapDispatch)(NewDeckForm); 

@@ -30,7 +30,6 @@ export function changeDeck(userId, deck){
 
 export function postNewDeck(userId, deck){
   return function thunk(dispatch) {
-  	console.log('gonna post a new deck')
   	axios.post(`api/users/${userId}/decks/`, deck)
   	.then(res => dispatch(newDeck(res.data)))
     .catch((error) => { console.log(error); });
