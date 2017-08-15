@@ -18,7 +18,7 @@ function ReplSlideFormHO(Component) {
       singleSlide: PropTypes.shape({
         title: PropTypes.string,
         text: PropTypes.string,
-        isRepl: PropTypes.bool,
+        template: PropTypes.string,
         codeText: PropTypes.string,
         isHead: PropTypes.bool,
         nextId: PropTypes.string,
@@ -81,23 +81,6 @@ function ReplSlideFormHO(Component) {
     }
   };
 }
-
-// ReplSlideFormHO.propTypes = {
-//   match: PropTypes.shape({
-//     params: PropTypes.shape({
-//       slideId: PropTypes.number,
-//     }),
-//   }).isRequired,
-//   singleSlide: PropTypes.shape({
-//     title: PropTypes.string,
-//     text: PropTypes.string,
-//     isRepl: PropTypes.boolean,
-//     codeText: PropTypes.string,
-//     isHead: PropTypes.boolean,
-//     nextId: PropTypes.string,
-//     prevId: PropTypes.string,
-//   }),
-// };
 
 /* -------------- CONTAINER --------------
  We have two different sets of 'mapStateToProps' and 'mapDispatchToProps' functions—
