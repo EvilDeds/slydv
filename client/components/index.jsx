@@ -15,3 +15,4 @@ export { default as SlideSample2 } from './SlideSample2';
 export { default as SlideSample3 } from './SlideSample3';
 export { default as SlideSample4 } from './SlideSample4';
 export { default as SlideSample5 } from './SlideSample5';
+export { default as NewDeckForm } from './NewDeckForm.jsx'
