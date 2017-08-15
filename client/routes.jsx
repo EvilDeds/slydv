@@ -11,12 +11,12 @@ import {
   Main,
   Runkit,
   Signup,
-  SlideSample,
-  SlideSample1,
-  SlideSample2,
-  SlideSample3,
-  SlideSample4,
-  SlideSample5,
+  SlideView,
+  SlideView1,
+  SlideView2,
+  SlideView3,
+  SlideView4,
+  SlideView5,
   UserDeckList,
   UserHome,
 } from './components';
@@ -43,12 +43,12 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/runkit" component={Runkit} />
             {/* TMP ROUTES FOR CLICKTHROUGH */}
-            <Route path="/slidesample" component={SlideSample} />
-            <Route path="/slidesample1" component={SlideSample1} />
-            <Route path="/slidesample2" component={SlideSample2} />
-            <Route path="/slidesample3" component={SlideSample3} />
-            <Route path="/slidesample4" component={SlideSample4} />
-            <Route path="/slidesample5" component={SlideSample5} />
+            <Route path="/slideview" component={SlideView} />
+            <Route path="/slideview1" component={SlideView1} />
+            <Route path="/slideview2" component={SlideView2} />
+            <Route path="/slideview3" component={SlideView3} />
+            <Route path="/slideview4" component={SlideView4} />
+            <Route path="/slideview5" component={SlideView5} />
             {
               isLoggedIn &&
                 <Switch>
