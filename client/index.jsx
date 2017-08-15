@@ -6,8 +6,7 @@ import store from './store';
 import Routes from './routes';
 
 const a11y = require('react-a11y');
-
-if (process.env.NODE_ENV === 'development') a11y(React, { includeSrcNode: true });
+if (process.env.NODE_ENV !== 'production') a11y(React, { includeSrcNode: true });
 
 // establishes socket connection
 import './socket';
