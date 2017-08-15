@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ReplSlideForm from './ReplSlideForm.jsx';
+import ReplSlideForm from './ReplSlideForm';
 import { createSlide, changeSlide, fetchSingleSlide } from '../store/slide';
 import store from '../store';
 
