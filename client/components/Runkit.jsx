@@ -42,11 +42,15 @@ module.exports = class Runkit extends React.Component {
     console.log('blargh',event.target.value);
   }
   alertEvaluated(event) {
-    console.log('embed method getURL',this.refs.embed.getURL());
-    console.log('embed method getSource',this.refs.embed.getSource());
-    console.log('hi blarg', this.source, event);
+    // (this.source and event are undefined, but we can update state in the callback below)
+    console.log('hi', /* this.source, event */);
+    console.log('getURL', this.refs.embed.getURL());
+    console.log('getSource',this.refs.embed.getSource());
+    this.refs.embed.getSource((code) => this.setState({ code }));
   }
   render() {
-    return <Embed source={helloSource} readOnly={false} ref="embed" onEvaluate={this.alertEvaluated.bind(this)} />;
+    console.log(this.state.code);
+    return <Embed source={ helloSource } readOnly={ false } onEvaluate={ this.alertEvaluated.bind(this) } ref="embed" />
   }
 };
+
