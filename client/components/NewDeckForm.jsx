@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { postNewDeck } from '../store';
 
-export default class NewDeckForm extends Component {
-  constructor(){
-    super();
+class NewDeckForm extends Component {
+  constructor(props){
+    super(props);
     this.state = {
       newDeck : {
-        userId : "", //should this be a setter method?  
+        userId : this.props.user.id, //should this be a setter method?  THIS SEEMS WRONG
         deckTitle : "", 
         viewable : false, 
         chats : ""
@@ -22,8 +23,8 @@ export default class NewDeckForm extends Component {
   })
  }
    handleSubmit(){
-    //thunk things 
     console.log('state to submit' , this.state.newDeck);
+    this.props.sendDeck(this.props.user.id, this.props.newDeck);
    }
    render(){
     return (
@@ -41,3 +42,18 @@ export default class NewDeckForm extends Component {
       )
    }
 }
+
+const mapState = (state) => ({
+  user : state.user, 
+  deck : state.deck
+
+})
+const mapDispatch = dispatch => ({
+ sendDeck(userId, deck){ dispatch(postNewDeck(userId, deck))}
+})
+
+export default connect(mapState, mapDispatch)(NewDeckForm); 
+
+
+
+
