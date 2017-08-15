@@ -8,7 +8,6 @@ class NewDeckForm extends Component {
     super(props);
     this.state = {
       newDeck : {
-        // userId : this.props.user.id, //should this be a setter method?  THIS SEEMS WRONG
         deckTitle : "", 
         viewable : false, 
         chats : ""
