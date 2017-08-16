@@ -9,9 +9,10 @@ class UserDeckList extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    console.log('component did mount props: ', this.props);
-    this.props.loadDecks(this.props.user.id);
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.user && nextProps.user.id !== this.props.user.id){
+      this.props.loadDecks(nextProps.user.id);
+    }
   }
 
   render() {

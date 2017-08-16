@@ -20,7 +20,7 @@ router.post('/:userId/decks', (req, res, next) => {
 router.get('/:userId/decks', (req, res, next) => {
   Deck.findAll({
     where: {
-      userId: +req.params.userId,
+      userId: Number(req.params.userId),
     },
   })
     .then(decks => res.json(decks))
