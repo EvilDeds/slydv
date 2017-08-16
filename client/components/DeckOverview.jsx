@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchDeck, fetchSlideList } from '../store';
+import { Link } from 'react-router-dom';
 
 class DeckOverview extends Component {
   componentDidMount(nextProps) {
@@ -10,21 +11,30 @@ class DeckOverview extends Component {
   }
 
   render() {
-    const { deck, slides } = this.props
+    const { deck, slides } = this.props;
     return (
       <div>
       { slides[0] && deck.id
-       ? ( <div>
+        ? (
+            <div>
               <h1>{ deck.deckTitle } </h1>
+              <hr />
+              {slides.map(slide => (
+                <div key={slide.id} className="deckview-slide-container">
+                  <h2>{ slide.title }</h2>
+                  {/*FIX LINK WHEN WE HAVE EDIT PAGE*/}
+                  <Link to={``}>Edit Slide</Link>
+                </div>
+              ))}
             </div>
           )
-       : (
+        : (
           <h1>Deck not found</h1>
           )
       }
       </div>
     )
-  }
+  };
 }
 
 const mapState = state => ({
