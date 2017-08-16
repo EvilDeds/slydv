@@ -9,10 +9,9 @@ class UserDeckList extends Component {
     this.state = {};
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.user && nextProps.user.id !== this.props.user.id){
-      this.props.loadDecks(nextProps.user.id);
-    }
+  componentDidMount() {
+    console.log('component did mount props: ', this.props);
+    this.props.loadDecks(this.props.user.id);
   }
 
   render() {
@@ -34,9 +33,9 @@ class UserDeckList extends Component {
         ) : (
           <p>You have no decks yet!</p>
         )}
-        <button>
+        <Link to={`/new-deck`}>
           Make a New Deck!
-        </button>
+        </Link>
       </div>
     );
   }
