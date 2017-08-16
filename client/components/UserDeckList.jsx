@@ -22,21 +22,22 @@ class UserDeckList extends Component {
         <h3>Check out your decks!</h3>
         <hr />
         { decks.length ? (
-          <div className="row">
+          <ul>
             {decks.map(deck => (
-              <figure className="col-xs-4" key={deck.id}>
+              <li key={deck.id}>
                 <Link to={`/users/decks/${deck.id}`} >
                   {deck.deckTitle}
                 </Link>
-              </figure>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
           <p>You have no decks yet!</p>
         )}
-        <button>
+        <hr/>
+        <Link to="/new-deck">
           Make a New Deck!
-        </button>
+        </Link>
       </div>
     );
   }

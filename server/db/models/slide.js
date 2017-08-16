@@ -18,10 +18,13 @@ const Slide = db.define('slide', {
   positionInDeck: {
     type: Sequelize.INTEGER,
     validate: {
-      min: 0
+      min: 0,
     },
     allowNull: false,
   },
+  presenterNotes: {
+    type: Sequelize.TEXT
+  }
 });
 
 const autoTitle = (slide) => {

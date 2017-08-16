@@ -23,6 +23,7 @@ class NewDeckForm extends Component {
  }
    handleSubmit(){
     this.props.sendDeck(Number(this.props.user.id), this.state.newDeck);
+    
    }
    render(){
     return (
@@ -30,7 +31,17 @@ class NewDeckForm extends Component {
      Is there anything more beautiful than a fresh deck? 
       <form  className="form-horizontal">
         <label className="control-label">Deck Title</label>
-        <textarea name="deckTitle"/>
+        <textarea name="deckTitle"/> 
+        <br/>
+           <label>Choose a Deck Theme</label>
+           <select>
+             <option value='red'>Red</option>
+             <option value='green'>Green</option>
+             <option value='blue'>Blue</option>
+           </select>
+        <label className="control-label">Do you Need a Footer?</label>     
+        <input type="radio" name="viewable" value="true" />Yes
+        <input type="radio" name="viewable" value="false" />No
         <label className="control-label">Viewable:</label>     
         <input type="radio" name="viewable" value="true" />Yes
         <input type="radio" name="viewable" value="false" />No

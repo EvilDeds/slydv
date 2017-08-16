@@ -9,19 +9,16 @@ import { AddReplSlide } from './components/ReplSlideFormHO';
 import {
   Login,
   Main,
+  NewDeckForm,
   Runkit,
   Signup,
-  SlideView,
-  SlideView1,
-  SlideView2,
-  SlideView3,
-  SlideView4,
-  SlideView5,
+  SlideViewFrame,
   UserDeckList,
   UserHome,
   NewDeckForm,
   DeckOverview
 } from './components';
+// import SlideViewFrame from './components/SlideViewFrame';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -39,19 +36,13 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path= "/new-deck" component={NewDeckForm} />
-            <Route path="/makeslide" component={AddReplSlide} />
-            <Route path='/:userId/decks' component={UserDeckList}/>
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/makeslide" component={AddReplSlide} />
+            <Route path="/new-deck" component={NewDeckForm} />
             <Route path="/runkit" component={Runkit} />
-            {/* TMP ROUTES FOR CLICKTHROUGH */}
-            <Route path="/slideview" component={SlideView} />
-            <Route path="/slideview1" component={SlideView1} />
-            <Route path="/slideview2" component={SlideView2} />
-            <Route path="/slideview3" component={SlideView3} />
-            <Route path="/slideview4" component={SlideView4} />
-            <Route path="/slideview5" component={SlideView5} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/slideview" component={SlideViewFrame} />
+            <Route exact path="/:userId/decks" component={UserDeckList} />
             <Route path="/decks/:deckId" component={DeckOverview} />
             {
               isLoggedIn &&
