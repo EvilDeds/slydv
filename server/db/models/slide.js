@@ -22,6 +22,9 @@ const Slide = db.define('slide', {
       },
     allowNull: false,
   },
+  presenterNotes: {
+    type: Sequelize.TEXT
+  }
 });
 
 module.exports = Slide;
