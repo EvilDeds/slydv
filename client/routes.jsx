@@ -7,6 +7,7 @@ import history from './history';
 
 import { AddReplSlide } from './components/ReplSlideFormHO';
 import {
+  EditSlideForm,
   Login,
   Main,
   Runkit,
@@ -38,6 +39,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route path= "/editslide" component={EditSlideForm} />
             <Route path= "/new-deck" component={NewDeckForm} />
             <Route path="/makeslide" component={AddReplSlide} />
             <Route path='/:userId/decks' component={UserDeckList}/>
