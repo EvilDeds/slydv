@@ -7,11 +7,12 @@ import {
   SlideView3,
   SlideView4,
   SlideView5,
-} from '../components';
+} from './index';
 
 export default function SlideViewFrame(props) {
   // props will include `singleSlide`, `hasFooter`, and `footer`
   // (the latter two come from the slide’s parent deck).
+
   // Give incoming props less wieldy names
   const { title, template } = props.singleSlide;
   const { hasFooter, footer } = props.currentDeck;
@@ -46,10 +47,6 @@ export default function SlideViewFrame(props) {
 }
 
 SlideViewFrame.propTypes = {
-  error: PropTypes.shape({
-    message: PropTypes.string,
-    name: PropTypes.string,
-  }),
   singleSlide: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -70,15 +67,12 @@ SlideViewFrame.propTypes = {
 };
 
 SlideViewFrame.defaultProps = {
-  error: {
-    message: '',
-    name: '',
-  },
   singleSlide: {
     id: 1,
     title: 'This is a slide title',
-    text: '# Slide text\n\nThis is the text of a slide, which is in Markdown.',
+    text: '# Slide text\nThis is the text of a slide, which is in Markdown.',
     template: 'single-pane',
+    // template: 'columns-header',
     codeText: null,
     positionInDeck: 1,
   },
