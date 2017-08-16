@@ -40,7 +40,8 @@ class Routes extends Component {
             <Route path="/runkit" component={Runkit} />
             <Route path="/signup" component={Signup} />
             <Route path="/slideview" component={SlideViewFrame} />
-            <Route exact path="/:userId/decks" component={UserDeckList} />
+            <Route path='/users/:userId/decks' component={UserDeckList}/>
+
             {
               isLoggedIn &&
                 <Switch>
