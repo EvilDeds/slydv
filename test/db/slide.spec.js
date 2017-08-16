@@ -12,7 +12,7 @@ describe('Slide Model', () => {
       .then(() => Slide.create({
         title: 'What a slide',
         text: 'Wow. Much text. Such slide. Amaze.',
-        isRepl: false,
+        template: 'repl',
       }))
       .then((newSlide) => { slide = newSlide; });
   });
@@ -20,7 +20,7 @@ describe('Slide Model', () => {
   it('has the expected schema definitions', () => {
     expect(Slide.attributes.title).to.be.an('object');
     expect(Slide.attributes.text).to.be.an('object');
-    expect(Slide.attributes.isRepl).to.be.an('object');
+    expect(Slide.attributes.template).to.be.an('object');
     expect(Slide.attributes.codeText).to.be.an('object');
     expect(Slide.attributes.isHead).to.be.an('object');
     expect(Slide.attributes.nextId).to.be.an('object');
