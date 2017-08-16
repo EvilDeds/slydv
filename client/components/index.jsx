@@ -16,3 +16,4 @@ export { default as SlideView3 } from './SlideView3';
 export { default as SlideView4 } from './SlideView4';
 export { default as SlideView5 } from './SlideView5';
 export { default as NewDeckForm } from './NewDeckForm.jsx'
+export { default as DeckOverview } from './DeckOverview'

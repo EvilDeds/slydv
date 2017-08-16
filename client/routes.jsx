@@ -19,7 +19,8 @@ import {
   SlideView5,
   UserDeckList,
   UserHome,
-  NewDeckForm
+  NewDeckForm,
+  DeckOverview
 } from './components';
 import { me } from './store';
 
@@ -51,6 +52,7 @@ class Routes extends Component {
             <Route path="/slideview3" component={SlideView3} />
             <Route path="/slideview4" component={SlideView4} />
             <Route path="/slideview5" component={SlideView5} />
+            <Route path="/decks/:deckId" component={DeckOverview} />
             {
               isLoggedIn &&
                 <Switch>
