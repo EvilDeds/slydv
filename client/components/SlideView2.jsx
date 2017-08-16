@@ -1,15 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function SlideView2() {
-  // single pane
+// template === 'single-pane'
+export default function SlideView2(props) {
+  const { text } = props.singleSlide;
+
   return (
-    <div>
-      <div id="main">
-        <section>section BLURB</section>
-        <aside>aside for Optional Speaker Notes</aside>
-      </div>
-      <footer>footer <Link to="/slideview1">Prev</Link> <Link to="/slideview3">Next</Link></footer>
+    <div className="single-pane">
+      <section>section .single-pane; text: {text}</section>
     </div>
   );
 }
+
+SlideView2.propTypes = {
+  singleSlide: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    text: PropTypes.string,
+    template: PropTypes.string,
+    codeText: PropTypes.string,
+    positionInDeck: PropTypes.number,
+    speakerNotes: PropTypes.string,
+  }),
+};
+
+SlideView2.defaultProps = {
+  singleSlide: {
+    id: 1,
+    title: 'This is a slide title',
+    text: '# Slide text\nThis is the text of a slide, which is in Markdown.',
+    template: 'single-pane',
+    codeText: null,
+    positionInDeck: 1,
+    speakerNotes: 'This is a speaker note in Markdown.',
+  },
+};
