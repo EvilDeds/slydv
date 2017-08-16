@@ -8,18 +8,11 @@ export default function SlideView() {
       <header>header for Title Field or Site Header</header>
       <div id="main">
         <nav>nav for Sidebar in Edit Mode</nav>
-        <section className="
-          slide-default-text
-          slide-column
-          slide-column-left"
-        >section .slide-default-text .slide-column .slide-column-left</section>
-        <section className="
-          slide-column
-          slide-column-right"
-        >section .slide-column .slide-column-right</section>
+        <section>section</section>
+        <section>section</section>
         <aside>aside for Optional Speaker Notes</aside>
       </div>
-      <footer>footer <Link to="/slidesample1">Next</Link></footer>
+      <footer>footer <Link to="/slideview1">Next</Link></footer>
     </div>
   );
 }

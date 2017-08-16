@@ -8,24 +8,23 @@ const Slide = db.define('slide', {
   text: {
     type: Sequelize.TEXT,
   },
-  isRepl: {
-    type: Sequelize.BOOLEAN,
+  template: {
+    type: Sequelize.ENUM('mid-page', 'single-pane', 'columns', 'columns-header', 'repl'),
+    defaultValue: 'single-pane',
   },
   codeText: {
     type: Sequelize.TEXT,
   },
-  isHead: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
+  positionInDeck: {
+    type: Sequelize.INTEGER,
+      validate: {
+        min: 0
+      },
+    allowNull: false,
   },
-  nextId: {
-    type: Sequelize.STRING,
-    defaultValue: null,
-  },
-  prevId: {
-    type: Sequelize.STRING,
-    defaultValue: null,
-  },
+  presenterNotes: {
+    type: Sequelize.TEXT
+  }
 });
 
 module.exports = Slide;

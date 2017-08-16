@@ -6,18 +6,11 @@ export default function SlideView4() {
   return (
     <div>
       <div id="main">
-        <section className="
-          slide-default-text
-          slide-column
-          slide-column-left"
-        >section .slide-column .slide-column-left</section>
-        <section className="
-          slide-column
-          slide-column-right"
-        >section .slide-column .slide-column-right</section>
+        <section>section</section>
+        <section>section</section>
         <aside>aside for Optional Speaker Notes</aside>
       </div>
-      <footer>footer <Link to="/slidesample3">Prev</Link> <Link to="/slidesample5">Next</Link></footer>
+      <footer>footer <Link to="/slideview3">Prev</Link> <Link to="/slideview5">Next</Link></footer>
     </div>
   );
 }

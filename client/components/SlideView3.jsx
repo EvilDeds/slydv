@@ -7,18 +7,11 @@ export default function SlideView3() {
     <div>
       <header>header for Title Field or Site Header</header>
       <div id="main">
-        <section className="
-          slide-default-text
-          slide-column
-          slide-column-left"
-        >section .slide-column .slide-column-left</section>
-        <section className="
-          slide-column
-          slide-column-right"
-        >section .slide-column .slide-column-right</section>
+        <section>section</section>
+        <section>section</section>
         <aside>aside for Optional Speaker Notes</aside>
       </div>
-      <footer>footer <Link to="/slidesample2">Prev</Link> <Link to="/slidesample4">Next</Link></footer>
+      <footer>footer <Link to="/slideview2">Prev</Link> <Link to="/slideview4">Next</Link></footer>
     </div>
   );
 }

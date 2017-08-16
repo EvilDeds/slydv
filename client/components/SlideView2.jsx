@@ -6,13 +6,10 @@ export default function SlideView2() {
   return (
     <div>
       <div id="main">
-        <section className="
-          slide-default-text
-          slide-single-pane"
-        >section .slide-single-pane</section>
+        <section>section BLURB</section>
         <aside>aside for Optional Speaker Notes</aside>
       </div>
-      <footer>footer <Link to="/slidesample1">Prev</Link> <Link to="/slidesample3">Next</Link></footer>
+      <footer>footer <Link to="/slideview1">Prev</Link> <Link to="/slideview3">Next</Link></footer>
     </div>
   );
 }

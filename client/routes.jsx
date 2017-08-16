@@ -19,6 +19,7 @@ import {
   SlideView5,
   UserDeckList,
   UserHome,
+  NewDeckForm
 } from './components';
 import { me } from './store';
 
@@ -37,6 +38,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route path= "/new-deck" component={NewDeckForm} />
             <Route path="/makeslide" component={AddReplSlide} />
             <Route path='/:userId/decks' component={UserDeckList}/>
             <Route path="/login" component={Login} />

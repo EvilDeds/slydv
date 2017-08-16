@@ -9,34 +9,35 @@ class UserDeckList extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    console.log('component did mount props: ', this.props);
-    this.props.loadDecks(1);
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.user && nextProps.user.id !== this.props.user.id){
+      this.props.loadDecks(nextProps.user.id);
+    }
   }
 
   render() {
     const decks = this.props.deckList;
-    console.log('props: ', this.props);
     return (
       <div className="UserDeckList col-lg-9 offset-lg-3">
         <h3>Check out your decks!</h3>
         <hr />
         { decks.length ? (
-          <div className="row">
+          <ul>
             {decks.map(deck => (
-              <figure className="col-xs-4" key={deck.id}>
+              <li key={deck.id}>
                 <Link to={`/users/decks/${deck.id}`} >
                   {deck.deckTitle}
                 </Link>
-              </figure>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
           <p>You have no decks yet!</p>
         )}
-        <button>
+        <hr/>
+        <Link to="/new-deck">
           Make a New Deck!
-        </button>
+        </Link>
       </div>
     );
   }

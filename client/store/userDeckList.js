@@ -15,6 +15,7 @@ const getUserDeckList = deckList => ({ type: GET_USER_DECK_LIST, deckList });
 // thunk creators
 
 export function fetchUserDeckList(userId) {
+  console.log('axios USER param', userId);
   return function thunk(dispatch) {
     return axios.get(`/api/users/${userId}/decks`)
       .then(res => dispatch(getUserDeckList(res.data)))
