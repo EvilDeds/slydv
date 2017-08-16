@@ -4,10 +4,10 @@ const Embed = require('react-runkit');
 // const helloSource = `function test(num){return 'Hi, '+num+1;}test(8);`;
 
 class Runkit extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-      code: 'console.log("Hello, world")',
+      code: props.codeText || 'console.log("Hello, world")',
     };
   }
 

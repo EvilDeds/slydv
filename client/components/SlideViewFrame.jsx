@@ -14,7 +14,7 @@ export default function SlideViewFrame(props) {
   // (the latter two come from the slide’s parent deck).
 
   // Give incoming props less wieldy names
-  const { title, template } = props.singleSlide;
+  const { title, template, speakerNotes } = props.singleSlide;
   const { hasFooter, footer } = props.currentDeck;
 
   const slideBody = (thisTemplate) => {
@@ -23,9 +23,9 @@ export default function SlideViewFrame(props) {
         return <SlideView1 singleSlide={props.singleSlide} />;
       case 'single-pane':
         return <SlideView2 singleSlide={props.singleSlide} />;
-      case 'columns':
-        return <SlideView3 singleSlide={props.singleSlide} />;
       case 'columns-header':
+        return <SlideView3 singleSlide={props.singleSlide} />;
+      case 'columns':
         return <SlideView4 singleSlide={props.singleSlide} />;
       case 'repl':
         return <SlideView5 singleSlide={props.singleSlide} />;
@@ -35,13 +35,16 @@ export default function SlideViewFrame(props) {
   };
 
   return (
-    <div className="SlideViewFrame">
-      { template === 'columns-header' || template === 'repl' ? <header>{title}</header> : null }
-      {slideBody(template)}
-      { hasFooter && footer ? <footer>{footer}</footer> : null }
-      {/* Slide numbers and next/previous links should maybe be handled
-        in a separate component. I don't think they should be optional,
-        but they _could_ be… */}
+    <div id="main" className={`SlideViewFrame ${props.currentDeck.theme}`}>
+      <section className="slide-block">
+        { template === 'columns-header' || template === 'repl' ? <header>{title}</header> : null }
+        {slideBody(template)}
+        { hasFooter && footer ? <footer>{footer}</footer> : null }
+        {/* Slide numbers and next/previous links should maybe be handled
+          in a separate component. I don't think they should be optional,
+          but they _could_ be… */}
+      </section>
+      <aside>{speakerNotes}</aside>
     </div>
   );
 }
@@ -54,6 +57,7 @@ SlideViewFrame.propTypes = {
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
+    speakerNotes: PropTypes.string,
   }),
   currentDeck: PropTypes.shape({
     id: PropTypes.number,
@@ -70,11 +74,15 @@ SlideViewFrame.defaultProps = {
   singleSlide: {
     id: 1,
     title: 'This is a slide title',
-    text: '# Slide text\nThis is the text of a slide, which is in Markdown.',
-    template: 'single-pane',
+    text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+    // template: 'mid-page',
+    // template: 'single-pane',
     // template: 'columns-header',
-    codeText: null,
+    // template: 'columns',
+    template: 'repl',
+    codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
     positionInDeck: 1,
+    speakerNotes: 'This is a speaker note in Markdown.',
   },
   currentDeck: {
     id: 1,
