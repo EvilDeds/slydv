@@ -23,5 +23,13 @@ describe('User routes', () => {
           expect(res.body).to.be.an('array');
           expect(res.body[0].email).to.be.equal(codysEmail);
         }));
+
+    it ('GET api/users/:userId/decks', () =>
+      request(app)
+        get('api/users/:userId/decks')
+        expect(200)
+        .then(())
+      )
   });
+
 });
