@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
 import {
   SlideView1,
   SlideView2,
@@ -10,48 +10,33 @@ import {
 } from '../components';
 
 export default function SlideViewFrame(props) {
-// props include `singleSlide`, `hasFooter`, and `footer` (the latter two come from the slide’s parent deck).
-  // const singleSlide = {
-  //   id: 1,
-  //   title: "This is a slide title",
-  //   text: "# Slide text\n\nThis is the text of a slide, which is in Markdown.",
-  //   template: "single-pane",
-  //   codeText: null,
-  //   positionInDeck: 1,
-  // };
-
-  // const footer = "Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)";
-
+  // props will include `singleSlide`, `hasFooter`, and `footer`
+  // (the latter two come from the slide’s parent deck).
   // Give incoming props less wieldy names
-  const { id, title, text, template, codeText, positionInDeck } = props.singleSlide;
+  const { title, template } = props.singleSlide;
   const { hasFooter, footer } = props.currentDeck;
 
-  const slideBody = template => {
-    switch (template) {
+  const slideBody = (thisTemplate) => {
+    switch (thisTemplate) {
       case 'mid-page':
-        return <slideView1 singleSlide={singleSlide} />;
-        break;
+        return <SlideView1 singleSlide={props.singleSlide} />;
       case 'single-pane':
-        return <slideView2 singleSlide={singleSlide} />;
-        break;
+        return <SlideView2 singleSlide={props.singleSlide} />;
       case 'columns':
-        return <slideView3 singleSlide={singleSlide} />;
-        break;
+        return <SlideView3 singleSlide={props.singleSlide} />;
       case 'columns-header':
-        return <slideView4 singleSlide={singleSlide} />;
-        break;
+        return <SlideView4 singleSlide={props.singleSlide} />;
       case 'repl':
-        return <slideView5 singleSlide={singleSlide} />;
-        break;
+        return <SlideView5 singleSlide={props.singleSlide} />;
       default:
-        return;
-    };
-  }
+        return null;
+    }
+  };
 
   return (
-    <div class="SlideViewFrame">
-      { template === "columns-header" || template === "repl" ? <header>{title}</header> : null }
-      {slideBody}
+    <div className="SlideViewFrame">
+      { template === 'columns-header' || template === 'repl' ? <header>{title}</header> : null }
+      {slideBody(template)}
       { hasFooter && footer ? <footer>{footer}</footer> : null }
       {/* Slide numbers and next/previous links should maybe be handled
         in a separate component. I don't think they should be optional,
@@ -59,3 +44,51 @@ export default function SlideViewFrame(props) {
     </div>
   );
 }
+
+SlideViewFrame.propTypes = {
+  error: PropTypes.shape({
+    message: PropTypes.string,
+    name: PropTypes.string,
+  }),
+  singleSlide: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    text: PropTypes.string,
+    template: PropTypes.string,
+    codeText: PropTypes.string,
+    positionInDeck: PropTypes.number,
+  }),
+  currentDeck: PropTypes.shape({
+    id: PropTypes.number,
+    deckTitle: PropTypes.string,
+    viewable: PropTypes.boolean,
+    chats: PropTypes.string,
+    theme: PropTypes.string,
+    hasFooter: PropTypes.boolean,
+    footer: PropTypes.string,
+  }),
+};
+
+SlideViewFrame.defaultProps = {
+  error: {
+    message: '',
+    name: '',
+  },
+  singleSlide: {
+    id: 1,
+    title: 'This is a slide title',
+    text: '# Slide text\n\nThis is the text of a slide, which is in Markdown.',
+    template: 'single-pane',
+    codeText: null,
+    positionInDeck: 1,
+  },
+  currentDeck: {
+    id: 1,
+    deckTitle: 'Test Deck',
+    viewable: true,
+    chats: '',
+    theme: 'red',
+    hasFooter: true,
+    footer: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
+  },
+};
