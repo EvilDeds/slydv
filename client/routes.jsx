@@ -40,7 +40,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path= "/new-deck" component={NewDeckForm} />
             <Route path="/makeslide" component={AddReplSlide} />
-            <Route path='/users/:userId/deckList' component={UserDeckList}/>
+            <Route path='/users/:userId/decks' component={UserDeckList}/>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/runkit" component={Runkit} />
