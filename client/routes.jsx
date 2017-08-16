@@ -15,8 +15,7 @@ import {
   SlideViewFrame,
   UserDeckList,
   UserHome,
-  NewDeckForm,
-  DeckOverview
+  DeckOverview,
 } from './components';
 // import SlideViewFrame from './components/SlideViewFrame';
 import { me } from './store';
