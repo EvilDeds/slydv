@@ -58,13 +58,26 @@ describe('User routes', () => {
        })
       );
 
-    describe ('/api/users/:userId/decks/deckId', () => {
-      const codysEmail = 'cody@puppybook.com';
-      const deckTitle = 'what a great deck';
+    describe ('PUT  /api/users/:userId/decks/:deckId', () => {
+      const catMail = 'meowmeom@kitty.com';
+      const deckTitle = 'i wish we could update this deck';
 
-      beforeEach(() => User.create({ email: codysEmail })
+      beforeEach(() => User.create({ email: catMail })
        .then(() => Deck.create({ deckTitle , userId : 1}))
       );
+
+      it ('updates a deck', () => {
+        request(app)
+        .put('/api/users/1/decks/1')
+        .send( {
+          deckTitle : 'it is so great that we updated'
+        })
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.deckTitle).to.be.equal('it is so great that we updated')
+        })
+      })
+
     })
   });
 
@@ -72,22 +85,6 @@ describe('User routes', () => {
   
 
 });
-
-
-// it ('PUT /api/users/:userId/decks/:deckId', () => 
-//     request(app)
-//      .put('/api/users/1/decks/1')
-//      .send({ deckTitle : 'now this Deck is EVEN BETTER' })
-//      .expect(200)
-//      .expect((res) => {
-//        expect(res.body.deck.deckTitle).to.equal('now this Deck is EVEN BETTER')
-//        expect(res.body.deck.id).to.not.be.an('undefined');
-//      })
-//     )
-    
-
-
-
 
 
 
