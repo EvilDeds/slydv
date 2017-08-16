@@ -17,11 +17,19 @@ const Slide = db.define('slide', {
   },
   positionInDeck: {
     type: Sequelize.INTEGER,
-      validate: {
-        min: 0
-      },
+    validate: {
+      min: 0
+    },
     allowNull: false,
   },
 });
 
+const autoTitle = (slide) => {
+  if (!slide.title) {
+    slide.title = `Slide #${slide.positionInDeck}`;
+  }
+};
+
+Slide.beforeCreate(autoTitle);
+Slide.beforeUpdate(autoTitle);
 module.exports = Slide;
