@@ -21,8 +21,11 @@ class DeckOverview extends Component {
         { deck.id
           ? (
             <div>
-              <h1>{ deck.deckTitle } </h1>
-              <hr />
+              <h1>
+                { `${deck.deckTitle} | ` }
+                <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
+              </h1>
+                            <hr />
               { slides[0]
                 ? slides.map(slide => (
                   <div key={slide.id} className="deckview-slide-container">
