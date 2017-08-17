@@ -37,7 +37,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path="/decks/:deckId" component={DeckOverview} />
-            <Route path="/editslide" component={EditSlideForm} />
+            <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
             <Route path="/new-deck" component={NewDeckForm} />
             <Route path="/makeslide" component={AddReplSlide} />
