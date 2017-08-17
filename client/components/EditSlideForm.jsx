@@ -40,10 +40,16 @@ class EditSlideForm extends Component {
     this.props.loadSlide(this.props.match.params.slideId); //??????
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.slide.singleSlide !== this.props.slide.singleSlide) {
+      this.props.loadSlide(nextProps.slide.singleSlide.id);
+    }
+  }
+
   constructor(props) {
     super();
     this.state = {
-      singleSlide: { 
+      singleSlide: {
         codeText: props.singleSlide.codeText,
         deckLength: props.deckLength,
         id: props.singleSlide.id,
@@ -53,8 +59,8 @@ class EditSlideForm extends Component {
         firstText: props.singleSlide.firstText,
         secondText: props.singleSlide.secondText,
         title: props.singleSlide.title
-      } 
-      
+      }
+
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -141,14 +147,14 @@ class EditSlideForm extends Component {
 }
 
 const mapState = state => ({
-  deck: state.deck, 
+  deck: state.deck,
   singleSlide: state.slide.singleSlide,
-  deckLength: state.slide.slideList.length
-})
+  deckLength: state.slide.slideList.length,
+});
 
 const mapDispatch = dispatch => ({
-  loadSlide(slideId) { dispatch(fetchSingleSlide(slideId))}
-})
+  loadSlide(slideId) { dispatch(fetchSingleSlide(slideId)) }
+});
 
 export default connect(mapState, mapDispatch)(EditSlideForm);
 
