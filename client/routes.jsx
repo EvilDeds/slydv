@@ -43,6 +43,7 @@ class Routes extends Component {
             <Route path="/slideview" component={SlideViewFrame} />
             <Route exact path="/:userId/decks" component={UserDeckList} />
             <Route path="/decks/:deckId" component={DeckOverview} />
+
             {
               isLoggedIn &&
                 <Switch>

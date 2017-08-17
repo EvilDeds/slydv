@@ -10,6 +10,10 @@ class DeckOverview extends Component {
     this.props.loadSlides(deckId);
   }
 
+  /* Need to add in slide number and ability to change where it is in the queue
+  https://pattern-library.dequelabs.com/components/option-menus
+  ^ May be useful for option dropdowns */
+
   render() {
     const { deck, slides } = this.props;
     return (
