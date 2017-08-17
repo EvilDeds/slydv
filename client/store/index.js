@@ -15,5 +15,5 @@ const store = createStore(reducer, composeWithDevTools(middleware));
 export default store;
 export * from './slide';
 export * from './user';
-export * from './userDeckList'
+export * from './userDeckList';
 export * from './deck';

@@ -8,19 +8,27 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:slideId', (req, res, next) => {
-  Slide.findById(+req.params.slideId)
+  Slide.findById(req.params.slideId)
     .then(foundSlide => res.json(foundSlide))
     .catch(next);
 });
 
 router.put('/:slideId', (req, res, next) => {
-  Slide.update({ where: { id: +req.params.slideId } })
-    .then(updatedSlide => res.json(updatedSlide))
+  console.log('req.params.slideId:', req.params.slideId);
+  Slide.findById(req.params.slideId)
+    .then(slideToUpdate => {
+      console.log('slideToUpdate:', slideToUpdate);
+      slideToUpdate.update(req.body)
+    })
+    .then(updatedSlide => {
+      console.log('updatedSlide:', updatedSlide);
+      res.json(updatedSlide)
+    })
     .catch(next);
 });
 
 router.delete('/:slideId', (req, res, next) => {
-  Slide.destroy({ where: { id: +req.params.slideId } })
+  Slide.destroy({ where: { id: req.params.slideId } })
     .then(exSlide => res.json(exSlide))
     .catch(next);
 });
