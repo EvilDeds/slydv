@@ -16,6 +16,7 @@ import {
   UserDeckList,
   UserHome,
   DeckOverview,
+  SlideViewLive,
 } from './components';
 // import SlideViewFrame from './components/SlideViewFrame';
 import { me } from './store';
@@ -42,7 +43,8 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/slideview" component={SlideViewFrame} />
             <Route exact path="/users/:userId/decks" component={UserDeckList} />
-            <Route path="/decks/:deckId" component={DeckOverview} />
+            <Route exact path="/decks/:deckId" component={DeckOverview} />
+            <Route path="/decks/:deckId/live" component={SlideViewLive} />
 
             {
               isLoggedIn &&

@@ -17,3 +17,4 @@ export { default as SlideViewFrame } from './SlideViewFrame';
 export { default as UserDeckList } from './UserDeckList';
 export { default as UserHome } from './user-home';
 export { default as DeckOverview } from './DeckOverview';
+export { default as SlideViewLive } from './SlideViewLive';
