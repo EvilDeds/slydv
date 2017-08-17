@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 export default class EditSlideForm extends Component {
   static propTypes = {
     deckLength: PropTypes.number,
-    handleChange: PropTypes.func,
-    handleSubmit: PropTypes.func,
     singleSlide: PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
-      text: PropTypes.string,
+      firstText: PropTypes.string,
+      secondText: PropTypes.string,
       template: PropTypes.string,
       codeText: PropTypes.string,
       positionInDeck: PropTypes.number,
@@ -21,19 +20,18 @@ export default class EditSlideForm extends Component {
     singleSlide: {
       id: 1,
       title: 'This is a slide title',
-      text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+      firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.',
+      secondText: 'It has two columns, in separate fields.',
       // template: 'mid-page',
-      template: 'single-pane',
+      // template: 'single-pane',
       // template: 'columns-header',
       // template: 'columns',
-      // template: 'repl',
+      template: 'repl',
       codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
       positionInDeck: 1,
       presenterNotes: 'This is a speaker note in Markdown.',
     },
     deckLength: 1,
-    handleChange: function(evt) {console.log('handleChange was called! event:', evt);},
-    handleSubmit: function(evt) {console.log('handleSubmit was called! event:', evt);},
   };
 
   constructor(props) {
@@ -41,105 +39,94 @@ export default class EditSlideForm extends Component {
     this.state = {
       codeText: props.singleSlide.codeText,
       deckLength: props.deckLength,
-      handleChange: props.handleChange,
-      handleSubmit: props.handleSubmit,
       id: props.singleSlide.id,
       positionInDeck: props.singleSlide.positionInDeck,
       presenterNotes: props.singleSlide.presenterNotes,
       template: props.singleSlide.template,
-      text: props.singleSlide.text,
+      firstText: props.singleSlide.firstText,
+      secondText: props.singleSlide.secondText,
       title: props.singleSlide.title,
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-    handleChange(evt) {
-      this.setState({
-        singleSlide: { [evt.target.name]: evt.target.value },
-      });
-    }
+  handleChange(evt) {
+    this.setState({
+      singleSlide: { [evt.target.name]: evt.target.value },
+    });
+  }
 
-    render() {
-      return (
-        <div className="EditSlideForm">
-          {/* positionInDeck -----------------------------------------*/}
-          <h2>Slide {this.state.positionInDeck} of </h2>
-          <form
-            onSubmit={this.state.handleSubmit}
-            onChange={this.state.handleChange}>
+  handleSubmit(evt) {
+  // ???
+  }
 
-            {/* template -----------------------------------------------*/}
-            <div className="dqpl-field-wrap">
-              <div className="dqpl-label" id="template-label">Slide template</div>
-              <div className="dqpl-select">
-                <div className="dqpl-combobox" role="combobox" tabIndex="0" aria-autocomplete="none" aria-owns="template-list" aria-expanded="false" aria-labelledby="template-label" aria-required="true" aria-activedescendant="default">
-                  <div className="dqpl-pseudo-value">single-pane</div>
-                </div>
-                <ul className="dqpl-listbox" role="listbox" id="template">
-                  <li className="dqpl-option" role="option">mid-page</li>
-                  <li className="dqpl-option" role="option" id="default">single-pane</li>
-                  <li className="dqpl-option" role="option">columns</li>
-                  <li className="dqpl-option" role="option">columns-header</li>
-                  <li className="dqpl-option" role="option">repl</li>
-                </ul>
-              </div>
+  render() {
+    return (
+      <div className="EditSlideForm">
+        {/* positionInDeck -----------------------------------------*/}
+        <h2>Slide {this.state.positionInDeck} of </h2>
+        <form
+          onSubmit={this.state.handleSubmit}
+          onChange={this.state.handleChange}
+        >
+          {/* template -----------------------------------------------*/}
+          <div className="dqpl-field-wrap">
+            <div className="dqpl-label" id="template-label">Change slide template</div>
+            <div className="dqpl-select">
+              <select value={this.state.template} onChange={this.handleChange}>
+                <option value="mid-page">single pane starting mid-page</option>
+                <option value="single-pane">single pane</option>
+                <option value="columns">2 columns</option>
+                <option value="columns-header">header + 2 columns</option>
+                <option value="repl">Header + REPL</option>
+              </select>
             </div>
+          </div>
 
-            {/* title - conditional ------------------------------------*/}
+          {/* title - conditional ------------------------------------*/}
+          { this.state.template === 'columns-header' || this.state.template === 'repl' ? (
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="title">Title</label>
               <input className="dqpl-text-input" type="text" id="title" value={this.state.title} />
             </div>
+          ) : null }
 
-            {/* text ---------------------------------------------------*/}
+          {/* firstText - conditional --------------------------------*/}
+          { this.state.template !== 'repl' ? (
             <div className="dqpl-field-wrap">
-              <label className="dqpl-label" htmlFor="text">Text</label>
-              <textarea className="dqpl-textarea" id="text" value={this.state.text}></textarea>
+              <label className="dqpl-label" htmlFor="firstText">{ this.state.template === 'columns' || this.state.template === 'columns-header' ? 'Left column' : 'Text'}</label>
+              <textarea className="dqpl-textarea" id="firstText" value={this.state.firstText} />
             </div>
+          ) : null }
 
-            {/* codeText - conditional ---------------------------------*/}
+          {/* secondText - conditional ------------------------------------*/}
+          { this.state.template === 'columns' || this.state.template === 'columns-header' ? (
+            <div className="dqpl-field-wrap">
+              <label className="dqpl-label" htmlFor="secondText">Right column</label>
+              <textarea className="dqpl-textarea" id="secondText" value={this.state.secondText} />
+            </div>
+          ) : null }
+
+          {/* codeText - conditional ---------------------------------*/}
+          { this.state.template === 'repl' ? (
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="codeText">Code</label>
-              <textarea className="dqpl-textarea" id="codeText" value={this.state.codeText}></textarea>
+              <textarea className="dqpl-textarea" id="codeText" value={this.state.codeText} />
             </div>
+          ) : null }
 
-            {/* presenterNotes -----------------------------------------*/}
-            <div className="dqpl-field-wrap">
-              <label className="dqpl-label" htmlFor="presenterNotes">Presenter Notes</label>
-              <textarea className="dqpl-textarea" id="presenterNotes" value={this.state.presenterNotes}></textarea>
-            </div>
+          {/* presenterNotes -----------------------------------------*/}
+          <div className="dqpl-field-wrap">
+            <label className="dqpl-label" htmlFor="presenterNotes">Presenter Notes</label>
+            <textarea className="dqpl-textarea" id="presenterNotes" value={this.state.presenterNotes} />
+          </div>
 
-            {/* save and clear buttons ---------------------------------*/}
-            <div className="form-group">
-              <label
-                className="col-md-4 control-label"
-                htmlFor="SaveAndNew"
-                type="submit"
-              >Save + New</label>
-              <div className="col-md-8">
-                <button
-                  id="SaveAndNew"
-                  name="SaveAndNew"
-                  className="btn btn-success"
-                >Save + New</button>
-                <button
-                  id="ClearForm"
-                  name="ClearForm"
-                  className="btn btn-danger"
-                >Clear Form</button>
-              </div>
-            </div>
-
-            {/* textify button - I forget what this does ---------------*/}
-            <div className="form-group">
-              <label className="col-md-4 control-label" htmlFor="textify">Textify</label>
-              <div className="col-md-4">
-                <button id="textify" name="textify" className="btn btn-primary">Textify</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      );
-    }
-};
+          {/* save and clear buttons ---------------------------------*/}
+          <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
+        </form>
+      </div>
+    );
+  }
+}
