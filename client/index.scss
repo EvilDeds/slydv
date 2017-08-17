@@ -79,16 +79,55 @@ body {
 //   order: 3;
 // }
 
-// header,
-// footer {
-//   display: block;
-//   margin: 4px;
-//   padding: 5px;
-//   min-height: 100px;
-//   border: 1px solid #eb5;
-//   border-radius: 7pt;
-//   background: #feb;
-// }
+ header,
+ footer {
+   display: block;
+   margin: 4px;
+   padding: 5px;
+   min-height: 100px;
+   border: 1px solid #eb5;
+   border-radius: 7pt;
+   background: #feb;
+ }
+
+header.global{
+  min-height: 80px;
+  display:flex;
+  flex-flow:row;
+  align-items: center;
+  //background-color:transparent;
+  border:none;
+  justify-content:space-between;
+}
+
+header.global > h1{
+  display:inline-block;
+  width:20%;
+}
+
+header.global > h1 > img{
+  vertical-align: middle;
+}
+
+header.global > nav{
+  display:inline-block;
+  width:40%;
+  text-align:right;
+}
+
+
+#main.landing{
+  flex-flow:column;
+}
+
+#main.landing > section{
+  //background-color:transparent;
+}
+
+#main.landing > footer{
+  //background-color:transparent;
+  order:3;
+}
 
 /* Too narrow to support three columns */
 @media all and (max-width: 640px) {
