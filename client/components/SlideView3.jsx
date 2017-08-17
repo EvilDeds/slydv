@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MarkdownSection } from './Markdown';
 
 // template === 'columns-header'
 export default function SlideView3(props) {
@@ -8,8 +9,8 @@ export default function SlideView3(props) {
 
   return (
     <div className="columns-header">
-      <section className="slide-column-left">section .slide-column-left; text1: {text1}</section>
-      <section className="slide-column-right">section .slide-column-right; text2: {text2}</section>
+      <MarkdownSection className="slide-column-left" markdown={text1} />
+      <MarkdownSection className="slide-column-right" markdown={text2} />
     </div>
   );
 }
