@@ -37,15 +37,18 @@ export default class EditSlideForm extends Component {
   constructor(props) {
     super();
     this.state = {
-      codeText: props.singleSlide.codeText,
-      deckLength: props.deckLength,
-      id: props.singleSlide.id,
-      positionInDeck: props.singleSlide.positionInDeck,
-      presenterNotes: props.singleSlide.presenterNotes,
-      template: props.singleSlide.template,
-      firstText: props.singleSlide.firstText,
-      secondText: props.singleSlide.secondText,
-      title: props.singleSlide.title,
+      singleSlide: { 
+        codeText: props.singleSlide.codeText,
+        deckLength: props.deckLength,
+        id: props.singleSlide.id,
+        positionInDeck: props.singleSlide.positionInDeck,
+        presenterNotes: props.singleSlide.presenterNotes,
+        template: props.singleSlide.template,
+        firstText: props.singleSlide.firstText,
+        secondText: props.singleSlide.secondText,
+        title: props.singleSlide.title
+      } 
+      
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -53,6 +56,7 @@ export default class EditSlideForm extends Component {
   }
 
   handleChange(evt) {
+    console.log('target name', evt.target.name, 'target value', evt.target.value)
     this.setState({
       singleSlide: { [evt.target.name]: evt.target.value },
     });
@@ -63,64 +67,65 @@ export default class EditSlideForm extends Component {
   }
 
   render() {
+    console.log("STATE!", this.state)
     return (
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
         <h2>Slide {this.state.positionInDeck} of </h2>
         <form
           onSubmit={this.state.handleSubmit}
-          onChange={this.state.handleChange}
+          // onChange={this.state.handleChange}
         >
           {/* template -----------------------------------------------*/}
           <div className="dqpl-field-wrap">
             <div className="dqpl-label" id="template-label">Change slide template</div>
             <div className="dqpl-select">
-              <select value={this.state.template} onChange={this.handleChange}>
-                <option value="mid-page">single pane starting mid-page</option>
-                <option value="single-pane">single pane</option>
-                <option value="columns">2 columns</option>
-                <option value="columns-header">header + 2 columns</option>
-                <option value="repl">Header + REPL</option>
+              <select name="template" onChange={this.handleChange} >
+                <option  value="mid-page">single pane starting mid-page</option>
+                <option  value="single-pane">single pane</option>
+                <option  value="columns">2 columns</option>
+                <option  value="columns-header">header + 2 columns</option>
+                <option  value="repl">Header + REPL</option>
               </select>
             </div>
           </div>
 
           {/* title - conditional ------------------------------------*/}
-          { this.state.template === 'columns-header' || this.state.template === 'repl' ? (
+          { this.state.singleSlide.template === 'columns-header' || this.state.singleSlide.template === 'repl' ? (
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="title">Title</label>
-              <input className="dqpl-text-input" type="text" id="title" value={this.state.title} />
+              <input className="dqpl-text-input" type="text" id="title" value={this.state.title} onChange={this.handleChange}/>
             </div>
           ) : null }
 
           {/* firstText - conditional --------------------------------*/}
-          { this.state.template !== 'repl' ? (
+          { this.state.singleSlide.template !== 'repl' ? (
             <div className="dqpl-field-wrap">
-              <label className="dqpl-label" htmlFor="firstText">{ this.state.template === 'columns' || this.state.template === 'columns-header' ? 'Left column' : 'Text'}</label>
-              <textarea className="dqpl-textarea" id="firstText" value={this.state.firstText} />
+              <label className="dqpl-label" htmlFor="firstText">{ this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? 'Left column' : 'Text'}</label>
+              <textarea className="dqpl-textarea" id="firstText" value={this.state.firstText} onChange={this.handleChange}/>
             </div>
           ) : null }
 
           {/* secondText - conditional ------------------------------------*/}
-          { this.state.template === 'columns' || this.state.template === 'columns-header' ? (
+          { this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? (
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="secondText">Right column</label>
-              <textarea className="dqpl-textarea" id="secondText" value={this.state.secondText} />
+              <textarea className="dqpl-textarea" id="secondText" value={this.state.secondText} onChange={this.handleChange}/>
             </div>
           ) : null }
 
           {/* codeText - conditional ---------------------------------*/}
-          { this.state.template === 'repl' ? (
+          { this.state.singleSlide.template === 'repl' ? (
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="codeText">Code</label>
-              <textarea className="dqpl-textarea" id="codeText" value={this.state.codeText} />
+              <textarea className="dqpl-textarea" id="codeText" value={this.state.codeText} onChange={this.handleChange}/>
             </div>
           ) : null }
 
           {/* presenterNotes -----------------------------------------*/}
           <div className="dqpl-field-wrap">
             <label className="dqpl-label" htmlFor="presenterNotes">Presenter Notes</label>
-            <textarea className="dqpl-textarea" id="presenterNotes" value={this.state.presenterNotes} />
+            <textarea className="dqpl-textarea" id="presenterNotes" value={this.state.presenterNotes} onChange={this.handleChange}/>
           </div>
 
           {/* save and clear buttons ---------------------------------*/}
