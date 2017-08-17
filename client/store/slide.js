@@ -15,7 +15,7 @@ const initialState = {
 /* -------------- ACTION CREATORS -------------- */
 
 const getSlideList = slideList => ({ type: GET_SLIDE_LIST, slideList });
-const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSlide });
+export const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSlide });
 
 /* -------------- THUNK CREATORS -------------- */
 
