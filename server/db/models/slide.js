@@ -17,9 +17,9 @@ const Slide = db.define('slide', {
   },
   positionInDeck: {
     type: Sequelize.INTEGER,
-      validate: {
-        min: 0
-      },
+    validate: {
+      min: 0,
+    },
     allowNull: false,
   },
   presenterNotes: {

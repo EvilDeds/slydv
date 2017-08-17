@@ -10,6 +10,7 @@ class NewDeckForm extends Component {
       newDeck : {
         deckTitle : "", 
         viewable : false, 
+        hasFooter: false,
         chats : ""
       }
     }
@@ -39,12 +40,16 @@ class NewDeckForm extends Component {
              <option value='green'>Green</option>
              <option value='blue'>Blue</option>
            </select>
+       <form>
         <label className="control-label">Do you Need a Footer?</label>     
-        <input type="radio" name="viewable" value="true" />Yes
-        <input type="radio" name="viewable" value="false" />No
+        <input type="radio" name="hasFooter" value="true" />Yes
+        <input type="radio" name="hasFooter" value="false" />No
+       </form>
+       <form>
         <label className="control-label">Viewable:</label>     
         <input type="radio" name="viewable" value="true" />Yes
         <input type="radio" name="viewable" value="false" />No
+       </form> 
       </form>
       <button type="submit" onClick={ this.handleSubmit }>Save & Start Your Deck</button>
      </div>

@@ -6,7 +6,7 @@
 export { default as EditSlideForm } from './EditSlideForm';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './main';
-export { default as NewDeckForm } from './NewDeckForm.jsx'
+export { default as NewDeckForm } from './NewDeckForm.jsx';
 export { default as ReplSlideFormHO } from './ReplSlideFormHO';
 export { default as Runkit } from './Runkit';
 export { default as SlideView } from './SlideView';
@@ -15,5 +15,6 @@ export { default as SlideView2 } from './SlideView2';
 export { default as SlideView3 } from './SlideView3';
 export { default as SlideView4 } from './SlideView4';
 export { default as SlideView5 } from './SlideView5';
+export { default as SlideViewFrame } from './SlideViewFrame';
 export { default as UserDeckList } from './UserDeckList';
 export { default as UserHome } from './user-home';
