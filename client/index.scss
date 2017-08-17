@@ -39,7 +39,8 @@ body {
 
 //parent
 #main {
-  min-height: 575px;
+  //min-height: 575px;
+  height: 85vh;
   margin: 0;
   padding: 0;
   display: flex;
@@ -117,6 +118,7 @@ header.global > nav{
 
 
 #main.landing{
+  height:85vh;
   flex-flow:column;
 }
 
