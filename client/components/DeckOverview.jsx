@@ -18,18 +18,23 @@ class DeckOverview extends Component {
     const { deck, slides } = this.props;
     return (
       <div>
-        { slides[0] && deck.id
+        { deck.id
           ? (
             <div>
               <h1>{ deck.deckTitle } </h1>
               <hr />
-              {slides.map(slide => (
-                <div key={slide.id} className="deckview-slide-container">
-                  <h2>{ slide.title }</h2>
-                  {/* FIX LINK WHEN WE HAVE EDIT PAGE */}
-                  <Link to={''}>Edit Slide</Link>
-                </div>
-              ))}
+              { slides[0]
+                ? slides.map(slide => (
+                  <div key={slide.id} className="deckview-slide-container">
+                    <h2>{ slide.title }</h2>
+                    {/* FIX LINK WHEN WE HAVE EDIT PAGE */}
+                    <Link to={''}>Edit Slide</Link>
+                  </div>
+                ))
+                : (<h2>This deck has no slides.</h2>)
+
+              }
+              <button className="dqpl-button-primary" type="button">ADD A SLIDE</button>
             </div>
           )
           : (
