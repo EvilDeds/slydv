@@ -5,7 +5,10 @@ const Slide = db.define('slide', {
   title: {
     type: Sequelize.STRING,
   },
-  text: {
+  firstText: {
+    type: Sequelize.TEXT,
+  },
+  secondText: {
     type: Sequelize.TEXT,
   },
   template: {
