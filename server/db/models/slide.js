@@ -5,7 +5,10 @@ const Slide = db.define('slide', {
   title: {
     type: Sequelize.STRING,
   },
-  text: {
+  firstText: {
+    type: Sequelize.TEXT,
+  },
+  secondText: {
     type: Sequelize.TEXT,
   },
   template: {
@@ -23,8 +26,16 @@ const Slide = db.define('slide', {
     allowNull: false,
   },
   presenterNotes: {
-    type: Sequelize.TEXT
-  }
+    type: Sequelize.TEXT,
+  },
 });
 
+const autoTitle = (slide) => {
+  if (!slide.title) {
+    slide.title = `Slide #${slide.positionInDeck}`;
+  }
+};
+
+Slide.beforeCreate(autoTitle);
+Slide.beforeUpdate(autoTitle);
 module.exports = Slide;

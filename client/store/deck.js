@@ -3,6 +3,7 @@ import axios from 'axios';
 // action types
 const NEW_DECK = 'NEW_DECK';
 const UPDATE_DECK = 'UPDATE_DECK';
+const GET_DECK = 'GET_DECK';
 
 // initial state
 
@@ -20,6 +21,7 @@ const defaultDeck = {
 
 const updateDeck = deck => ({ type: UPDATE_DECK, deck });
 const newDeck = deck => ({ type: NEW_DECK, deck });
+const getDeck = deck => ({ type: GET_DECK, deck })
 
 // thunk creators
 
@@ -33,9 +35,17 @@ export function changeDeck(userId, deck) {
 
 export function postNewDeck(userId, deck) {
   return function thunk(dispatch) {
-    axios.post(`api/users/${userId}/decks/`, deck)
+    axios.post(`/api/users/${userId}/decks/`, deck)
       .then(res => dispatch(newDeck(res.data)))
       .catch((error) => { console.log(error); });
+  };
+}
+
+export function fetchDeck(deckId) {
+  return function thunk(dispatch) {
+    axios.get(`/api/decks/${deckId}`)
+      .then(res => dispatch(getDeck(res.data)))
+      .catch(err => console.error(err));
   };
 }
 
@@ -46,6 +56,8 @@ export default function (state = defaultDeck, action) {
     case NEW_DECK:
       return action.deck;
     case UPDATE_DECK:
+      return action.deck;
+    case GET_DECK:
       return action.deck;
     default:
       return state;

@@ -16,6 +16,7 @@ import {
   SlideViewFrame,
   UserDeckList,
   UserHome,
+  DeckOverview,
 } from './components';
 // import SlideViewFrame from './components/SlideViewFrame';
 import { me } from './store';
@@ -35,6 +36,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route path="/decks/:deckId" component={DeckOverview} />
             <Route path="/editslide" component={EditSlideForm} />
             <Route path="/login" component={Login} />
             <Route path="/new-deck" component={NewDeckForm} />
@@ -42,7 +44,7 @@ class Routes extends Component {
             <Route path="/runkit" component={Runkit} />
             <Route path="/signup" component={Signup} />
             <Route path="/slideview" component={SlideViewFrame} />
-            <Route path="/users/:userId/decks" component={UserDeckList} />
+            <Route exact path="/:userId/decks" component={UserDeckList} />
 
             {
               isLoggedIn &&
