@@ -8,7 +8,6 @@ const GET_SINGLE_SLIDE = 'GET_SINGLE_SLIDE';
 /* -------------- INITIAL STATE -------------- */
 
 const initialState = {
-  slides: [],
   slideList: [],
   singleSlide: {},
 };
@@ -20,9 +19,9 @@ const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSlide });
 
 /* -------------- THUNK CREATORS -------------- */
 
-export function fetchSlideList() {
+export function fetchSlideList(deckId) {
   return function thunk(dispatch) {
-    return axios.get('/api/slides')
+    return axios.get(`/api/decks/${deckId}/slides`)
       .then(res => dispatch(getSlideList(res.data)))
       .catch(error => console.log(error));
   };
@@ -35,7 +34,6 @@ export function fetchSingleSlide(slideId) {
       .catch(error => console.log(error));
   };
 }
-
 
 export function createSlide(slide) {
   return function thunk(dispatch) {
