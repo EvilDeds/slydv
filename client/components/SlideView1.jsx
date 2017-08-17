@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MarkdownSection } from './Markdown';
 
 // template === 'mid-page'
 export default function SlideView1(props) {
   const { text } = props.singleSlide;
 
   return (
-    <section className="mid-page">section .mid-page; text: {text}</section>
+    <MarkdownSection className="mid-page" markdown={text} />
   );
 }
 
