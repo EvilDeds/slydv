@@ -14,14 +14,14 @@ router.get('/:slideId', (req, res, next) => {
 });
 
 router.put('/:slideId', (req, res, next) => {
-  console.log('req.params.slideId:', req.params.slideId);
+  // console.log('req.params.slideId:', req.params.slideId);
   Slide.findById(req.params.slideId)
     .then(slideToUpdate => {
-      console.log('slideToUpdate:', slideToUpdate);
+      // console.log('slideToUpdate:', slideToUpdate);
       return slideToUpdate.update(req.body);
     })
     .then(updatedSlide => {
-      console.log('updatedSlide:', updatedSlide);
+      // console.log('updatedSlide:', updatedSlide);
       res.json(updatedSlide);
     })
     .catch(next);
