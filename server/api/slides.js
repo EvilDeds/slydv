@@ -18,11 +18,11 @@ router.put('/:slideId', (req, res, next) => {
   Slide.findById(req.params.slideId)
     .then(slideToUpdate => {
       console.log('slideToUpdate:', slideToUpdate);
-      slideToUpdate.update(req.body)
+      return slideToUpdate.update(req.body);
     })
     .then(updatedSlide => {
       console.log('updatedSlide:', updatedSlide);
-      res.json(updatedSlide)
+      res.json(updatedSlide);
     })
     .catch(next);
 });
