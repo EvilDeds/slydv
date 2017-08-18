@@ -16,7 +16,8 @@ class DeckOverview extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.slides !== this.props.slides || nextProps.deck.id !== this.props.currentSlide.deckId) {
+    if(nextProps.slides !== this.props.slides
+       || (nextProps.deck.id !== this.props.currentSlide.deckId)) {
       if (nextProps.slides.length) {
         this.props.setSlide(nextProps.slides[0]);
       }
@@ -38,7 +39,7 @@ class DeckOverview extends Component {
                 { `${deck.deckTitle} | ` }
                 <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
               </h1>
-                            <hr />
+              <hr />
               { slides[0]
                 ? slides.map(slide => (
                   <div key={slide.id} className="deckview-slide-container">

@@ -13,8 +13,11 @@ class SlideViewLive extends Component {
     if (!this.props.currentSlide.id && this.props.slides.length) this.props.setSlide(this.props.slides[0]);
   }
 
-  componentWillRecieveProps () {
-    //NEED TO SET CURRENT SLIDE IF RECEIVE SLIDES
+  componentWillReceiveProps(nextProps) {
+    // NEED TO SET CURRENT SLIDE IF RECEIVE SLIDES
+    if (nextProps.slides.length && (nextProps.slides !== this.props.slides)) {
+      this.props.setSlide(nextProps.slides[0]);
+    }
   }
 
   render() {
