@@ -62,20 +62,19 @@ class EditSlideForm extends Component {
 
   componentDidMount() {
     this.props.loadSlide(this.props.match.params.slideId)
-    .then((newSingleSlideAction) => {
-      this.setState(Object.assign({}, this.state, { singleSlide: newSingleSlideAction.singleSlide }));
-    });
+      .then((newSingleSlideAction) => {
+        this.setState(Object.assign({}, this.state,
+          { singleSlide: newSingleSlideAction.singleSlide }));
+      });
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('nextProps:', nextProps);
     if (nextProps.singleSlide.id !== this.props.singleSlide.id) {
       this.props.loadSlide(nextProps.singleSlide.id)
-      .then((newSingleSlideAction) => {
-        // console.log('newSingleSlideAction:', newSingleSlideAction);
-        this.setState(Object.assign({}, this.state, { singleSlide: newSingleSlideAction.singleSlide }));
-    });
-
+        .then((newSingleSlideAction) => {
+          this.setState(Object.assign({}, this.state,
+            { singleSlide: newSingleSlideAction.singleSlide }));
+        });
     }
     // this.setState({ firstText: nextProps.singleSlide.firstText });
   }

@@ -48,7 +48,6 @@ export function changeSlide(slideId, slide) {
     return axios.put(`/api/slides/${slideId}`, slide)
       .then(useless => axios.get(`/api/slides/${slideId}`))
       .then(res => {
-        // console.log('res.data:', res.data);
         dispatch(getSingleSlide(res.data));
       })
       .catch(error => console.log(error));
