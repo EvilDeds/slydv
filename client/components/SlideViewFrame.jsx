@@ -37,7 +37,7 @@ export default function SlideViewFrame(props) {
   };
 
   return (
-    <div id="main" className={`SlideViewFrame ${props.currentDeck.theme}`}>
+    <div id="main" >
       <section className="slide-block">
         { template === 'columns-header' || template === 'repl' ? <MarkdownHeader markdown={title} /> : null }
         {slideBody(template)}

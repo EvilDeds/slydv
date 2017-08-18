@@ -39,7 +39,8 @@ body {
 
 //parent
 #main {
-  min-height: 575px;
+  //min-height: 575px;
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
