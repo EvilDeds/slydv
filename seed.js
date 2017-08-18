@@ -1,10 +1,11 @@
 'use strict';
 
 const db = require('./server/db');
+const {User, Deck, Slide} = require('./server/db/models');
 
-const User=db.models.User;
-const Deck=db.models.Deck;
-const Slide=db.models.Slide;
+// const User = db.models.User;
+// const Deck = db.models.Deck;
+// const Slide = db.models.Slide;
 const Bluebird = require('bluebird');
 
 
@@ -43,7 +44,7 @@ db.sync({ force: true })
   })
   .then(() => {
     return Bluebird.map(defaultDeck, item => {
-      return User.create(item);
+      return Deck.create(item);
     });
   })
   .then(() => {
