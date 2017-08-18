@@ -6,6 +6,7 @@ import { changeSlide, fetchSingleSlide } from '../store';
 class EditSlideForm extends Component {
   static propTypes = {
     deckLength: PropTypes.number,
+    saved: PropTypes.boolean,
     singleSlide: PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
@@ -19,6 +20,7 @@ class EditSlideForm extends Component {
   };
 
   static defaultProps = {
+    saved: false,
     singleSlide: {
       id: null,
       title: '',
@@ -37,8 +39,9 @@ class EditSlideForm extends Component {
   };
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
+      saved: props.saved,
       singleSlide: {
         codeText: props.singleSlide.codeText,
         id: props.singleSlide.id,
@@ -54,24 +57,24 @@ class EditSlideForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleToastClick = this.handleToastClick.bind(this);
   }
 
   componentDidMount() {
     this.props.loadSlide(this.props.match.params.slideId)
-    .then((newSingleSlideAction) => {
-      this.setState(Object.assign({}, this.state, { singleSlide: newSingleSlideAction.singleSlide }));
-    });
+      .then((newSingleSlideAction) => {
+        this.setState(Object.assign({}, this.state,
+          { singleSlide: newSingleSlideAction.singleSlide }));
+      });
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('nextProps:', nextProps);
     if (nextProps.singleSlide.id !== this.props.singleSlide.id) {
       this.props.loadSlide(nextProps.singleSlide.id)
-      .then((newSingleSlideAction) => {
-        // console.log('newSingleSlideAction:', newSingleSlideAction);
-        this.setState(Object.assign({}, this.state, { singleSlide: newSingleSlideAction.singleSlide }));
-    });
-
+        .then((newSingleSlideAction) => {
+          this.setState(Object.assign({}, this.state,
+            { singleSlide: newSingleSlideAction.singleSlide }));
+        });
     }
     // this.setState({ firstText: nextProps.singleSlide.firstText });
   }
@@ -83,9 +86,12 @@ class EditSlideForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    // console.log('handleSubmit: this.props.singleSlide.id:', this.props.singleSlide.id);
-    // console.log('handleSubmit: this.state.singleSlide:', this.state.singleSlide);
-    this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide);
+    this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
+      .then(returnedUpdateSlideAction => this.setState({ saved: true }));
+  }
+
+  handleToastClick(evt) {
+    this.setState({ saved: false });
   }
 
   render() {
@@ -95,6 +101,18 @@ class EditSlideForm extends Component {
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
         <h2>Slide {this.state.singleSlide.positionInDeck} of {this.state.deckLength}</h2>
+
+        {/* was the form saved? ------------------------------------*/}
+        { this.state.saved ? (
+          <div className="dqpl-toast dqpl-toast-success">
+            <div className="dqpl-toast-message">
+              <div className="fa fa-info-circle" aria-hidden="true" /><span>Changes saved.</span>
+            </div>
+            <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleToastClick} />
+          </div>
+          ) : null
+        }
+
         <form
           onSubmit={this.state.handleSubmit}
           // onChange={this.state.handleChange}
@@ -167,7 +185,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   loadSlide(slideId) { return dispatch(fetchSingleSlide(slideId)); },
-  updateSlide(slideId, slideObject) { dispatch(changeSlide(slideId, slideObject)); },
+  updateSlide(slideId, slideObject) { return dispatch(changeSlide(slideId, slideObject)); },
 });
 
 export default connect(mapState, mapDispatch)(EditSlideForm);
