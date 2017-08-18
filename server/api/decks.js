@@ -7,7 +7,7 @@ router.get('/:deckId/slides', (req, res, next) => {
     order: [['positionInDeck', 'ASC']],
   })
     .then(slides => res.json(slides))
-    .catch(next)
+    .catch(next);
 });
 
 router.get('/:deckId', (req, res, next) => {

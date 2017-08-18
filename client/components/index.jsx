@@ -3,10 +3,10 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+export { default as EditSlideForm } from './EditSlideForm';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './main';
 export { default as NewDeckForm } from './NewDeckForm.jsx';
-export { default as ReplSlideFormHO } from './ReplSlideFormHO';
 export { default as Runkit } from './Runkit';
 export { default as SlideView1 } from './SlideView1';
 export { default as SlideView2 } from './SlideView2';
