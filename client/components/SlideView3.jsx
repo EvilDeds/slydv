@@ -4,13 +4,12 @@ import { MarkdownSection } from './Markdown';
 
 // template === 'columns-header'
 export default function SlideView3(props) {
-  const { text } = props.singleSlide;
-  const [text1, text2] = text.split('!%%%!');
+  const { firstText, secondText } = props.singleSlide;
 
   return (
     <div className="columns-header">
-      <MarkdownSection className="slide-column-left" markdown={text1} />
-      <MarkdownSection className="slide-column-right" markdown={text2} />
+      <MarkdownSection className="slide-column-left" markdown={firstText} />
+      <MarkdownSection className="slide-column-right" markdown={secondText} />
     </div>
   );
 }
@@ -19,7 +18,7 @@ SlideView3.propTypes = {
   singleSlide: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    text: PropTypes.string,
+    firstText: PropTypes.string,
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
@@ -31,7 +30,8 @@ SlideView3.defaultProps = {
   singleSlide: {
     id: 1,
     title: 'This is a slide title',
-    text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+    firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+    secondText: 'Dummy secondText',
     template: 'columns-header',
     codeText: null,
     positionInDeck: 1,

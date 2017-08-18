@@ -71,27 +71,27 @@ SlideViewFrame.propTypes = {
   }),
 };
 
-SlideViewFrame.defaultProps = {
-  singleSlide: {
-    id: 1,
-    title: '__This is a slide title__',
-    text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
-    // template: 'mid-page',
-    //template: 'single-pane',
-    // template: 'columns-header',
-    // template: 'columns',
-    template: 'repl',
-    codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
-    positionInDeck: 1,
-    speakerNotes: 'This is a speaker note in Markdown.',
-  },
-  currentDeck: {
-    id: 1,
-    deckTitle: 'Test Deck',
-    viewable: true,
-    chats: '',
-    theme: 'red',
-    hasFooter: true,
-    footer: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
-  },
-};
+// SlideViewFrame.defaultProps = {
+//   singleSlide: {
+//     id: 1,
+//     title: '__This is a slide title__',
+//     text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+//     // template: 'mid-page',
+//     //template: 'single-pane',
+//     // template: 'columns-header',
+//     // template: 'columns',
+//     template: 'repl',
+//     codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
+//     positionInDeck: 1,
+//     speakerNotes: 'This is a speaker note in Markdown.',
+//   },
+//   currentDeck: {
+//     id: 1,
+//     deckTitle: 'Test Deck',
+//     viewable: true,
+//     chats: '',
+//     theme: 'red',
+//     hasFooter: true,
+//     footer: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
+//   },
+// };
