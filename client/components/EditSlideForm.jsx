@@ -97,8 +97,8 @@ class EditSlideForm extends Component {
   }
 
   render() {
-    // console.log('this.props:', this.props);
-    // console.log('this.state:', this.state);
+    // console.log('EditSlideForm: this.props:', this.props);
+    console.log('EditSlideForm: this.state.singleSlide.deckId:', this.state.singleSlide.deckId);
     return (
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
@@ -172,7 +172,7 @@ class EditSlideForm extends Component {
 
           {/* save and clear buttons ---------------------------------*/}
           <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-          <NewSlideButton />
+          <NewSlideButton deckId={this.state.singleSlide.deckId} />
         </form>
       </div>
     );

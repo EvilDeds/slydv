@@ -10,7 +10,7 @@ import history from '../history';
 class NewSlideButton extends Component {
   static propTypes = {
     deck: PropTypes.shape(),
-    // deckPosition: PropTypes.number,
+    deckId: PropTypes.number,
     loadSlides: PropTypes.func.isRequired,
     sendSlide: PropTypes.func.isRequired,
     blankSlide: PropTypes.shape({
@@ -21,10 +21,12 @@ class NewSlideButton extends Component {
       codeText: PropTypes.string,
       presenterNotes: PropTypes.string,
     }),
+    slides: PropTypes.arrayOf(PropTypes.shape()),
   };
 
   static defaultProps = {
     deck: {},
+    deckId: null,
     blankSlide: {
       title: '',
       firstText: '',
@@ -33,13 +35,14 @@ class NewSlideButton extends Component {
       codeText: '',
       presenterNotes: '',
     },
-    // deckPosition: null,
+    slides: [],
   };
 
   constructor(props) {
     super(props);
     this.state = {
       deck: this.props.deck,
+      deckId: this.props.deckId,
       blankSlide: {
         title: '',
         firstText: '',
@@ -48,36 +51,47 @@ class NewSlideButton extends Component {
         codeText: '',
         presenterNotes: '',
       },
-      // deckPosition: 0,
+      slides: [],
     };
 
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.props.loadSlides(this.state.deck.id);
-    .then((slides) => {
-      this.state.blankSlide.positionInDeck = slides.length;
-    });
+    console.log('NewSlideButton: componentDidMount: this.props.deckId:', this.props.deckId);
+    this.props.loadSlides(this.props.deckId)
+      .then((slides) => {
+        console.log('NewSlideButton: componentDidMount: slides:', slides);
+        this.setState({ slides });
+      });
   }
 
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps: this.props:', this.props);
-    console.log('this.state:', this.state);
+  componentWillReceiveProps(nextProps, nextState) {
+    console.log('NewSlideButton: nextProps:', nextProps);
+    console.log('NewSlideButton: nextState:', nextState);
+    if (nextProps.deckId !== this.props.deckId) {
+      this.setState({ deckId: nextProps.deckId });
+    }
+    // console.log('NewSlideButton: componentWillReceiveProps: this.props:', this.props);
+    console.log('NewSlideButton: componentWillReceiveProps: this.state:', this.state);
+
+    this.state.blankSlide.positionInDeck = this.state.slides.length;
+    this.setState(this.state);
   }
 
   handleClick() {
-    console.log('inside handleClick!');
+    console.log('NewSlideButton: inside handleClick!');
     this.props.sendSlide()
       .then((slide) => {
-        console.log('slide:', slide);
-        console.log('history before push:', history);
+        console.log('NewSlideButton: handleClick: slide:', slide);
+        console.log('NewSlideButton: handleClick: history before push:', history);
         history.push(`/${slide.id}`);
-        console.log('history after push:', history);
+        console.log('NewSlideButton: handleClick: history after push:', history);
       });
   }
 
   render() {
+    console.log('NewSlideButton: this.props:', this.props);
     return (
       <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleClick}>New Slide</button>
     );
