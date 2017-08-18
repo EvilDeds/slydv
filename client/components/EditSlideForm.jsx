@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeSlide, fetchSingleSlide } from '../store';
+import NewSlideButton from './index';
 
 class EditSlideForm extends Component {
   static propTypes = {
-    deckLength: PropTypes.number,
     saved: PropTypes.boolean,
     singleSlide: PropTypes.shape({
       id: PropTypes.number,
@@ -35,7 +35,6 @@ class EditSlideForm extends Component {
       positionInDeck: 1,
       presenterNotes: '',
     },
-    deckLength: 1,
   };
 
   constructor(props) {
@@ -100,7 +99,7 @@ class EditSlideForm extends Component {
     return (
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
-        <h2>Slide {this.state.singleSlide.positionInDeck} of {this.state.deckLength}</h2>
+        {/*<h2>Slide {this.state.singleSlide.positionInDeck} of {this.state.deckLength}</h2>*/}
 
         {/* was the form saved? ------------------------------------*/}
         { this.state.saved ? (
@@ -171,6 +170,7 @@ class EditSlideForm extends Component {
 
           {/* save and clear buttons ---------------------------------*/}
           <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
+          <NewSlideButton /> 
         </form>
       </div>
     );
@@ -180,7 +180,6 @@ class EditSlideForm extends Component {
 const mapState = state => ({
   deck: state.deck,
   singleSlide: state.slide.singleSlide,
-  deckLength: state.slide.slideList.length,
 });
 
 const mapDispatch = dispatch => ({
