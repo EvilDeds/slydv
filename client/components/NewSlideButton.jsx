@@ -44,6 +44,7 @@ class NewSlideButton extends Component {
       deck: this.props.deck,
       deckId: this.props.deckId,
       blankSlide: {
+        deckId: this.props.deckId,
         title: '',
         firstText: '',
         secondText: '',
@@ -75,13 +76,13 @@ class NewSlideButton extends Component {
     // console.log('NewSlideButton: componentWillReceiveProps: this.props:', this.props);
     console.log('NewSlideButton: componentWillReceiveProps: this.state:', this.state);
 
-    this.state.blankSlide.positionInDeck = this.state.slides.length;
+    this.state.blankSlide.positionInDeck = this.state.slides.slideList.length;
     this.setState(this.state);
   }
 
   handleClick() {
-    console.log('NewSlideButton: inside handleClick!');
-    this.props.sendSlide()
+    console.log('NewSlideButton: inside handleClick: this.props:', this.props);
+    this.props.sendSlide(this.props.blankSlide)
       .then((slide) => {
         console.log('NewSlideButton: handleClick: slide:', slide);
         console.log('NewSlideButton: handleClick: history before push:', history);
@@ -103,7 +104,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  sendSlide() { return dispatch(createSlide()); },
+  sendSlide(slide) { return dispatch(createSlide(slide)); },
   loadSlides(deckId) { return dispatch(fetchSlideList(deckId)); },
 });
 

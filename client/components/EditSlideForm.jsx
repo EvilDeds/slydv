@@ -172,7 +172,7 @@ class EditSlideForm extends Component {
 
           {/* save and clear buttons ---------------------------------*/}
           <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-          <NewSlideButton deckId={this.state.singleSlide.deckId} />
+            { this.props.singleSlide.id && <NewSlideButton deckId={this.props.singleSlide.deckId} /> }
         </form>
       </div>
     );

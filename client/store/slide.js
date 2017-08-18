@@ -36,9 +36,9 @@ export function fetchSingleSlide(slideId) {
   };
 }
 
-export function createSlide(deckId) {
+export function createSlide(slide) {
   return function thunk(dispatch) {
-    return axios.post('/api/slides', deckId)
+    return axios.post('/api/slides/', slide)
       .then(res => dispatch(getSingleSlide(res.data)))
       .catch(error => console.log(error));
   };

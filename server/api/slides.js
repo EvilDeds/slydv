@@ -1,27 +1,28 @@
 const router = require('express').Router();
-const { Slide } = require('../db/models');
+const { Deck, Slide } = require('../db/models');
 
 router.post('/', (req, res, next) => {
+  console.log('POST /api/slides/: req.body:', req.body);
   Slide.create(req.body)
     .then(newSlide => res.json(newSlide))
     .catch(next);
 });
 
 router.get('/:slideId', (req, res, next) => {
-  Slide.findById(req.params.slideId)
-    .then(foundSlide => res.json(foundSlide))
+  Slide.findById(req.params.slideId, { include: [Deck] })
+    .then(foundSlide => {
+      console.log('foundSlide:', foundSlide);
+      res.json(foundSlide)
+    })
     .catch(next);
 });
 
 router.put('/:slideId', (req, res, next) => {
-  // console.log('req.params.slideId:', req.params.slideId);
   Slide.findById(req.params.slideId)
     .then(slideToUpdate => {
-      // console.log('slideToUpdate:', slideToUpdate);
       return slideToUpdate.update(req.body);
     })
     .then(updatedSlide => {
-      // console.log('updatedSlide:', updatedSlide);
       res.json(updatedSlide);
     })
     .catch(next);
