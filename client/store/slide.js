@@ -46,10 +46,7 @@ export function createSlide(slide) {
 export function changeSlide(slideId, slide) {
   return function thunk(dispatch) {
     return axios.put(`/api/slides/${slideId}`, slide)
-      .then(useless => axios.get(`/api/slides/${slideId}`))
-      .then(res => {
-        dispatch(getSingleSlide(res.data));
-      })
+      .then(res => dispatch(getSingleSlide(res.data)))
       .catch(error => console.log(error));
   };
 }
