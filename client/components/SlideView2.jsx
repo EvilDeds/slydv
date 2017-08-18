@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MarkdownSection } from './Markdown';
 
 // template === 'single-pane'
 export default function SlideView2(props) {
-  const { text } = props.singleSlide;
+  const { text, template } = props.singleSlide;
 
   return (
     <div className="single-pane">
-      <section>section .single-pane; text: {text}</section>
+      <MarkdownSection markdown={text + template} />
     </div>
   );
 }

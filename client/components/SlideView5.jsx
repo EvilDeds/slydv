@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Runkit } from './index';
+import { MarkdownSection } from './Markdown';
 
 // template === 'repl'
 export default function SlideView5(props) {
@@ -8,8 +9,10 @@ export default function SlideView5(props) {
 
   return (
     <div className="SlideView5">
-      <section className="slide-column-left">section .slide-column-left; text: {text}</section>
-      <section className="slide-column-right">section .slide-column-right; codeText: {codeText}; RunKit: <Runkit codeText={codeText} /></section>
+      <MarkdownSection className="slide-column-left" markdown={text} />
+      <section className="slide-column-right">
+        <Runkit codeText={codeText} />
+      </section>
     </div>
   );
 }
