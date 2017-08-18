@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
+import { MarkdownHeader, MarkdownFooter } from './Markdown';
+
 import {
   SlideView1,
   SlideView2,
@@ -37,14 +39,13 @@ export default function SlideViewFrame(props) {
   return (
     <div id="main" className={`SlideViewFrame ${props.currentDeck.theme}`}>
       <section className="slide-block">
-        { template === 'columns-header' || template === 'repl' ? <header>{title}</header> : null }
+        { template === 'columns-header' || template === 'repl' ? <MarkdownHeader markdown={title} /> : null }
         {slideBody(template)}
-        { hasFooter && footer ? <footer>{footer}</footer> : null }
+        { hasFooter && footer ? <MarkdownFooter markdown={footer} /> : null }
         {/* Slide numbers and next/previous links should maybe be handled
           in a separate component. I don't think they should be optional,
           but they _could_ be… */}
       </section>
-      <aside>{speakerNotes}</aside>
     </div>
   );
 }
@@ -53,7 +54,8 @@ SlideViewFrame.propTypes = {
   singleSlide: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    text: PropTypes.string,
+    firstText: PropTypes.string,
+    secondText: PropTypes.string,
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
@@ -73,8 +75,9 @@ SlideViewFrame.propTypes = {
 SlideViewFrame.defaultProps = {
   singleSlide: {
     id: 1,
-    title: 'This is a slide title',
-    text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+    title: '__This is a slide title__',
+    firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.!',
+    secondText: '%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
     // template: 'mid-page',
     // template: 'single-pane',
     // template: 'columns-header',
