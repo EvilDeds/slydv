@@ -5,7 +5,6 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
 
-import { AddReplSlide } from './components/ReplSlideFormHO';
 import {
   EditSlideForm,
   Login,
@@ -42,7 +41,6 @@ class Routes extends Component {
             <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
             <Route path="/new-deck" component={NewDeckForm} />
-            <Route path="/makeslide" component={AddReplSlide} />
             <Route path="/runkit" component={Runkit} />
             <Route path="/signup" component={Signup} />
             <Route path="/slideview" component={SlideViewFrame} />
