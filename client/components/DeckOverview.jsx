@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import { fetchDeck, fetchSlideList, getSingleSlide } from '../store';
 
 class DeckOverview extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
     this.props.loadDeck(deckId);
@@ -42,9 +47,18 @@ class DeckOverview extends Component {
               { slides[0]
                 ? slides.map(slide => (
                   <div key={slide.id} className="deckview-slide-container">
-                    <h2>{ slide.title }</h2>
-                    {/* FIX LINK WHEN WE HAVE EDIT PAGE */}
-                    <Link to={''}>Edit Slide</Link>
+                    <h2>
+                      { `${slide.title} ` }
+                      <Link to={`/editslide/${slide.id}`}>
+                        <button
+                          className="dqpl-button-primary"
+                          type="button"
+                          onClick={evt => this.handleClick(evt, slide)}
+                        >
+                            Edit
+                        </button>
+                      </Link>
+                    </h2>
                   </div>
                 ))
                 : (<h2>This deck has no slides.</h2>)
@@ -59,6 +73,12 @@ class DeckOverview extends Component {
         }
       </div>
     );
+  }
+
+
+
+  handleClick(evt, slide) {
+    this.props.setSlide(slide);
   }
 }
 
