@@ -64,11 +64,11 @@ class EditSlideForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps:', nextProps);
+    // console.log('nextProps:', nextProps);
     if (nextProps.singleSlide.id !== this.props.singleSlide.id) {
       this.props.loadSlide(nextProps.singleSlide.id)
       .then((newSingleSlideAction) => {
-        console.log('newSingleSlideAction:', newSingleSlideAction);
+        // console.log('newSingleSlideAction:', newSingleSlideAction);
         this.setState(Object.assign({}, this.state, { singleSlide: newSingleSlideAction.singleSlide }));
     });
 
@@ -83,14 +83,14 @@ class EditSlideForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log('handleSubmit: this.props.singleSlide.id:', this.props.singleSlide.id);
-    console.log('handleSubmit: this.state.singleSlide:', this.state.singleSlide);
-    this.props.updateSlide(this.props.singleSlide.id, this.state.singleSlide);
+    // console.log('handleSubmit: this.props.singleSlide.id:', this.props.singleSlide.id);
+    // console.log('handleSubmit: this.state.singleSlide:', this.state.singleSlide);
+    this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide);
   }
 
   render() {
-    console.log('this.props:', this.props);
-    console.log('this.state:', this.state);
+    // console.log('this.props:', this.props);
+    // console.log('this.state:', this.state);
     return (
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
