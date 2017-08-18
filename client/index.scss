@@ -39,7 +39,8 @@ body {
 
 //parent
 #main {
-  min-height: 575px;
+  //min-height: 575px;
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
@@ -79,16 +80,38 @@ body {
 //   order: 3;
 // }
 
-// header,
-// footer {
-//   display: block;
-//   margin: 4px;
-//   padding: 5px;
-//   min-height: 100px;
-//   border: 1px solid #eb5;
-//   border-radius: 7pt;
-//   background: #feb;
-// }
+#main > footer{
+  display:block;
+  order: 3;
+}
+
+
+ header,
+ footer {
+   display: block;
+   margin: 4px;
+   padding: 5px;
+   min-height: 100px;
+   border: 1px solid #eb5;
+   border-radius: 7pt;
+   background: #feb;
+ }
+
+#slideNav{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: right;
+  min-height: 30px;
+  background:transparent;
+  border:none;
+}
+
+#slideNav > button{
+  display:inline-block;
+}
 
 /* Too narrow to support three columns */
 @media all and (max-width: 640px) {
