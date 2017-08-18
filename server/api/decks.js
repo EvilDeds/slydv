@@ -11,7 +11,7 @@ router.get('/:deckId/slides', (req, res, next) => {
 });
 
 router.get('/:deckId', (req, res, next) => {
-  Deck.findById(+req.params.deckId)
+  Deck.findById(+req.params.deckId, { include: [Slide] })
     .then(deck => res.json(deck))
     .catch(next);
 });
