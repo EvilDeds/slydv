@@ -28,6 +28,7 @@ class SlideViewLive extends Component {
           ? (<SlideViewFrame singleSlide={currentSlide} currentDeck={deck} />)
           : (<h1>Slides not found</h1>)
         }
+        <footer id="slideNav">&lt;PREV NEXT&gt;</footer>
       </div>
     );
   }
