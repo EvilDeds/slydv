@@ -10,7 +10,6 @@ class DeckOverview extends Component {
     this.props.loadSlides(deckId);
     if (this.props.slides.length &&
         (this.props.slides[0].deckId !== this.currentSlide.deckId)) {
-        console.log('did mount is causing the infinite loop');
         this.props.setSlide(this.props.slides[0]);
     }
   }
