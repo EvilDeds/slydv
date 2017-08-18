@@ -7,7 +7,7 @@ import { getSingleSlide, fetchSlideList, fetchDeck, viewNavBar } from '../store'
 class SlideViewLive extends Component {
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
-    this.props.hideNavBar();
+    this.props.showNavBar(false);
     if (!(this.props.deck && this.props.deck.id) || (deckId !== this.props.deck.id)) this.props.loadDeck(deckId);
     if (!this.props.slides.length) this.props.loadSlides(deckId);
     if (!this.props.currentSlide.id && this.props.slides.length) this.props.setSlide(this.props.slides[0]);
@@ -31,7 +31,12 @@ class SlideViewLive extends Component {
       </div>
     );
   }
+
+  componentWillUnmount() {
+    this.props.showNavBar(true);
+  }
 }
+
 
 const mapState = state => ({
   slides: state.slide.slideList,
@@ -49,8 +54,8 @@ const mapDispatch = dispatch => ({
   loadDeck(deckId) {
     dispatch(fetchDeck(deckId));
   },
-  hideNavBar() {
-    dispatch(viewNavBar(false));
+  showNavBar(bool) {
+    dispatch(viewNavBar(bool));
   }
 });
 
