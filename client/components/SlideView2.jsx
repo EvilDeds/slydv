@@ -4,11 +4,11 @@ import { MarkdownSection } from './Markdown';
 
 // template === 'single-pane'
 export default function SlideView2(props) {
-  const { text, template } = props.singleSlide;
+  const { firstText } = props.singleSlide;
 
   return (
     <div className="single-pane">
-      <MarkdownSection markdown={text + template} />
+      <MarkdownSection markdown={firstText} />
     </div>
   );
 }
@@ -17,7 +17,8 @@ SlideView2.propTypes = {
   singleSlide: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    text: PropTypes.string,
+    firstText: PropTypes.string,
+    secondText: PropTypes.string,
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
@@ -29,7 +30,7 @@ SlideView2.defaultProps = {
   singleSlide: {
     id: 1,
     title: 'This is a slide title',
-    text: '# Slide text\nThis is the text of a slide, which is in Markdown.',
+    firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.',
     template: 'single-pane',
     codeText: null,
     positionInDeck: 1,

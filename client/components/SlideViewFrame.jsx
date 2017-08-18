@@ -54,7 +54,8 @@ SlideViewFrame.propTypes = {
   singleSlide: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    text: PropTypes.string,
+    firstText: PropTypes.string,
+    secondText: PropTypes.string,
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
@@ -75,7 +76,8 @@ SlideViewFrame.defaultProps = {
   singleSlide: {
     id: 1,
     title: '__This is a slide title__',
-    text: '# Slide text\nThis is the text of a slide, which is in Markdown.!%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+    firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.!',
+    secondText: '%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
     // template: 'mid-page',
     // template: 'single-pane',
     // template: 'columns-header',

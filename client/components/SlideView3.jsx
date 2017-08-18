@@ -19,6 +19,7 @@ SlideView3.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     firstText: PropTypes.string,
+    secondText: PropTypes.string,
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
