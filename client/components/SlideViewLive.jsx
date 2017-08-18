@@ -8,9 +8,15 @@ class SlideViewLive extends Component {
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
     this.props.hideNavBar();
-    if (!this.props.deck.id || deckId !== this.props.deck.id) this.props.loadDeck(deckId);
+    if (!(this.props.deck && this.props.deck.id) || (deckId !== this.props.deck.id)) this.props.loadDeck(deckId);
     if (!this.props.slides.length) this.props.loadSlides(deckId);
-    if (!this.props.currentSlide.id) this.props.setSlide(this.props.slides[0]);
+    if (!this.props.currentSlide.id && this.props.slides.length) this.props.setSlide(this.props.slides[0]);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.slides.length && (nextProps.slides !== this.props.slides)) {
+      this.props.setSlide(nextProps.slides[0]);
+    }
   }
 
   render() {
@@ -18,7 +24,7 @@ class SlideViewLive extends Component {
     const { currentSlide, deck, slides } = this.props;
     return (
       <div>
-        {deck && slides
+        {deck && deck.id && currentSlide && currentSlide.id
           ? (<SlideViewFrame singleSlide={currentSlide} currentDeck={deck} />)
           : (<h1>Slides not found</h1>)
         }

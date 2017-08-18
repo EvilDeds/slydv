@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList } from '../store';
+import { fetchDeck, fetchSlideList, getSingleSlide } from '../store';
 
 class DeckOverview extends Component {
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
     this.props.loadDeck(deckId);
     this.props.loadSlides(deckId);
+    if (this.props.slides.length &&
+        (this.props.slides[0].deckId !== this.currentSlide.deckId)) {
+        this.props.setSlide(this.props.slides[0]);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.slides !== this.props.slides
+       || (nextProps.deck.id !== this.props.currentSlide.deckId)) {
+      if (nextProps.slides.length) {
+        this.props.setSlide(nextProps.slides[0]);
+      }
+    }
   }
 
   /* Need to add in slide number and ability to change where it is in the queue
@@ -21,7 +34,10 @@ class DeckOverview extends Component {
         { deck.id
           ? (
             <div>
-              <h1>{ deck.deckTitle } </h1>
+              <h1>
+                { `${deck.deckTitle} | ` }
+                <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
+              </h1>
               <hr />
               { slides[0]
                 ? slides.map(slide => (
@@ -49,6 +65,7 @@ class DeckOverview extends Component {
 const mapState = state => ({
   deck: state.deck,
   slides: state.slide.slideList,
+  currentSlide: state.slide.singleSlide,
 });
 
 const mapDispatch = dispatch => ({
@@ -57,6 +74,9 @@ const mapDispatch = dispatch => ({
   },
   loadSlides(deckId) {
     dispatch(fetchSlideList(deckId));
+  },
+  setSlide(slide) {
+    dispatch(getSingleSlide(slide));
   },
 });
 
