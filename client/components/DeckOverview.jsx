@@ -11,20 +11,17 @@ class DeckOverview extends Component {
 
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
+    const { slides } = this.props.deck;
     this.props.loadDeck(deckId);
-    this.props.loadSlides(deckId);
-    if (this.props.slides.length &&
-        (this.props.slides[0].deckId !== this.props.currentSlide.deckId)) {
-        this.props.setSlide(this.props.slides[0]);
+    if (this.props.deck && slides && slides.length &&
+        (slides[0].deckId !== this.props.currentSlide.deckId)) {
+        this.props.setSlide(slides[0]);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.slides !== this.props.slides
-       || (nextProps.deck.id !== this.props.currentSlide.deckId)) {
-      if (nextProps.slides.length) {
-        this.props.setSlide(nextProps.slides[0]);
-      }
+    if (nextProps.deck && nextProps.deck.slides && nextProps.deck.slides.length) {
+      this.props.setSlide(nextProps.deck.slides[0]);
     }
   }
 
@@ -33,7 +30,8 @@ class DeckOverview extends Component {
   ^ May be useful for option dropdowns */
 
   render() {
-    const { deck, slides } = this.props;
+    const { deck } = this.props;
+    const { slides } = deck;
     return (
       <div>
         { deck.id
@@ -44,7 +42,7 @@ class DeckOverview extends Component {
                 <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
               </h1>
               <hr />
-              { slides[0]
+              { deck && slides && slides.length
                 ? slides.map(slide => (
                   <div key={slide.id} className="deckview-slide-container">
                     <h2>
@@ -53,7 +51,7 @@ class DeckOverview extends Component {
                         <button
                           className="dqpl-button-primary"
                           type="button"
-                          onClick={evt => this.handleClick(evt, slide)}
+                          onClick={() => this.handleClick(slide)}
                         >
                             Edit
                         </button>
@@ -75,9 +73,7 @@ class DeckOverview extends Component {
     );
   }
 
-
-
-  handleClick(evt, slide) {
+  handleClick(slide) {
     this.props.setSlide(slide);
   }
 }
