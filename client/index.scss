@@ -3,6 +3,7 @@ body {
 
   a {
     text-decoration: none;
+    color:#fff !important;
   }
 
   label {
@@ -34,7 +35,7 @@ body {
 
 //body {
 //  font: 24px Helvetica;
-//  background: #999999;
+//  background: #333333;
 //}
 
 //parent
@@ -96,8 +97,12 @@ header.global{
   display:flex;
   flex-flow:row;
   align-items: center;
-  //background-color:transparent;
+  background-color:#000;
+  margin:0px;
+  padding-left:20px;
   border:none;
+  border-radius:0px;
+  border-top:2px solid #6986f4;
   justify-content:space-between;
 }
 
@@ -118,16 +123,74 @@ header.global > nav{
 
 
 #main.landing{
-  height:85vh;
+  height:84vh;
   flex-flow:column;
 }
 
 #main.landing > section{
   //background-color:transparent;
+  text-align:center;
 }
 
 #main.landing > footer{
   //background-color:transparent;
+  text-align:center;
+  order:3;
+}
+
+#main.landing2{
+  height:88vh;
+  flex-flow:column;
+
+}
+#main.landing2 > header{
+
+}
+
+
+#main.landing2 > section{
+  background-color:#111111;
+  background-image: url("/styles/flexor/img/backgrounds/buildings.png");
+  //background-repeat: repeat;
+  margin:0px;
+  border-radius: 0pt;
+  border:0px;
+  border-top:2px solid #3e773e;
+  text-align:center;
+  color:#fff;
+  vertical-align:middle;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main.landing2 > section > h1{
+  font-family:"Raleway", Arial, sans-serif;
+  letter-spacing: 4px;
+  font-size:36px;
+  color: #696a6d;
+}
+#main.landing2 > section > h1 > img{
+  vertical-align:middle;
+}
+#main.landing2 > section > h2{
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size:30px;
+  color:#999;
+}
+
+
+
+#main.landing2 > footer{
+  background-color: #000;
+  text-align:center;
+  margin:0px;
+  padding-top:10px;
+  border-radius: 0pt;
+  border:0px;
+  border-top:2px solid #632624;
   order:3;
 }
 

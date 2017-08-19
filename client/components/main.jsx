@@ -12,7 +12,7 @@ import Navbar from './Navbar';
  */
 const Main = (props) => {
   const { children, handleClick, isLoggedIn } = props;
-
+console.log('logged?',isLoggedIn);
   return (
     <div>
       <Navbar />
