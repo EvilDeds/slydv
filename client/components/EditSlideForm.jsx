@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeSlide, fetchSingleSlide } from '../store';
+import { withRouter } from 'react-router';
+import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store';
+import NewSlideButton from './NewSlideButton.jsx';
 
 class EditSlideForm extends Component {
   static propTypes = {
@@ -58,14 +60,18 @@ class EditSlideForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToastClick = this.handleToastClick.bind(this);
+    this.handleNewClick = this.handleNewClick.bind(this);
   }
 
   componentDidMount() {
+   
     this.props.loadSlide(this.props.match.params.slideId)
       .then((newSingleSlideAction) => {
         this.setState(Object.assign({}, this.state,
           { singleSlide: newSingleSlideAction.singleSlide }));
-      });
+        console.log('single slide', newSingleSlideAction.singleSlide);
+        return this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
+      })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +80,9 @@ class EditSlideForm extends Component {
         .then((newSingleSlideAction) => {
           this.setState(Object.assign({}, this.state,
             { singleSlide: newSingleSlideAction.singleSlide }));
-        });
+          this.props.getDeck(newSingleSlideAction.singleSlide.deckId)
+        })
+  
     }
     // this.setState({ firstText: nextProps.singleSlide.firstText });
   }
@@ -94,13 +102,34 @@ class EditSlideForm extends Component {
     this.setState({ saved: false });
   }
 
+  handleNewClick(){
+    let position = this.props.deck.slides.length + 1
+    const deckId = this.props.deck.id
+    const newSlide = {
+      deckId: deckId, 
+      title: '',
+      firstText: '',
+      secondText: '',
+      template: 'single-pane',
+      codeText: '',
+      positionInDeck: position,
+      presenterNotes: ''
+
+    }
+      console.log('NEW SLIDE: ',newSlide);
+      this.props.sendSlide(newSlide)
+  }
+
   render() {
     // console.log('this.props:', this.props);
     // console.log('this.state:', this.state);
     return (
       <div className="EditSlideForm">
-        {/* positionInDeck -----------------------------------------*/}
-        <h2>Slide {this.state.singleSlide.positionInDeck} of {this.state.deckLength}</h2>
+        {/* positionInDeck -----------------------------------------*/
+          this.props.deck && this.props.deck.slides ? 
+        <h2>Slide {this.state.singleSlide.positionInDeck} of {this.props.deck.slides.length}</h2> :
+        null
+      }
 
         {/* was the form saved? ------------------------------------*/}
         { this.state.saved ? (
@@ -171,6 +200,7 @@ class EditSlideForm extends Component {
 
           {/* save and clear buttons ---------------------------------*/}
           <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
+           <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button>
         </form>
       </div>
     );
@@ -183,9 +213,11 @@ const mapState = state => ({
   deckLength: state.slide.slideList.length,
 });
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch, ownProps) => ({
   loadSlide(slideId) { return dispatch(fetchSingleSlide(slideId)); },
   updateSlide(slideId, slideObject) { return dispatch(changeSlide(slideId, slideObject)); },
+  sendSlide(slide){ return dispatch(createSlide(slide, ownProps.history))}, 
+  getDeck(deckId){ return dispatch(fetchDeck(deckId)) }
 });
 
-export default connect(mapState, mapDispatch)(EditSlideForm);
+export default withRouter(connect(mapState, mapDispatch)(EditSlideForm));

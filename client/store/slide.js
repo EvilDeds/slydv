@@ -35,10 +35,13 @@ export function fetchSingleSlide(slideId) {
   };
 }
 
-export function createSlide(slide) {
+export function createSlide(slide, history) {
   return function thunk(dispatch) {
     return axios.post('/api/slides', slide)
-      .then(res => dispatch(getSingleSlide(res.data)))
+      .then(res => {
+        history.push(`/editslide/${res.data.id}`)
+        return dispatch(getSingleSlide(res.data))
+      })
       .catch(error => console.log(error));
   };
 }
