@@ -72,6 +72,8 @@ class EditSlideForm extends Component {
     if (this.props.singleSlide.id === this.props.match.params.slideId) {
       this.props.loadDeck(this.props.singleSlide.id);
     }
+
+    // Somewhere around here: if deck = null, then we need to set singleSlide on global state.
   }
 
   componentWillReceiveProps(nextProps) {
@@ -104,7 +106,6 @@ class EditSlideForm extends Component {
   }
 
   render() {
-    // console.log('EditSlideForm: this.props:', this.props);
     // console.log('EditSlideForm: this.state.singleSlide.deckId:', this.state.singleSlide.deckId);
     console.log('EditSlideForm: this.props:', this.props);
     return (
@@ -179,8 +180,19 @@ class EditSlideForm extends Component {
           </div>
 
           {/* save and clear buttons ---------------------------------*/}
-          <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-            { this.props.singleSlide.id && <NewSlideButton deckId={this.props.deck.id} positionInDeck={this.props.deck.slides.length} /> }
+          <button
+            className="dqpl-button-primary"
+            type="button"
+            onClick={this.handleSubmit}
+          >Save</button>
+          {
+            this.props.singleSlide.id
+            &&
+            <NewSlideButton
+              deckId={this.props.deck.id}
+              positionInDeck={this.props.deck.slides.length}
+            />
+          }
         </form>
       </div>
     );
