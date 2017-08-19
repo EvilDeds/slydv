@@ -14,7 +14,7 @@ class DeckOverview extends Component {
     this.props.loadDeck(deckId);
     this.props.loadSlides(deckId);
     if (this.props.slides.length &&
-        (this.props.slides[0].deckId !== this.currentSlide.deckId)) {
+        (this.props.slides[0].deckId !== this.props.currentSlide.deckId)) {
         this.props.setSlide(this.props.slides[0]);
     }
   }
