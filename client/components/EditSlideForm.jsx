@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeSlide, fetchSingleSlide } from '../store';
+import { changeSlide, fetchDeck, fetchSingleSlide } from '../store';
 // import NewSlideButton from './index';
 import NewSlideButton from './NewSlideButton';
 
@@ -68,17 +68,24 @@ class EditSlideForm extends Component {
         this.setState(Object.assign({}, this.state,
           { singleSlide: newSingleSlideAction.singleSlide }));
       });
+
+    if (this.props.singleSlide.id === this.props.match.params.slideId) {
+      this.props.loadDeck(this.props.singleSlide.id);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.singleSlide.id !== this.props.singleSlide.id) {
-      this.props.loadSlide(nextProps.singleSlide.id)
-        .then((newSingleSlideAction) => {
-          this.setState(Object.assign({}, this.state,
-            { singleSlide: newSingleSlideAction.singleSlide }));
-        });
-    }
+    // if (nextProps.singleSlide.id !== this.props.singleSlide.id) {
+    //   this.props.loadSlide(nextProps.singleSlide.id)
+    //     .then((newSingleSlideAction) => {
+    //       this.setState(Object.assign({}, this.state,
+    //         { singleSlide: newSingleSlideAction.singleSlide }));
+    //     });
+    // }
     // this.setState({ firstText: nextProps.singleSlide.firstText });
+    if (nextProps.singleSlide.id !== this.props.singleSlide.id) {
+      this.props.loadDeck(nextProps.singleSlide.id);
+    }
   }
 
   handleChange(evt) {
@@ -173,7 +180,7 @@ class EditSlideForm extends Component {
 
           {/* save and clear buttons ---------------------------------*/}
           <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-            { this.props.singleSlide.id && <NewSlideButton deckId={this.props.singleSlide.deckId} /> }
+            { this.props.singleSlide.id && <NewSlideButton deckId={this.props.deck.id} positionInDeck={this.props.deck.slides.length} /> }
         </form>
       </div>
     );
@@ -188,6 +195,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   loadSlide(slideId) { return dispatch(fetchSingleSlide(slideId)); },
   updateSlide(slideId, slideObject) { return dispatch(changeSlide(slideId, slideObject)); },
+  loadDeck(deckId) { dispatch(fetchDeck(deckId)); },
 });
 
 export default connect(mapState, mapDispatch)(EditSlideForm);
