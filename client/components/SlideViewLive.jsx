@@ -14,13 +14,12 @@ class SlideViewLive extends Component {
     const deckId = +this.props.match.params.deckId;
     this.props.showNavBar(false);
     if (!(this.props.deck && this.props.deck.id) || (deckId !== this.props.deck.id)) this.props.loadDeck(deckId);
-    if (!this.props.slides.length) this.props.loadSlides(deckId);
-    if (this.props.currentSlide && !this.props.currentSlide.id && this.props.slides.length) this.props.setSlide(this.props.slides[0]);
+    if (this.props.currentSlide && !this.props.currentSlide.id && this.props.slides &&this.props.slides.length) this.props.setSlide(this.props.slides[0]);
 
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.slides.length && (nextProps.slides !== this.props.slides)) {
+    if (nextProps.slides && nextProps.slides.length && (nextProps.slides !== this.props.slides)) {
       this.props.setSlide(nextProps.slides[0]);
     }
   }
@@ -58,15 +57,12 @@ class SlideViewLive extends Component {
 
 
 const mapState = state => ({
-  slides: state.slide.slideList,
+  slides: state.deck.slides,
   currentSlide: state.slide.singleSlide,
   deck: state.deck,
 });
 
 const mapDispatch = dispatch => ({
-  loadSlides(deckId) {
-    dispatch(fetchSlideList(deckId));
-  },
   setSlide(slide) {
     dispatch(getSingleSlide(slide));
   },
