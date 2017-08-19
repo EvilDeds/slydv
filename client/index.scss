@@ -3,7 +3,10 @@ body {
 
   a {
     text-decoration: none;
-    color:#fff !important;
+    //black
+    //color:#fff !important;
+    //mint
+    color:#4ecdc4 !important;
   }
 
   label {
@@ -97,12 +100,6 @@ header.global{
   display:flex;
   flex-flow:row;
   align-items: center;
-  background-color:#000;
-  margin:0px;
-  padding-left:20px;
-  border:none;
-  border-radius:0px;
-  border-top:2px solid #6986f4;
   justify-content:space-between;
 }
 
@@ -122,6 +119,8 @@ header.global > nav{
 }
 
 
+//LANDING SAMPLES
+
 #main.landing{
   height:84vh;
   flex-flow:column;
@@ -138,6 +137,24 @@ header.global > nav{
   order:3;
 }
 
+
+
+//BLACK SLICK
+
+//header.global{
+//  min-height: 80px;
+//  display:flex;
+//  flex-flow:row;
+//  align-items: center;
+//  background-color:#000;
+//  margin:0px;
+//  padding-left:20px;
+//  border:none;
+//  border-radius:0px;
+//  border-top:3px solid #6986f4;
+//  justify-content:space-between;
+//}
+
 #main.landing2{
   height:88vh;
   flex-flow:column;
@@ -147,18 +164,15 @@ header.global > nav{
 
 }
 
-
 #main.landing2 > section{
   background-color:#111111;
   background-image: url("/styles/flexor/img/backgrounds/buildings.png");
-  //background-repeat: repeat;
   margin:0px;
   border-radius: 0pt;
   border:0px;
-  border-top:2px solid #3e773e;
+  border-top:2px solid #2d562f;
   text-align:center;
   color:#fff;
-  vertical-align:middle;
 
   display:flex;
   flex-direction: column;
@@ -191,6 +205,77 @@ header.global > nav{
   border-top:2px solid #632624;
   order:3;
 }
+
+
+//MINT
+header.global{
+  min-height: 40px;
+  display:flex;
+  flex-flow:row;
+  align-items: center;
+  background-color:#30333A;
+  margin:0px;
+  padding-left:20px;
+  border:none;
+  border-radius:0px;
+  justify-content:space-between;
+}
+
+#main.landing3{
+  height:88vh;
+  flex-flow:column;
+
+}
+
+#main.landing3 > header{
+
+}
+
+#main.landing3 > section{
+  background-color:#111111;
+  background-image: url("/images/bg_dark.png");
+  background-repeat: repeat;
+  margin:0px;
+  border-radius: 0pt;
+  border:0px;
+  border-top:10px solid #4ecdc4;
+  text-align:center;
+  color:#fff;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main.landing3 > section > h1{
+  font-family:"Raleway", Arial, sans-serif;
+  letter-spacing: 4px;
+  font-size:36px;
+  color: #696a6d;
+}
+#main.landing3 > section > h1 > img{
+  vertical-align:middle;
+}
+#main.landing3 > section > h2{
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size:30px;
+  color:#999;
+}
+
+#main.landing3 > footer{
+  background-color: transparent;
+  text-align:center;
+  margin:0px;
+  padding-top:10px;
+  border-radius: 0pt;
+  border:0px;
+  order:3;
+  display:none;
+}
+
+
+//END LANDING SAMPLES
 
 /* Too narrow to support three columns */
 @media all and (max-width: 640px) {
