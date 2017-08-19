@@ -27,7 +27,7 @@ const getDeck = deck => ({ type: GET_DECK, deck })
 
 export function changeDeck(userId, deck) {
   return function thunk(dispatch) {
-    axios.put(`/api/users/${userId}/decks/${deck.id}`, deck)
+    return axios.put(`/api/users/${userId}/decks/${deck.id}`, deck)
       .then(res => dispatch(updateDeck(res.data)))
       .catch((error) => { console.log(error); });
   };
@@ -35,7 +35,7 @@ export function changeDeck(userId, deck) {
 
 export function postNewDeck(userId, deck) {
   return function thunk(dispatch) {
-    axios.post(`/api/users/${userId}/decks/`, deck)
+    return axios.post(`/api/users/${userId}/decks/`, deck)
       .then(res => dispatch(newDeck(res.data)))
       .catch((error) => { console.log(error); });
   };
@@ -43,7 +43,7 @@ export function postNewDeck(userId, deck) {
 
 export function fetchDeck(deckId) {
   return function thunk(dispatch) {
-    axios.get(`/api/decks/${deckId}`)
+    return axios.get(`/api/decks/${deckId}`)
       .then(res => dispatch(getDeck(res.data)))
       .catch(err => console.error(err));
   };

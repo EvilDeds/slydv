@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store';
-import NewSlideButton from './NewSlideButton.jsx';
+
 
 class EditSlideForm extends Component {
   static propTypes = {
@@ -116,7 +116,6 @@ class EditSlideForm extends Component {
       presenterNotes: ''
 
     }
-      console.log('NEW SLIDE: ',newSlide);
       this.props.sendSlide(newSlide)
   }
 
