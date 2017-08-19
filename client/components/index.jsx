@@ -7,6 +7,7 @@ export { default as EditSlideForm } from './EditSlideForm';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './main';
 export { default as NewDeckForm } from './NewDeckForm.jsx';
+export { default as NewSlideButton } from './NewSlideButton';
 export { default as Runkit } from './Runkit';
 export { default as SlideView1 } from './SlideView1';
 export { default as SlideView2 } from './SlideView2';
