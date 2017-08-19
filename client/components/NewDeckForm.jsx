@@ -1,10 +1,26 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-// import { withRouter, Link } from 'react-router-dom';
-import { postNewDeck } from '../store';
+import { withRouter } from 'react-router-dom';
+import { postNewDeck, createSlide } from '../store';
 
 class NewDeckForm extends Component {
+  static propTypes = {
+    sendDeck: PropTypes.func.isRequired,
+    sendSlide: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+    }).isRequired,
+  }
+
+  static defaultProps = {
+    user: {
+      id: null,
+    },
+  };
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +42,20 @@ class NewDeckForm extends Component {
   }
 
   handleSubmit() {
-    this.props.sendDeck(Number(this.props.user.id), this.state.newDeck);
+    this.props.sendDeck(Number(this.props.user.id), this.state.newDeck)
+      .then((action) => {
+        const firstSlide = {
+          deckId: action.deck.id,
+          title: '',
+          firstText: '',
+          secondText: '',
+          template: 'single-pane',
+          codeText: '',
+          positionInDeck: 1,
+          presenterNotes: '',
+        };
+        this.props.sendSlide(firstSlide);
+      });
   }
 
   render() {
@@ -70,8 +99,9 @@ const mapState = state => ({
   deck: state.deck,
 });
 
-const mapDispatch = dispatch => ({
-  sendDeck(userId, deck) { dispatch(postNewDeck(userId, deck)); },
+const mapDispatch = (dispatch, ownProps) => ({
+  sendDeck(userId, deck) { return dispatch(postNewDeck(userId, deck)); },
+  sendSlide(slide) { return dispatch(createSlide(slide, ownProps.history)); },
 });
 
-export default connect(mapState, mapDispatch)(NewDeckForm);
+export default withRouter(connect(mapState, mapDispatch)(NewDeckForm));

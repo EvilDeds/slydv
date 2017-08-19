@@ -4,12 +4,23 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store';
-// import NewSlideButton from './NewSlideButton';
 
 class EditSlideForm extends Component {
   static propTypes = {
+    deck: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      slides: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    }).isRequired,
     deckLength: PropTypes.number,
-    saved: PropTypes.boolean,
+    getDeck: PropTypes.func.isRequired,
+    loadSlide: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        slideId: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+    saved: PropTypes.bool,
+    sendSlide: PropTypes.func.isRequired,
     singleSlide: PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
@@ -20,9 +31,11 @@ class EditSlideForm extends Component {
       positionInDeck: PropTypes.number,
       presenterNotes: PropTypes.string,
     }),
+    updateSlide: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    deckLength: 1,
     saved: false,
     singleSlide: {
       id: null,
@@ -38,7 +51,6 @@ class EditSlideForm extends Component {
       positionInDeck: 1,
       presenterNotes: '',
     },
-    deckLength: 1,
   };
 
   constructor(props) {
@@ -80,7 +92,7 @@ class EditSlideForm extends Component {
         .then((newSingleSlideAction) => {
           this.setState(Object.assign({}, this.state,
             { singleSlide: newSingleSlideAction.singleSlide }));
-          this.props.getDeck(newSingleSlideAction.singleSlide.deckId)
+          this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
         });
     }
     // this.setState({ firstText: nextProps.singleSlide.firstText });
@@ -102,7 +114,7 @@ class EditSlideForm extends Component {
   }
 
   handleNewClick() {
-    let position = this.props.deck.slides.length + 1;
+    const position = this.props.deck.slides.length + 1;
     const deckId = this.props.deck.id;
     const newSlide = {
       deckId,
@@ -114,7 +126,6 @@ class EditSlideForm extends Component {
       positionInDeck: position,
       presenterNotes: '',
     };
-    console.log('NEW SLIDE: ', newSlide);
     this.props.sendSlide(newSlide);
   }
 
@@ -200,7 +211,7 @@ class EditSlideForm extends Component {
 
             {/* save and clear buttons ---------------------------------*/}
             <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-             <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button>
+            <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button>
           </form>
         </div>
       </DocumentTitle>
