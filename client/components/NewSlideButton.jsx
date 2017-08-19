@@ -59,7 +59,7 @@ class NewSlideButton extends Component {
   }
 
   componentDidMount() {
-    console.log('NewSlideButton: componentDidMount: this.props.deckId:', this.props.deckId);
+    // console.log('NewSlideButton: componentDidMount: this.props.deckId:', this.props.deckId);
     this.props.loadSlides(this.props.deckId)
       .then((slides) => {
         console.log('NewSlideButton: componentDidMount: slides:', slides);
@@ -68,31 +68,31 @@ class NewSlideButton extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    console.log('NewSlideButton: nextProps:', nextProps);
-    console.log('NewSlideButton: nextState:', nextState);
+    // console.log('NewSlideButton: nextProps:', nextProps);
+    // console.log('NewSlideButton: nextState:', nextState);
     if (nextProps.deckId !== this.props.deckId) {
       this.setState({ deckId: nextProps.deckId });
     }
     // console.log('NewSlideButton: componentWillReceiveProps: this.props:', this.props);
-    console.log('NewSlideButton: componentWillReceiveProps: this.state:', this.state);
+    // console.log('NewSlideButton: componentWillReceiveProps: this.state:', this.state);
 
     this.state.blankSlide.positionInDeck = this.state.slides.slideList.length;
     this.setState(this.state);
   }
 
   handleClick() {
-    console.log('NewSlideButton: inside handleClick: this.props:', this.props);
+    // console.log('NewSlideButton: inside handleClick: this.props:', this.props);
     this.props.sendSlide(this.props.blankSlide)
       .then((slide) => {
-        console.log('NewSlideButton: handleClick: slide:', slide);
-        console.log('NewSlideButton: handleClick: history before push:', history);
+        // console.log('NewSlideButton: handleClick: slide:', slide);
+        // console.log('NewSlideButton: handleClick: history before push:', history);
         history.push(`/${slide.id}`);
-        console.log('NewSlideButton: handleClick: history after push:', history);
+        // console.log('NewSlideButton: handleClick: history after push:', history);
       });
   }
 
   render() {
-    console.log('NewSlideButton: this.props:', this.props);
+    // console.log('NewSlideButton: this.props:', this.props);
     return (
       <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleClick}>New Slide</button>
     );

@@ -98,7 +98,8 @@ class EditSlideForm extends Component {
 
   render() {
     // console.log('EditSlideForm: this.props:', this.props);
-    console.log('EditSlideForm: this.state.singleSlide.deckId:', this.state.singleSlide.deckId);
+    // console.log('EditSlideForm: this.state.singleSlide.deckId:', this.state.singleSlide.deckId);
+    console.log('EditSlideForm: this.props:', this.props);
     return (
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
