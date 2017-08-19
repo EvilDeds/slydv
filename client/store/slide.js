@@ -19,6 +19,7 @@ export const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSl
 
 /* -------------- THUNK CREATORS -------------- */
 
+//decks in back end, func for fetching slides associated with deck
 export function fetchSlideList(deckId) {
   return function thunk(dispatch) {
     return axios.get(`/api/decks/${deckId}/slides`)
@@ -37,7 +38,7 @@ export function fetchSingleSlide(slideId) {
 
 export function createSlide(slide) {
   return function thunk(dispatch) {
-    return axios.post('/api/slides', slide)
+    return axios.post('/api/slides/', slide)
       .then(res => dispatch(getSingleSlide(res.data)))
       .catch(error => console.log(error));
   };

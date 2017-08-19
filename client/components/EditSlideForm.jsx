@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeSlide, fetchSingleSlide } from '../store';
+// import NewSlideButton from './index';
+import NewSlideButton from './NewSlideButton';
 
 class EditSlideForm extends Component {
   static propTypes = {
-    deckLength: PropTypes.number,
+    loadSlide: PropTypes.func.isRequired,
     saved: PropTypes.boolean,
     singleSlide: PropTypes.shape({
       id: PropTypes.number,
@@ -17,6 +19,7 @@ class EditSlideForm extends Component {
       positionInDeck: PropTypes.number,
       presenterNotes: PropTypes.string,
     }),
+    updateSlide: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -35,7 +38,6 @@ class EditSlideForm extends Component {
       positionInDeck: 1,
       presenterNotes: '',
     },
-    deckLength: 1,
   };
 
   constructor(props) {
@@ -52,7 +54,7 @@ class EditSlideForm extends Component {
         secondText: props.singleSlide.secondText,
         title: props.singleSlide.title,
       },
-      deckLength: props.deckLength,
+      // deckLength: props.deckLength,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -90,17 +92,17 @@ class EditSlideForm extends Component {
       .then(returnedUpdateSlideAction => this.setState({ saved: true }));
   }
 
-  handleToastClick(evt) {
+  handleToastClick() {
     this.setState({ saved: false });
   }
 
   render() {
-    // console.log('this.props:', this.props);
-    // console.log('this.state:', this.state);
+    // console.log('EditSlideForm: this.props:', this.props);
+    console.log('EditSlideForm: this.state.singleSlide.deckId:', this.state.singleSlide.deckId);
     return (
       <div className="EditSlideForm">
         {/* positionInDeck -----------------------------------------*/}
-        <h2>Slide {this.state.singleSlide.positionInDeck} of {this.state.deckLength}</h2>
+        {/* <h2>Slide {this.state.singleSlide.positionInDeck} of {this.state.deckLength}</h2> */}
 
         {/* was the form saved? ------------------------------------*/}
         { this.state.saved ? (
@@ -110,8 +112,7 @@ class EditSlideForm extends Component {
             </div>
             <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleToastClick} />
           </div>
-          ) : null
-        }
+        ) : null }
 
         <form
           onSubmit={this.state.handleSubmit}
@@ -171,6 +172,7 @@ class EditSlideForm extends Component {
 
           {/* save and clear buttons ---------------------------------*/}
           <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
+            { this.props.singleSlide.id && <NewSlideButton deckId={this.props.singleSlide.deckId} /> }
         </form>
       </div>
     );
@@ -180,7 +182,6 @@ class EditSlideForm extends Component {
 const mapState = state => ({
   deck: state.deck,
   singleSlide: state.slide.singleSlide,
-  deckLength: state.slide.slideList.length,
 });
 
 const mapDispatch = dispatch => ({
