@@ -14,65 +14,69 @@ body {
     margin: 1em;
   }
 
-  form div {
-    display: inline-block;
-    margin: 1em;
-  }
-
-  .markdown {
-    p:first-child {
-      margin-top: 0em;
-    }
-    p:last-child {
-      margin-bottom: 0em;
-    }
-  }
+  // I couldn't find whatever this style is supposed to be applying to, but it's fucking up all the other forms. If you actually need this style somewhere, stick a class name on it.
+  // form {
+  //   div {
+  //     display: inline-block;
+  //     margin: 1em;
+  //   }
+  // }
 
   .deckview-slide-container {
     button {
       display: inline-block;
     }
   }
+
+  .markdown {
+    p:first-child {
+      margin-top: 0;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 
-/* --------------- Flexbox Default Styles -------------- */
+// --------------- Flexbox Default Styles --------------
 
-//body {
-//  font: 24px Helvetica;
-//  background: #999999;
-//}
+// body {
+//   font: 24px Helvetica;
+//   background: #999999;
+// }
 
-//parent
+// parent
 #main {
-  //min-height: 575px;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-flow: row;
+  height: 100vh;
+  margin: 0;
+  // min-height: 575px;
+  padding: 0;
 }
 
 //children
 #main > section {
-  margin: 4px;
-  padding: 5px;
+  background: #dd8;
   border: 1px solid #cc3;
   border-radius: 7pt;
-  background: #dd8;
   flex: 3 1 60%;
+  margin: 4px;
   order: 2;
+  padding: 5px;
 }
 
 #main > nav {
-  margin: 4px;
-  padding: 5px;
+  background: #ccf;
   border: 1px solid #88b;
   border-radius: 7pt;
-  background: #ccf;
   flex: 1 6 20%;
-  min-width:200px;
+  margin: 4px;
+  min-width: 200px;
   order: 1;
+  padding: 5px;
 }
 
 // #main > aside {
@@ -87,46 +91,47 @@ body {
 // }
 
 #main > footer{
-  display:block;
+  display: block;
   order: 3;
 }
 
 
- header,
- footer {
-   display: block;
-   margin: 4px;
-   padding: 5px;
-   min-height: 100px;
-   border: 1px solid #eb5;
-   border-radius: 7pt;
-   background: #feb;
- }
+header,
+footer {
+  background: #feb;
+  border: 1px solid #eb5;
+  border-radius: 7pt;
+  display: block;
+  margin: 4px;
+  min-height: 100px;
+  padding: 5px;
+}
 
-#slideNav{
-  position: absolute;
-  right: 0;
+.slide-nav {
+  background: transparent;
+  border: 0;
   bottom: 0;
   left: 0;
-  padding: 1rem;
-  text-align: right;
   min-height: 30px;
-  background:transparent;
-  border:none;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  text-align: right;
+
+  button {
+    display: inline-block;
+  }
 }
 
-#slideNav > button{
-  display:inline-block;
-}
-
-/* Too narrow to support three columns */
+// Too narrow to support three columns
 @media all and (max-width: 640px) {
-  #main, #page {
+  #main,
+  #page {
     flex-direction: column;
   }
 
   #main > section, #main > nav, #main > aside {
-    /* Return them to document order */
+    // Return them to document order
     order: 0;
   }
 
@@ -135,11 +140,21 @@ body {
   }
 }
 
-/* ------------- End Flexbox Default Styles ------------ */
+// ------------- End Flexbox Default Styles ------------
 
-/* -------------------- Slide views -------------------- */
-.SlideViewFrame {
+// -------------------- Slide views --------------------
+.slide-view-frame {
   .slide-block {
+    section {
+      background: #dd8;
+      border: 1px solid #cc3;
+      border-radius: 7pt;
+      flex: 3 1 60%;
+      margin: 4px;
+      order: 2;
+      padding: 5px;
+    }
+
     .mid-page {
       align-self: flex-end;
       height: 400px;
@@ -158,18 +173,6 @@ body {
     }
   }
 
-  .slide-block {
-    section {
-      background: #dd8;
-      border: 1px solid #cc3;
-      border-radius: 7pt;
-      flex: 3 1 60%;
-      margin: 4px;
-      order: 2;
-      padding: 5px;
-    }
-  }
-
   aside {
     background: #ccf;
     border: 1px solid #88b;
@@ -179,5 +182,12 @@ body {
     min-width: 200px;
     order: 3;
     padding: 5px;
+  }
+}
+
+// -------------------- Slide views --------------------
+.new-deck-form {
+  .form-group {
+    display: block;
   }
 }

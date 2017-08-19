@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchDeck, fetchSlideList, getSingleSlide } from '../store';
@@ -25,6 +26,10 @@ class DeckOverview extends Component {
     }
   }
 
+  handleClick(slide) {
+    this.props.setSlide(slide);
+  }
+
   /* Need to add in slide number and ability to change where it is in the queue
   https://pattern-library.dequelabs.com/components/option-menus
   ^ May be useful for option dropdowns */
@@ -33,7 +38,7 @@ class DeckOverview extends Component {
     const { deck } = this.props;
     const { slides } = deck;
     return (
-      <div>
+      <DocumentTitle class="deck-overview" title="Deck Overview | SlyDv">
         { deck.id
           ? (
             <div>
@@ -69,12 +74,8 @@ class DeckOverview extends Component {
             <h1>Deck not found</h1>
           )
         }
-      </div>
+      </DocumentTitle>
     );
-  }
-
-  handleClick(slide) {
-    this.props.setSlide(slide);
   }
 }
 

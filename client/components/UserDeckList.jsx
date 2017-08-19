@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchUserDeckList } from '../store';
@@ -9,12 +10,12 @@ class UserDeckList extends Component {
     this.state = {};
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.loadDecks(this.props.user.id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.user && nextProps.user.id !== this.props.user.id){
+    if (nextProps.user && nextProps.user.id !== this.props.user.id) {
       this.props.loadDecks(nextProps.user.id);
     }
   }
@@ -22,27 +23,29 @@ class UserDeckList extends Component {
   render() {
     const decks = this.props.deckList;
     return (
-      <div className="UserDeckList col-lg-9 offset-lg-3">
-        <h3>Check out your decks!</h3>
-        <hr />
-        { decks.length ? (
-          <ul>
-            {decks.map(deck => (
-              <li key={deck.id}>
-                <Link to={`/decks/${deck.id}`} >
-                  {deck.deckTitle}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>You have no decks yet!</p>
-        )}
-        <hr/>
-        <Link to="/new-deck">
-          Make a New Deck!
-        </Link>
-      </div>
+      <DocumentTitle title="My Decks | SlyDv">
+        <div className="user-deck-list col-lg-9 offset-lg-3">
+          <h3>Check out your decks!</h3>
+          <hr />
+          { decks.length ? (
+            <ul>
+              {decks.map(deck => (
+                <li key={deck.id}>
+                  <Link to={`/decks/${deck.id}`} >
+                    {deck.deckTitle}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>You have no decks yet!</p>
+          )}
+          <hr />
+          <Link to="/new-deck">
+            Make a New Deck!
+          </Link>
+        </div>
+      </DocumentTitle>
     );
   }
 }

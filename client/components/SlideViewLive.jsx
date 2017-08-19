@@ -1,22 +1,30 @@
+// import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
+// import { Link } from 'react-router-dom';
 import SlideViewFrame from './SlideViewFrame';
 import { getSingleSlide, fetchSlideList, fetchDeck, viewNavBar } from '../store';
-import { Link } from 'react-router-dom';
 
 class SlideViewLive extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.handleClick=this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
+
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
     this.props.showNavBar(false);
-    if (!(this.props.deck && this.props.deck.id) || (deckId !== this.props.deck.id)) this.props.loadDeck(deckId);
+    if (!(this.props.deck && this.props.deck.id)
+      || (deckId !== this.props.deck.id)) {
+      this.props.loadDeck(deckId);
+    }
     if (!this.props.slides.length) this.props.loadSlides(deckId);
-    if (this.props.currentSlide && !this.props.currentSlide.id && this.props.slides.length) this.props.setSlide(this.props.slides[0]);
-
+    if (this.props.currentSlide
+      && !this.props.currentSlide.id
+      && this.props.slides.length) {
+      this.props.setSlide(this.props.slides[0]);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,37 +33,41 @@ class SlideViewLive extends Component {
     }
   }
 
-  handleClick(dir) {
+  componentWillUnmount() {
+    this.props.showNavBar(true);
+  }
 
-    if(this.props.currentSlide.positionInDeck!==1 && dir==='prev'){
-      this.props.setSlide(this.props.slides[this.props.currentSlide.positionInDeck-2]);
+  handleClick(dir) {
+    if (this.props.currentSlide.positionInDeck !== 1
+      && dir === 'prev') {
+      this.props.setSlide(this.props.slides[this.props.currentSlide.positionInDeck - 2]);
     }
 
 
-    if(this.props.currentSlide.positionInDeck!==this.props.slides.length && dir==='next'){
+    if (this.props.currentSlide.positionInDeck !== this.props.slides.length && dir === 'next') {
       this.props.setSlide(this.props.slides[this.props.currentSlide.positionInDeck]);
     }
-
   }
 
   render() {
     const { currentSlide, deck, slides } = this.props;
     return (
-      <div>
-        {deck && deck.id && currentSlide && currentSlide.id
-          ? (<SlideViewFrame singleSlide={currentSlide} currentDeck={deck} />)
-          : (<h1>Slides not found</h1>)
-        }
-        <footer id="slideNav"><button type="button" onClick={() => this.handleClick('prev')}>&lt;PREV</button>   <button type="button" onClick={() => this.handleClick('next')}>NEXT&gt;</button></footer>
-      </div>
+      <DocumentTitle
+        title={deck && deck.id && currentSlide && currentSlide.id
+          ? `${deck.title}: Slide ${currentSlide.PositionInDeck} | SlyDv` || 'Slideshow | SlyDv'
+          : 'SlyDv'}
+      >
+        <div className="slide-view-live">
+          {deck && deck.id && currentSlide && currentSlide.id
+            ? (<SlideViewFrame singleSlide={currentSlide} currentDeck={deck} />)
+            : (<h1>Slides not found</h1>)
+          }
+          <footer className="slide-nav"><button type="button" onClick={() => this.handleClick('prev')}>&lt;PREV</button>   <button type="button" onClick={() => this.handleClick('next')}>NEXT&gt;</button></footer>
+        </div>
+      </DocumentTitle>
     );
   }
-
-  componentWillUnmount() {
-    this.props.showNavBar(true);
-  }
 }
-
 
 const mapState = state => ({
   slides: state.slide.slideList,
@@ -75,7 +87,7 @@ const mapDispatch = dispatch => ({
   },
   showNavBar(bool) {
     dispatch(viewNavBar(bool));
-  }
+  },
 });
 
-export default connect(mapState, mapDispatch) (SlideViewLive)
+export default connect(mapState, mapDispatch)(SlideViewLive);
