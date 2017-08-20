@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList, getSingleSlide } from '../store';
+import { withRouter,Link } from 'react-router-dom';
+import { fetchDeck, fetchSlideList, getSingleSlide, createSlide } from '../store';
 
 class DeckOverview extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.newSlideClick = this.newSlideClick.bind(this);
   }
 
   componentDidMount() {
@@ -62,7 +63,7 @@ class DeckOverview extends Component {
                 : (<h2>This deck has no slides.</h2>)
 
               }
-              <button className="dqpl-button-primary" type="button">ADD A SLIDE</button>
+              <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>ADD A SLIDE</button>
             </div>
           )
           : (
@@ -76,6 +77,21 @@ class DeckOverview extends Component {
   handleClick(slide) {
     this.props.setSlide(slide);
   }
+  newSlideClick(slide){
+    const position = this.props.deck.slides.length + 1
+    const deckId = this.props.deck.id
+    const newSlide = {
+      deckId: deckId, 
+      title: '',
+      firstText: '',
+      secondText: '',
+      template: 'single-pane',
+      codeText: '',
+      positionInDeck: position,
+      presenterNotes: ''
+    }
+    this.props.sendSlide(newSlide)
+  }
 }
 
 const mapState = state => ({
@@ -84,7 +100,7 @@ const mapState = state => ({
   currentSlide: state.slide.singleSlide,
 });
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch, ownProps) => ({
   loadDeck(deckId) {
     dispatch(fetchDeck(deckId));
   },
@@ -94,6 +110,7 @@ const mapDispatch = dispatch => ({
   setSlide(slide) {
     dispatch(getSingleSlide(slide));
   },
+  sendSlide(slide){ return dispatch(createSlide(slide, ownProps.history))}
 });
 
-export default connect(mapState, mapDispatch)(DeckOverview);
+export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
