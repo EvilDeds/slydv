@@ -330,6 +330,7 @@ header.global{
 
 #main.SlideViewFrame{
   //for slideviewframe wrapper
+
 }
 
 #main.SlideViewFrame > section{
@@ -356,6 +357,12 @@ header.global{
 }
 
 
+#speaker-note-header {
+  padding-top: 2px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  text-align: center;
+}
 
 
 //.SlideViewFrame {
@@ -401,3 +408,4 @@ header.global{
 //    padding: 5px;
 //  }
 //}
+
