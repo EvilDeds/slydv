@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList, getSingleSlide } from '../store';
+import { withRouter, Link } from 'react-router-dom';
+import { fetchDeck, fetchSlideList, getSingleSlide, createSlide } from '../store';
 
 class DeckOverview extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.newSlideClick = this.newSlideClick.bind(this);
   }
 
   componentDidMount() {
@@ -16,7 +18,7 @@ class DeckOverview extends Component {
     this.props.loadDeck(deckId);
     if (this.props.deck && slides && slides.length &&
         (slides[0].deckId !== this.props.currentSlide.deckId)) {
-        this.props.setSlide(slides[0]);
+      this.props.setSlide(slides[0]);
     }
   }
 
@@ -28,6 +30,22 @@ class DeckOverview extends Component {
 
   handleClick(slide) {
     this.props.setSlide(slide);
+  }
+
+  newSlideClick() {
+    const position = this.props.deck.slides.length + 1;
+    const deckId = this.props.deck.id;
+    const newSlide = {
+      codeText: '',
+      deckId,
+      firstText: '',
+      positionInDeck: position,
+      presenterNotes: '',
+      secondText: '',
+      template: 'single-pane',
+      title: '',
+    };
+    this.props.sendSlide(newSlide);
   }
 
   /* Need to add in slide number and ability to change where it is in the queue
@@ -67,7 +85,7 @@ class DeckOverview extends Component {
                 : (<h2>This deck has no slides.</h2>)
 
               }
-              <button className="dqpl-button-primary" type="button">ADD A SLIDE</button>
+              <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>ADD A SLIDE</button>
             </div>
           )
           : (
@@ -85,7 +103,7 @@ const mapState = state => ({
   currentSlide: state.slide.singleSlide,
 });
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch, ownProps) => ({
   loadDeck(deckId) {
     dispatch(fetchDeck(deckId));
   },
@@ -95,6 +113,27 @@ const mapDispatch = dispatch => ({
   setSlide(slide) {
     dispatch(getSingleSlide(slide));
   },
+  sendSlide(slide) { return dispatch(createSlide(slide, ownProps.history)); },
 });
 
-export default connect(mapState, mapDispatch)(DeckOverview);
+export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
+
+/* -------------- PROP TYPES -------------- */
+
+DeckOverview.propTypes = {
+  currentSlide: PropTypes.shape({
+    deckId: PropTypes.number.isRequired,
+  }).isRequired,
+  deck: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    slides: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  }).isRequired,
+  loadDeck: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      deckId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  sendSlide: PropTypes.func.isRequired,
+  setSlide: PropTypes.func.isRequired,
+};
