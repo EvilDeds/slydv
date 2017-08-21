@@ -1,10 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { logout } from '../store';
+import NavBar from './NavBar';
 
-import Navbar from './Navbar';
 /* -------------- COMPONENT --------------
  *  The Main component is our 'picture frame' - it displays the navbar and anything
  *  else common to our entire app. The 'picture' inside the frame is the space
@@ -14,8 +14,8 @@ const Main = (props) => {
   const { children, handleClick, isLoggedIn, showNavBar } = props;
 
   return (
-    <div>
-      { showNavBar && <Navbar /> }
+    <div className="main-div">
+      { showNavBar && <NavBar /> }
       {children}
     </div>
   );
