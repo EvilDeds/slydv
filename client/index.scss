@@ -327,46 +327,77 @@ header.global{
 /* ------------- End Flexbox Default Styles ------------ */
 
 /* -------------------- Slide views -------------------- */
-.SlideViewFrame {
-  .slide-block {
-    .mid-page {
-      align-self: flex-end;
-      height: 400px;
-    }
 
-    .columns-header {}
-
-    header,
-    footer {
-      background: #feb;
-      border: 1px solid #eb5;
-      border-radius: 7pt;
-      height: 50px;
-      margin: 4px;
-      padding: 5px;
-    }
-  }
-
-  .slide-block {
-    section {
-      background: #dd8;
-      border: 1px solid #cc3;
-      border-radius: 7pt;
-      flex: 3 1 60%;
-      margin: 4px;
-      order: 2;
-      padding: 5px;
-    }
-  }
-
-  aside {
-    background: #ccf;
-    border: 1px solid #88b;
-    border-radius: 7pt;
-    flex: 1 6 20%;
-    margin: 4px;
-    min-width: 200px;
-    order: 3;
-    padding: 5px;
-  }
+#main.SlideViewFrame{
+  //for slideviewframe wrapper
 }
+
+#main.SlideViewFrame > section{
+  display: flex;
+  flex-flow: column;
+}
+#main.SlideViewFrame > section > header{
+  order:1;
+}
+#main.SlideViewFrame > section > div{
+  display:flex;
+  flex-flow:row;
+  order:2;
+}
+
+#main.SlideViewFrame > section > div > section {
+  margin: 4px;
+  padding: 5px;
+  border: 1px solid #cc3;
+  border-radius: 7pt;
+  background: #dd8;
+  flex: 3 1 60%;
+  order: 2;
+}
+
+
+
+
+//.SlideViewFrame {
+//  .slide-block {
+//    .mid-page {
+//      align-self: flex-end;
+//      height: 400px;
+//    }
+//
+//    .columns-header {}
+//
+//    header,
+//    footer {
+//      background: #feb;
+//      border: 1px solid #eb5;
+//      border-radius: 7pt;
+//      height: 50px;
+//      margin: 4px;
+//      padding: 5px;
+//    }
+//  }
+//
+//  .slide-block {
+//    section {
+//      background: #dd8;
+//      border: 1px solid #cc3;
+//      border-radius: 7pt;
+//      flex: 3 1 60%;
+//      margin: 4px;
+//      order: 2;
+//      padding: 5px;
+//    }
+//  }
+//
+//  aside {
+//    background: #ccf;
+//    border: 1px solid #88b;
+//    border-radius: 7pt;
+//    flex: 1 6 20%;
+//    margin: 4px;
+//    min-width: 200px;
+//    order: 3;
+//    padding: 5px;
+//  }
+//}
