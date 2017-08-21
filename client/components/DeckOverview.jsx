@@ -59,7 +59,7 @@ class DeckOverview extends Component {
       <DocumentTitle title="Deck Overview | SlyDv">
         { deck.id
           ? (
-            <div class="deck-overview">
+            <div className="deck-overview">
               <h1>
                 { `${deck.deckTitle} | ` }
                 <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
@@ -122,11 +122,11 @@ export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
 
 DeckOverview.propTypes = {
   currentSlide: PropTypes.shape({
-    deckId: PropTypes.number.isRequired,
+    deckId: PropTypes.number,
   }).isRequired,
   deck: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    slides: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    slides: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
   loadDeck: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -137,3 +137,13 @@ DeckOverview.propTypes = {
   sendSlide: PropTypes.func.isRequired,
   setSlide: PropTypes.func.isRequired,
 };
+
+DeckOverview.defaultProps = {
+  currentSlide: {
+    deckId: null,
+  },
+  deck: {
+    slides: [],
+  },
+};
+
