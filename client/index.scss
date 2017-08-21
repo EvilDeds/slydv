@@ -2,7 +2,11 @@ body {
   font-family: sans-serif;
 
   a {
+    color: #4ecdc4 !important;
     text-decoration: none;
+    //black
+    //color: #fff !important;
+    //mint
   }
 
   label {
@@ -44,7 +48,7 @@ body {
 
 // body {
 //   font: 24px Helvetica;
-//   background: #999999;
+//   background: #333333;
 // }
 
 // parent
@@ -79,16 +83,16 @@ body {
   padding: 5px;
 }
 
-// #main > aside {
-//   margin: 4px;
-//   padding: 5px;
-//   border: 1px solid #88b;
-//   border-radius: 7pt;
-//   background: #ccf;
-//   flex: 1 6 20%;
-//   min-width:200px;
-//   order: 3;
-// }
+ #main > aside {
+   background: #ccf;
+   border: 1px solid #88b;
+   border-radius: 7pt;
+   flex: 1 6 20%;
+   margin: 4px;
+   min-width: 200px;
+   order: 3;
+   padding: 5px;
+ }
 
 #main > footer{
   display: block;
@@ -107,6 +111,185 @@ footer {
   padding: 5px;
 }
 
+header.global{
+  align-items: center;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  min-height: 80px;
+}
+
+header.global > h1{
+  display: inline-block;
+  width: 20%;
+}
+
+header.global > h1 > img{
+  vertical-align: middle;
+}
+
+header.global > nav{
+  display: inline-block;
+  text-align: right;
+  width: 40%;
+}
+
+
+//LANDING SAMPLES
+
+#main.landing{
+  flex-flow: column;
+  height: 84vh;
+}
+
+#main.landing > section{
+  //background-color:transparent;
+  text-align: center;
+}
+
+#main.landing > footer{
+  //background-color:transparent;
+  order: 3;
+  text-align: center;
+}
+
+
+
+//BLACK SLICK
+
+//header.global{
+//  min-height: 80px;
+//  display:flex;
+//  flex-flow:row;
+//  align-items: center;
+//  background-color:#000;
+//  margin: 0;
+//  padding-left:20px;
+//  border:none;
+//  border-radius: 0;
+//  border-top:3px solid #6986f4;
+//  justify-content:space-between;
+//}
+
+#main.landing2{
+  flex-flow: column;
+  height: 88vh;
+}
+
+#main.landing2 > header {
+}
+
+#main.landing2 > section {
+  background-color: #111;
+  background-image: url('/styles/flexor/img/backgrounds/buildings.png');
+  border: 0;
+  border-radius: 0;
+  border-top: 2px solid #2d562f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  text-align: center;
+}
+
+#main.landing2 > section > h1{
+  color: #696a6d;
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 36px;
+  letter-spacing: 4px;
+}
+
+#main.landing2 > section > h1 > img{
+  vertical-align: middle;
+}
+#main.landing2 > section > h2{
+  color: #999;
+  font-family: "Raleway", sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+#main.landing2 > footer{
+  background-color: #000;
+  border: 0;
+  border-radius: 0pt;
+  border-top: 2px solid #632624;
+  margin: 0;
+  order: 3;
+  padding-top: 10px;
+  text-align: center;
+}
+
+
+//MINT
+header.global{
+  align-items: center;
+  background-color: #30333A;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 20px;
+}
+
+#main.landing3{
+  flex-flow: column;
+  height: 88vh;
+}
+
+#main.landing3 > header {
+}
+
+#main.landing3 > section{
+  background-color: #111;
+  background-image: url('/images/bg_dark.png');
+  background-repeat: repeat;
+  border: 0;
+  border-radius: 0;
+  border-top: 10px solid #4ecdc4;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  text-align: center;
+}
+
+#main.landing3 > section > h1{
+  color: #696a6d;
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 36px;
+  letter-spacing: 4px;
+}
+
+#main.landing3 > section > h1 > img{
+  vertical-align: middle;
+}
+
+#main.landing3 > section > h2{
+  color: #999;
+  font-family: "Raleway", sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+#main.landing3 > footer{
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  display: none;
+  margin: 0;
+  order: 3;
+  padding-top: 10px;
+  text-align: center;
+}
+
+// END LANDING SAMPLES
+
 .slide-nav {
   background: transparent;
   border: 0;
@@ -124,6 +307,7 @@ footer {
 }
 
 // Too narrow to support three columns
+
 @media all and (max-width: 640px) {
   #main,
   #page {
@@ -159,38 +343,84 @@ footer {
       align-self: flex-end;
       height: 400px;
     }
-
-    .columns-header {}
-
-    header,
-    footer {
-      background: #feb;
-      border: 1px solid #eb5;
-      border-radius: 7pt;
-      height: 50px;
-      margin: 4px;
-      padding: 5px;
-    }
-  }
-
-  aside {
-    background: #ccf;
-    border: 1px solid #88b;
-    border-radius: 7pt;
-    flex: 1 6 20%;
-    margin: 4px;
-    min-width: 200px;
-    order: 3;
-    padding: 5px;
   }
 }
 
-// -------------------- Slide views --------------------
-.new-deck-form {
-  .form-group {
-    display: block;
-  }
+#main.slide-view-frame > section {
+  display: flex;
+  flex-flow: column;
 }
+
+#main.slide-view-frame > section > header {
+  order: 1;
+}
+
+#main.slide-view-frame > section > div {
+  display: flex;
+  flex-flow: row;
+  order: 2;
+}
+
+#main.slide-view-frame > section > div > section {
+  background: #dd8;
+  border: 1px solid #cc3;
+  border-radius: 7pt;
+  flex: 3 1 60%;
+  margin: 4px;
+  order: 2;
+  padding: 5px;
+}
+
+#speaker-note-header {
+  font-size: 18px;
+  padding-bottom: 5px;
+  padding-top: 2px;
+  text-align: center;
+}
+
+//.slide-view-frame {
+//  .slide-block {
+//    .mid-page {
+//      align-self: flex-end;
+//      height: 400px;
+//    }
+//
+//    .columns-header {}
+//
+//    header,
+//    footer {
+//      background: #feb;
+//      border: 1px solid #eb5;
+//      border-radius: 7pt;
+//      height: 50px;
+//      margin: 4px;
+//      padding: 5px;
+//    }
+//  }
+//
+//  .slide-block {
+//    section {
+//      background: #dd8;
+//      border: 1px solid #cc3;
+//      border-radius: 7pt;
+//      flex: 3 1 60%;
+//      margin: 4px;
+//      order: 2;
+//      padding: 5px;
+//    }
+//  }
+//
+//  aside {
+//    background: #ccf;
+//    border: 1px solid #88b;
+//    border-radius: 7pt;
+//    flex: 1 6 20%;
+//    margin: 4px;
+//    min-width: 200px;
+//    order: 3;
+//    padding: 5px;
+//  }
+//}
 
 // -------------------- New deck form --------------------
 .new-deck-form {
