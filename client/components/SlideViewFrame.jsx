@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
-import { MarkdownHeader, MarkdownFooter } from './Markdown';
+import { MarkdownHeader, MarkdownFooter, MarkdownSpeakerNotes } from './Markdown';
 
 import {
   SlideView1,
@@ -16,7 +16,7 @@ export default function SlideViewFrame(props) {
   // (the latter two come from the slide’s parent deck).
 
   // Give incoming props less wieldy names
-  const { title, template, speakerNotes } = props.singleSlide;
+  const { title, template, presenterNotes } = props.singleSlide;
   const { hasFooter, footer } = props.currentDeck;
 
   const slideBody = (thisTemplate) => {
@@ -40,12 +40,13 @@ export default function SlideViewFrame(props) {
     <div id="main" className={`SlideViewFrame ${props.currentDeck.theme}`}>
       <section className="slide-block">
         { template === 'columns-header' || template === 'repl' ? <MarkdownHeader markdown={title} /> : null }
-        {slideBody(template)}
+        { slideBody(template) }
         { hasFooter && footer ? <MarkdownFooter markdown={footer} /> : null }
         {/* Slide numbers and next/previous links should maybe be handled
           in a separate component. I don't think they should be optional,
           but they _could_ be… */}
       </section>
+      { props.presenterView && <MarkdownSpeakerNotes markdown={presenterNotes} /> }
     </div>
   );
 }
@@ -59,7 +60,7 @@ SlideViewFrame.propTypes = {
     template: PropTypes.string,
     codeText: PropTypes.string,
     positionInDeck: PropTypes.number,
-    speakerNotes: PropTypes.string,
+    presenterNotes: PropTypes.string,
   }),
   currentDeck: PropTypes.shape({
     id: PropTypes.number,
@@ -70,6 +71,7 @@ SlideViewFrame.propTypes = {
     hasFooter: PropTypes.boolean,
     footer: PropTypes.string,
   }),
+  presenterView: PropTypes.bool,
 };
 
 SlideViewFrame.defaultProps = {
@@ -85,7 +87,7 @@ SlideViewFrame.defaultProps = {
     template: 'repl',
     codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
     positionInDeck: 1,
-    speakerNotes: 'This is a speaker note in Markdown.',
+    presenterNotes: 'This is a speaker note in Markdown.',
   },
   currentDeck: {
     id: 1,
@@ -96,4 +98,5 @@ SlideViewFrame.defaultProps = {
     hasFooter: true,
     footer: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
   },
+  presenterView: false,
 };

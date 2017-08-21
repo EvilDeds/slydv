@@ -18,7 +18,6 @@ import {
   DeckOverview,
   SlideViewLive,
 } from './components';
-// import SlideViewFrame from './components/SlideViewFrame';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -37,7 +36,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route exact path="/decks/:deckId" component={DeckOverview} />
-            <Route path="/decks/:deckId/live" component={SlideViewLive} />
+            <Route exact path="/decks/:deckId/:liveOrPresenter" component={SlideViewLive} />
             <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
             <Route path="/new-deck" component={NewDeckForm} />
