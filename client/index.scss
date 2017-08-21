@@ -341,10 +341,12 @@ header.global{
   display: flex;
   flex-flow: column;
   border:1px solid #ccc;
-  background-color:#e8e8e5;
+  background-color:#f0f0f3;
 
 }
 #main.SlideViewFrame > section > header{
+  border: 1px solid #e2e2e2;
+  background-color: #eee;
   order:1;
 }
 #main.SlideViewFrame > section > div{
@@ -356,12 +358,18 @@ header.global{
 #main.SlideViewFrame > section > div > section {
   margin: 4px;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #e2e2e2;
   border-radius: 7pt;
-  background: #dd8;
+  background: #eee;
   flex: 3 1 60%;
   order: 2;
+  //background-color:transparent;
 
+}
+
+#main.SlideViewFrame > section > div > section.mid-page {
+  align-self: flex-end;
+  height: 400px;
 }
 
 #main.SlideViewFrame > section.slide-block{

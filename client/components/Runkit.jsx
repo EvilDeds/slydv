@@ -20,6 +20,6 @@ export default class Runkit extends React.Component {
 
   render() {
     console.log("CODE ON STATE",this.state.code);
-    return <Embed source={ this.props.codeText  } readOnly={ false } onEvaluate={this.alertEvaluated.bind(this)} ref="embed" />;
+    return <Embed source={ this.props.codeText  } readOnly={ false } onEvaluate={this.alertEvaluated.bind(this)} ref="embed" minHeight="300px" />;
   }
 };
