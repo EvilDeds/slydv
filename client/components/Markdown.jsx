@@ -40,7 +40,7 @@ export function MarkdownAside(props) {
 export function MarkdownSpeakerNotes(props) {
   return (
     <aside className="markdown markdown-speaker-container">
-      <h1>Speaker Notes</h1>
+      <h1 id="speaker-note-header">Speaker Notes</h1>
       <div className="markdown markdown-speaker-notes" dangerouslySetInnerHTML={{ __html: marked(props.markdown) }} />
     </aside>
   );
