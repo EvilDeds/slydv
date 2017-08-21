@@ -8,7 +8,6 @@ const GET_SINGLE_SLIDE = 'GET_SINGLE_SLIDE';
 /* -------------- INITIAL STATE -------------- */
 
 const initialState = {
-  slides: [],
   slideList: [],
   singleSlide: {},
 };
@@ -16,13 +15,13 @@ const initialState = {
 /* -------------- ACTION CREATORS -------------- */
 
 const getSlideList = slideList => ({ type: GET_SLIDE_LIST, slideList });
-const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSlide });
+export const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSlide });
 
 /* -------------- THUNK CREATORS -------------- */
 
-export function fetchSlideList() {
+export function fetchSlideList(deckId) {
   return function thunk(dispatch) {
-    return axios.get('/api/slides')
+    return axios.get(`/api/decks/${deckId}/slides`)
       .then(res => dispatch(getSlideList(res.data)))
       .catch(error => console.log(error));
   };
@@ -36,11 +35,13 @@ export function fetchSingleSlide(slideId) {
   };
 }
 
-
-export function createSlide(slide) {
+export function createSlide(slide, history) {
   return function thunk(dispatch) {
     return axios.post('/api/slides', slide)
-      .then(res => dispatch(getSingleSlide(res.data)))
+      .then(res => {
+        history.push(`/editslide/${res.data.id}`)
+        return dispatch(getSingleSlide(res.data))
+      })
       .catch(error => console.log(error));
   };
 }

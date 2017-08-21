@@ -29,7 +29,7 @@ class UserDeckList extends Component {
           <ul>
             {decks.map(deck => (
               <li key={deck.id}>
-                <Link to={`/users/decks/${deck.id}`} >
+                <Link to={`/decks/${deck.id}`} >
                   {deck.deckTitle}
                 </Link>
               </li>

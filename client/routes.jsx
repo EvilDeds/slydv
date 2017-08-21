@@ -5,8 +5,8 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
 
-import { AddReplSlide } from './components/ReplSlideFormHO';
 import {
+  EditSlideForm,
   Login,
   Main,
   NewDeckForm,
@@ -16,7 +16,8 @@ import {
   UserDeckList,
   UserHome,
   Landing,
-  Landing2,
+  DeckOverview,
+  SlideViewLive,
 } from './components';
 import { me } from './store';
 
@@ -35,13 +36,15 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route exact path="/decks/:deckId" component={DeckOverview} />
+            <Route path="/decks/:deckId/live" component={SlideViewLive} />
+            <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
-            <Route path="/makeslide" component={AddReplSlide} />
             <Route path="/new-deck" component={NewDeckForm} />
             <Route path="/runkit" component={Runkit} />
             <Route path="/signup" component={Signup} />
             <Route path="/slideview" component={SlideViewFrame} />
-            <Route path="/users/:userId/decks" component={UserDeckList}/>
+            <Route exact path="/users/:userId/decks" component={UserDeckList} />
 
             {
               isLoggedIn &&
@@ -51,7 +54,7 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Landing2} />
+            <Route component={Landing} />
           </Switch>
         </Main>
       </Router>
