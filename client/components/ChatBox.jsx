@@ -22,6 +22,8 @@ class ChatBox extends Component {
   	e.preventDefault();
   	chats.push(this.state.currentMessage);
   	this.setState({currentMessage: ""});
+  	// this.props.updateDeck(this.props.match.params.deckId)  //specify chats?
+
   }
 
   componentDidMount(){
@@ -33,7 +35,7 @@ class ChatBox extends Component {
   	let chats = this.state.chats;
   	let email = this.props.user.email;
   	return (
-      { deck.id ? 
+      { this.props.deck.id ? 
          (
          	<div className="chat-box">
          	{
@@ -60,10 +62,13 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
 	loadDeck(deckId){
-		dispatch(fetchDeck(deckId));
+		return dispatch(fetchDeck(deckId));
 	}, 
 	loadSlides(deckId){
-		dispatch(fetchSlideList(deckId));
+		return dispatch(fetchSlideList(deckId));
+	},
+	updateDeck(deckId){
+		return dispatch(changeDeck(deckId))
 	}
 })
 
