@@ -6,13 +6,13 @@ import { logout } from '../store';
 
 const Navbar = (props) => {
   const { handleClick, isLoggedIn } = props;
-
     return (
-      <div className="Navbar"> 
-        <h1>S L Y D V</h1>
-        <nav>
-         {
-          isLoggedIn
+      <div className="Navbar">
+        <header className="global">
+          <h1><img src="images/logo.png" alt="slydv" width="50" /> SLYDV</h1>
+          <nav>
+           {
+            isLoggedIn
             ? <div className="isLoggedIn">
               {/* The navbar will show these links after you log in */}
                 <Link to="/home">Home</Link>
@@ -25,13 +25,11 @@ const Navbar = (props) => {
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign Up</Link>
               </div>
-          }
-        </nav> 
+            }
+          </nav>
+        </header>
       </div>
-
-  		)
-  
-
+    );
 }
 
 /* -------------- CONTAINER -------------- */

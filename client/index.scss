@@ -3,6 +3,10 @@ body {
 
   a {
     text-decoration: none;
+    //black
+    //color:#fff !important;
+    //mint
+    color:#4ecdc4 !important;
   }
 
   label {
@@ -40,7 +44,7 @@ body {
 
 //body {
 //  font: 24px Helvetica;
-//  background: #999999;
+//  background: #333333;
 //}
 
 //parent
@@ -75,16 +79,16 @@ body {
   order: 1;
 }
 
-// #main > aside {
-//   margin: 4px;
-//   padding: 5px;
-//   border: 1px solid #88b;
-//   border-radius: 7pt;
-//   background: #ccf;
-//   flex: 1 6 20%;
-//   min-width:200px;
-//   order: 3;
-// }
+ #main > aside {
+   margin: 4px;
+   padding: 5px;
+   border: 1px solid #88b;
+   border-radius: 7pt;
+   background: #ccf;
+   flex: 1 6 20%;
+   min-width:200px;
+   order: 3;
+ }
 
 #main > footer{
   display:block;
@@ -103,6 +107,189 @@ body {
    background: #feb;
  }
 
+header.global{
+  min-height: 80px;
+  display:flex;
+  flex-flow:row;
+  align-items: center;
+  justify-content:space-between;
+}
+
+header.global > h1{
+  display:inline-block;
+  width:20%;
+}
+
+header.global > h1 > img{
+  vertical-align: middle;
+}
+
+header.global > nav{
+  display:inline-block;
+  width:40%;
+  text-align:right;
+}
+
+
+//LANDING SAMPLES
+
+#main.landing{
+  height:84vh;
+  flex-flow:column;
+}
+
+#main.landing > section{
+  //background-color:transparent;
+  text-align:center;
+}
+
+#main.landing > footer{
+  //background-color:transparent;
+  text-align:center;
+  order:3;
+}
+
+
+
+//BLACK SLICK
+
+//header.global{
+//  min-height: 80px;
+//  display:flex;
+//  flex-flow:row;
+//  align-items: center;
+//  background-color:#000;
+//  margin:0px;
+//  padding-left:20px;
+//  border:none;
+//  border-radius:0px;
+//  border-top:3px solid #6986f4;
+//  justify-content:space-between;
+//}
+
+#main.landing2{
+  height:88vh;
+  flex-flow:column;
+
+}
+#main.landing2 > header{
+
+}
+
+#main.landing2 > section{
+  background-color:#111111;
+  background-image: url("/styles/flexor/img/backgrounds/buildings.png");
+  margin:0px;
+  border-radius: 0pt;
+  border:0px;
+  border-top:2px solid #2d562f;
+  text-align:center;
+  color:#fff;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main.landing2 > section > h1{
+  font-family:"Raleway", Arial, sans-serif;
+  letter-spacing: 4px;
+  font-size:36px;
+  color: #696a6d;
+}
+#main.landing2 > section > h1 > img{
+  vertical-align:middle;
+}
+#main.landing2 > section > h2{
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size:30px;
+  color:#999;
+}
+
+#main.landing2 > footer{
+  background-color: #000;
+  text-align:center;
+  margin:0px;
+  padding-top:10px;
+  border-radius: 0pt;
+  border:0px;
+  border-top:2px solid #632624;
+  order:3;
+}
+
+
+//MINT
+header.global{
+  min-height: 40px;
+  display:flex;
+  flex-flow:row;
+  align-items: center;
+  background-color:#30333A;
+  margin:0px;
+  padding-left:20px;
+  border:none;
+  border-radius:0px;
+  justify-content:space-between;
+}
+
+#main.landing3{
+  height:88vh;
+  flex-flow:column;
+
+}
+
+#main.landing3 > header{
+
+}
+
+#main.landing3 > section{
+  background-color:#111111;
+  background-image: url("/images/bg_dark.png");
+  background-repeat: repeat;
+  margin:0px;
+  border-radius: 0pt;
+  border:0px;
+  border-top:10px solid #4ecdc4;
+  text-align:center;
+  color:#fff;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main.landing3 > section > h1{
+  font-family:"Raleway", Arial, sans-serif;
+  letter-spacing: 4px;
+  font-size:36px;
+  color: #696a6d;
+}
+#main.landing3 > section > h1 > img{
+  vertical-align:middle;
+}
+#main.landing3 > section > h2{
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size:30px;
+  color:#999;
+}
+
+#main.landing3 > footer{
+  background-color: transparent;
+  text-align:center;
+  margin:0px;
+  padding-top:10px;
+  border-radius: 0pt;
+  border:0px;
+  order:3;
+  display:none;
+}
+
+
+//END LANDING SAMPLES
+
+
 #slideNav{
   position: absolute;
   right: 0;
@@ -118,6 +305,8 @@ body {
 #slideNav > button{
   display:inline-block;
 }
+
+
 
 /* Too narrow to support three columns */
 @media all and (max-width: 640px) {
@@ -138,46 +327,77 @@ body {
 /* ------------- End Flexbox Default Styles ------------ */
 
 /* -------------------- Slide views -------------------- */
-.SlideViewFrame {
-  .slide-block {
-    .mid-page {
-      align-self: flex-end;
-      height: 400px;
-    }
 
-    .columns-header {}
-
-    header,
-    footer {
-      background: #feb;
-      border: 1px solid #eb5;
-      border-radius: 7pt;
-      height: 50px;
-      margin: 4px;
-      padding: 5px;
-    }
-  }
-
-  .slide-block {
-    section {
-      background: #dd8;
-      border: 1px solid #cc3;
-      border-radius: 7pt;
-      flex: 3 1 60%;
-      margin: 4px;
-      order: 2;
-      padding: 5px;
-    }
-  }
-
-  aside {
-    background: #ccf;
-    border: 1px solid #88b;
-    border-radius: 7pt;
-    flex: 1 6 20%;
-    margin: 4px;
-    min-width: 200px;
-    order: 3;
-    padding: 5px;
-  }
+#main.SlideViewFrame{
+  //for slideviewframe wrapper
 }
+
+#main.SlideViewFrame > section{
+  display: flex;
+  flex-flow: column;
+}
+#main.SlideViewFrame > section > header{
+  order:1;
+}
+#main.SlideViewFrame > section > div{
+  display:flex;
+  flex-flow:row;
+  order:2;
+}
+
+#main.SlideViewFrame > section > div > section {
+  margin: 4px;
+  padding: 5px;
+  border: 1px solid #cc3;
+  border-radius: 7pt;
+  background: #dd8;
+  flex: 3 1 60%;
+  order: 2;
+}
+
+
+
+
+//.SlideViewFrame {
+//  .slide-block {
+//    .mid-page {
+//      align-self: flex-end;
+//      height: 400px;
+//    }
+//
+//    .columns-header {}
+//
+//    header,
+//    footer {
+//      background: #feb;
+//      border: 1px solid #eb5;
+//      border-radius: 7pt;
+//      height: 50px;
+//      margin: 4px;
+//      padding: 5px;
+//    }
+//  }
+//
+//  .slide-block {
+//    section {
+//      background: #dd8;
+//      border: 1px solid #cc3;
+//      border-radius: 7pt;
+//      flex: 3 1 60%;
+//      margin: 4px;
+//      order: 2;
+//      padding: 5px;
+//    }
+//  }
+//
+//  aside {
+//    background: #ccf;
+//    border: 1px solid #88b;
+//    border-radius: 7pt;
+//    flex: 1 6 20%;
+//    margin: 4px;
+//    min-width: 200px;
+//    order: 3;
+//    padding: 5px;
+//  }
+//}

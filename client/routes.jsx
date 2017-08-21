@@ -15,10 +15,10 @@ import {
   SlideViewFrame,
   UserDeckList,
   UserHome,
+  Landing,
   DeckOverview,
   SlideViewLive,
 } from './components';
-// import SlideViewFrame from './components/SlideViewFrame';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -54,7 +54,7 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={Landing} />
           </Switch>
         </Main>
       </Router>
