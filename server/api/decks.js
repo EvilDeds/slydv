@@ -13,6 +13,12 @@ router.get('/:deckId/chats', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/:deckId/chats', (req, res, next) => {
+  Chat.create(req.body)
+  .then( (message) => res.json(message))
+  .catch(next);
+})
+
 router.get('/:deckId/slides', (req, res, next) => {
   Slide.findAll({
     where: { deckId: +req.params.deckId },

@@ -30,18 +30,20 @@ class ChatBox extends Component {
 
   // componentWillReceiveProps(nextProps){
   //   if (this.props.chats.length !== nextProps.chats.length){
-
+      
   //   }
   // }
 
   render(){
-  	let chats = this.props.chats;
+    console.log('props', this.props);
+  	let chat = this.props.chat;
   	let email = this.props.user.email;
   	let deck = this.props.deck;
   	return (
       <div className="chat-box">
-       {
-        chats.map(chat => <div id={ chat.id }><span>{ email + " : " + chat }</span></div>)
+       {chat && chat.length ?
+        chat.map(message => <div id={ message.id }><span>{ email + " : " + message.message }</span></div>) : 
+        <p>It's quiet in here, too quiet...</p>
        }
         <div className="dqpl-field-wrap">
           <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
@@ -57,7 +59,7 @@ const mapState = state => ({
   deck: state.deck,
   slides: state.slide.slideList,
   user: state.user,
-  chats: state.chats 
+  chat: state.chat 
 });
 
 const mapDispatch = dispatch => ({
