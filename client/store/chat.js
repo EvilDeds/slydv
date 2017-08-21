@@ -20,6 +20,14 @@ export function fetchMessages(deckId) {
   };
 }
 
+export function postMessage(deckId, userId, message){
+  return function thunk(dispatch){
+    return axios.post(`/api/decks/${deckId}/chats`)
+    .then(res => dispatch(getNewMessage(res.data)))
+    .catch((err) => { console.error(err)});
+  };
+}
+
 // reducer
 export default function (state = initialMessages, action) {
   switch(action.type) {
