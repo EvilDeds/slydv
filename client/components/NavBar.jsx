@@ -55,6 +55,12 @@ Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
   }).isRequired,
+};
+
+Navbar.defaultProps = {
+  user: {
+    id: null,
+  },
 };

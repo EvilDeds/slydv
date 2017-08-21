@@ -56,10 +56,10 @@ class DeckOverview extends Component {
     const { deck } = this.props;
     const { slides } = deck;
     return (
-      <DocumentTitle class="deck-overview" title="Deck Overview | SlyDv">
+      <DocumentTitle title="Deck Overview | SlyDv">
         { deck.id
           ? (
-            <div>
+            <div class="deck-overview">
               <h1>
                 { `${deck.deckTitle} | ` }
                 <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>

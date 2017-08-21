@@ -10,8 +10,8 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
   const pageTitle = `${displayName} | SlyDv`;
   return (
-    <DocumentTitle className="AuthForm" title={pageTitle}>
-      <div>
+    <DocumentTitle title={pageTitle}>
+      <div className="AuthForm">
         <form onSubmit={handleSubmit} name={name}>
           <div>
             <label htmlFor="email" id="emailLabel"><small>Email</small></label>
