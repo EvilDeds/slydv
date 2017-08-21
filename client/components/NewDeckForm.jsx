@@ -8,10 +8,9 @@ class NewDeckForm extends Component {
     super(props);
     this.state = {
       newDeck : {
-        deckTitle : "", 
-        viewable : false, 
+        deckTitle : "",
+        viewable : false,
         hasFooter: false,
-        chats : ""
       }
     }
     this.handleChange  = this.handleChange.bind(this);
@@ -24,9 +23,9 @@ class NewDeckForm extends Component {
  }
    handleSubmit(){
     this.props.sendDeck(Number(this.props.user.id), this.state.newDeck)
-    .then( action => {  
+    .then( action => {
        const firstSlide = {
-        deckId: action.deck.id, 
+        deckId: action.deck.id,
         title: '',
         firstText: '',
         secondText: '',
@@ -42,10 +41,10 @@ class NewDeckForm extends Component {
    render(){
     return (
      <div className="NewDeckForm" onChange={ this.handleChange }>
-     Is there anything more beautiful than a fresh deck? 
+     Is there anything more beautiful than a fresh deck?
       <form  className="form-horizontal">
         <label className="control-label">Deck Title</label>
-        <textarea name="deckTitle"/> 
+        <textarea name="deckTitle"/>
         <br/>
            <label>Choose a Deck Theme</label>
            <select>
@@ -54,15 +53,15 @@ class NewDeckForm extends Component {
              <option value='blue'>Blue</option>
            </select>
        <form>
-        <label className="control-label">Do you Need a Footer?</label>     
+        <label className="control-label">Do you Need a Footer?</label>
         <input type="radio" name="hasFooter" value="true" />Yes
         <input type="radio" name="hasFooter" value="false" />No
        </form>
        <form>
-        <label className="control-label">Viewable:</label>     
+        <label className="control-label">Viewable:</label>
         <input type="radio" name="viewable" value="true" />Yes
         <input type="radio" name="viewable" value="false" />No
-       </form> 
+       </form>
       </form>
       <button type="submit" onClick={ this.handleSubmit }>Save & Start Your Deck</button>
      </div>
@@ -71,16 +70,16 @@ class NewDeckForm extends Component {
 }
 
 const mapState = (state) => ({
-  user : state.user, 
+  user : state.user,
   deck : state.deck
 
 })
 const mapDispatch = (dispatch, ownProps) => ({
- sendDeck(userId, deck){ return dispatch(postNewDeck(userId, deck))}, 
+ sendDeck(userId, deck){ return dispatch(postNewDeck(userId, deck))},
  sendSlide(slide){ return dispatch(createSlide(slide, ownProps.history))}
 })
 
-export default withRouter(connect(mapState, mapDispatch)(NewDeckForm)); 
+export default withRouter(connect(mapState, mapDispatch)(NewDeckForm));
 
 
 

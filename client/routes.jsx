@@ -15,6 +15,7 @@ import {
   SlideViewFrame,
   UserDeckList,
   UserHome,
+  Landing,
   DeckOverview,
   SlideViewLive,
 } from './components';
@@ -38,7 +39,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route exact path = "decks/:deckId/chats" component={ChatBox} />
             <Route exact path="/decks/:deckId" component={DeckOverview} />
-            <Route path="/decks/:deckId/live" component={SlideViewLive} />
+            <Route exact path="/decks/:deckId/:liveOrPresenter" component={SlideViewLive} />
             <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
             <Route path="/new-deck" component={NewDeckForm} />
@@ -55,7 +56,7 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={Landing} />
           </Switch>
         </Main>
       </Router>

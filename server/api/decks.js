@@ -1,9 +1,15 @@
 const router = require('express').Router();
-const { Deck, Slide } = require('../db/models');
+const { Deck, Slide, Chat } = require('../db/models');
 
 router.get('/:deckId', (req, res, next) => {
   Deck.findById(+req.params.deckId, { include: [Slide] })
     .then(deck => res.json(deck))
+    .catch(next);
+});
+
+router.get('/:deckId/chats', (req, res, next) => {
+  Chat.findAll({ where: { deckId: +req.params.deckId } })
+    .then(chats => res.json(chats))
     .catch(next);
 });
 

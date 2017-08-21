@@ -8,7 +8,7 @@ class ChatBox extends Component {
   constructor(props){
   	super(props);
   	this.state = {
-  		currentMessage: "", 
+  		currentMessage: "",
   		chats: []  //at what point do we send the chats to the database. probably "onSubmit" -- need a thunk
   	//on submit, maybe ".join" the array, or change the model to be an array
   	}
@@ -27,14 +27,14 @@ class ChatBox extends Component {
   }
 
   componentDidMount(){
-  	const deckId = +this.props.match.params.deckId; 
+  	const deckId = +this.props.match.params.deckId;
   	this.props.loadDeck(deckId);
   }
 
   render(){
   	let chats = this.state.chats;
   	let email = this.props.user.email;
-  	let deck = this.props.deck; 
+  	let deck = this.props.deck;
   	return (
       <div className="chat-box">
        {
@@ -43,14 +43,14 @@ class ChatBox extends Component {
         <div className="dqpl-field-wrap">
           <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
           <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
-        </div> 
+        </div>
       </div>
   	)
   }
 }
 
 const mapState = state => ({
-  deck: state.deck, 
+  deck: state.deck,
   slides: state.slide.slideList,
   user: state.user
 });
@@ -58,13 +58,13 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
 	loadDeck(deckId){
 		return dispatch(fetchDeck(deckId));
-	}, 
+	},
 	loadSlides(deckId){
 		return dispatch(fetchSlideList(deckId));
 	},
 	updateDeck(deckId){
 		return dispatch(changeDeck(deckId))
 	}
-})
+});
 
 export default withRouter(connect(mapState, mapDispatch)(ChatBox));

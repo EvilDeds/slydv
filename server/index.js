@@ -56,6 +56,7 @@ const createApp = () => {
   // static file-serving middleware
   app.use('/deque-pattern-library', express.static(path.join(__dirname, '..', '/node_modules/deque-pattern-library/dist')));
   app.use(express.static(path.join(__dirname, '..', 'public')));
+  app.use('/bootstrap', express.static(path.join(__dirname,'..', '/node_modules/bootstrap/dist')));
 
   // sends index.html
   app.use('*', (req, res) => {
