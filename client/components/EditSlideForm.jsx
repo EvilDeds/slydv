@@ -1,8 +1,6 @@
 import brace from 'brace';
 import 'brace/ext/language_tools';
-import 'brace/ext/searchbox';
 import 'brace/mode/javascript';
-import 'brace/snippets/javascript';
 import 'brace/theme/github';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -92,7 +90,7 @@ class EditSlideForm extends Component {
       .then((newSingleSlideAction) => {
         this.setState(Object.assign({}, this.state,
           { singleSlide: newSingleSlideAction.singleSlide }));
-        console.log('single slide', newSingleSlideAction.singleSlide);
+        // console.log('single slide', newSingleSlideAction.singleSlide);
         return this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
       });
   }
@@ -115,19 +113,9 @@ class EditSlideForm extends Component {
   }
 
   handleReplChange(evt) {
-    console.log('evt:', evt);
-    console.log('this.state.singleSlide.codeText:', this.state.singleSlide.codeText);
     this.state.singleSlide.codeText = evt;
     this.setState(this.state);
   }
-
-  setReplOptions = {
-    enableBasicAutocompletion: false,
-    enableLiveAutocompletion: true,
-    enableSnippets: false,
-    showLineNumbers: true,
-    tabSize: 2,
-  };
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -163,8 +151,7 @@ class EditSlideForm extends Component {
         <div className="edit-slide-form">
           {/* positionInDeck -----------------------------------------*/
             this.props.deck && this.props.deck.slides
-              ? <h2>Slide {this.state.singleSlide.positionInDeck} of
-                {this.props.deck.slides.length}</h2>
+              ? <h2>{`Slide ${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
               : null
           }
 
@@ -229,26 +216,24 @@ class EditSlideForm extends Component {
                   aria-labelledby="codeText-label"
                   editorProps={{
                     $blockScrolling: true,
-                    $wrapEnabled: true,
                   }}
-                  fontSize={14}
-                  showPrintMargin={true}
-                  showGutter={true}
-                  highlightActiveLine={true}
-                  setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: true,
-                    enableSnippets: true,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                    showInvisibles: true,
-                    newLineMode: 'unix',
-                  }}
+                  fontSize={12}
+                  highlightActiveLine
                   mode="javascript"
                   name="codeText"
                   onChange={this.handleReplChange}
+                  setOptions={{
+                    enableBasicAutocompletion: false,
+                    enableLiveAutocompletion: true,
+                    showLineNumbers: true,
+                    tabSize: 2,
+                    showInvisibles: true,
+                  }}
                   theme="github"
                   value={`${this.state.singleSlide.codeText}`}
+                  width="100%"
+                  height="45vh"
+                  wrapEnabled
                 />
               </div>
             ) : null }
