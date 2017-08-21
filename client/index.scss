@@ -191,3 +191,20 @@ footer {
     display: block;
   }
 }
+
+// -------------------- New deck form --------------------
+.new-deck-form {
+  .actual-radio-group {
+    margin-bottom: 24px;
+  }
+
+  [type="radio"] {
+    display: inline-block;
+  }
+
+  .radio-label-inline {
+    display: inline-block;
+    margin-right: 1em;
+    margin-top: 3px;
+  }
+}

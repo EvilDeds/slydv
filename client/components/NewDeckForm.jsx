@@ -25,16 +25,18 @@ class NewDeckForm extends Component {
     super(props);
     this.state = {
       newDeck: {
-        deckTitle: '',
-        viewable: false,
-        hasFooter: false,
         chats: '',
+        deckTitle: '',
+        hasFooter: false,
+        theme: '',
+        viewable: false,
       },
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange(e) {
     this.setState({
       newDeck: Object.assign({}, this.state.newDeck, { [e.target.name]: e.target.value }),
@@ -60,33 +62,45 @@ class NewDeckForm extends Component {
 
   render() {
     return (
-      <DocumentTitle className="new-deck-form" title="Make a Deck | SlyDv">
-        <div>
+      <DocumentTitle title="Make a Deck | SlyDv">
+        <div className="new-deck-form">
           <p><i>Is there anything more beautiful than a fresh deck?</i></p>
-          <form className="form-horizontal" onChange={this.handleChange}>
-            <div className="form-group">
+          <form className="form-horizontal">
+
+            {/* deck title --------------------------------------------*/}
+            <div className="dqpl-field-wrap">
               <label className="control-label" htmlFor="deckTitle" id="deckTitleLabel">Deck Title</label>
-              <textarea name="deckTitle" aria-labelledby="deckTitleLabel" />
+              <input className="dqpl-text-input" type="text" name="deckTitle" aria-labelledby="deckTitleLabel" value={this.state.newDeck.deckTitle} onChange={this.handleChange} />
             </div>
-            <div className="form-group">
-              <label htmlFor="chooseTheme" id="chooseThemeLabel">Choose a Deck Theme</label>
-              <select name="chooseTheme" aria-labelledby="chooseThemeLabel">
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue">Blue</option>
-              </select>
+
+            {/* deck theme --------------------------------------------*/}
+            <div className="dqpl-field-wrap">
+              <label htmlFor="theme" id="themeLabel">Choose a Deck Theme</label>
+              <div className="dqpl-select">
+                <select name="theme" aria-labelledby="themeLabel" value={this.state.newDeck.theme} onChange={this.handleChange}>
+                  <option value="red">Red</option>
+                  <option value="green">Green</option>
+                  <option value="blue">Blue</option>
+                </select>
+              </div>
             </div>
-            <div className="form-group">
-              <label className="control-label" id="hasFooterLabel" htmlFor="hasFooter">Do you Need a Footer?</label>
-              <input type="radio" name="hasFooter" value="true" aria-labelledby="hasFooterLabel" />Yes
-              <input type="radio" name="hasFooter" value="false" aria-labelledby="hasFooterLabel" />No
+
+            {/* deck has a footer? ------------------------------------*/}
+            <div className="actual-radio-group" role="radiogroup" aria-labelledby="hasFooterLabel" onChange={this.handleChange}>
+              <label className="control-label" id="hasFooterLabel" htmlFor="hasFooter">Should this deck have a footer?</label>
+              <input type="radio" aria-labelledby="hasFooterLabel" name="hasFooter" value="true" /><span className="radio-label-inline">Yes</span>
+              <input type="radio" aria-labelledby="hasFooterLabel" name="hasFooter" value="false" /><span className="radio-label-inline">No</span>
             </div>
-            <div className="form-group">
-              <label className="control-label" id="viewableLabel" htmlFor="viewable">Viewable:</label>
-              <input type="radio" name="viewable" value="true" aria-labelledby="viewableLabel" />Yes
-              <input type="radio" name="viewable" value="false" aria-labelledby="viewableLabel" />No
+
+            {/* deck is viewable? -------------------------------------*/}
+            <div className="actual-radio-group" role="radiogroup" aria-labelledby="hasFooterLabel" onChange={this.handleChange}>
+              <label className="control-label" id="viewableLabel" htmlFor="viewable">Should this deck be publicly viewable?</label>
+              <input type="radio" aria-labelledby="viewableLabel" name="viewable" value="true" /><span className="radio-label-inline">Yes</span>
+              <input type="radio" aria-labelledby="viewableLabel" name="viewable" value="false" /><span className="radio-label-inline">No</span>
             </div>
-            <button type="submit" onClick={this.handleSubmit}>Save & Start Your Deck</button>
+
+            {/* save deck and edit the first slide --------------------*/}
+            <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save & Start Your Deck</button>
           </form>
         </div>
       </DocumentTitle>
