@@ -34,22 +34,17 @@ class ChatBox extends Component {
   render(){
   	let chats = this.state.chats;
   	let email = this.props.user.email;
+  	let deck = this.props.deck; 
   	return (
-      { this.props.deck.id ? 
-         (
-         	<div className="chat-box">
-         	{
-         	  chats.map(chat => <div id={Math.random()><span>{ email+ chat }</span><br></div>)
-         	}
-
-               <div className="dqpl-field-wrap">
-                 <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
-                 <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
-              </div> 
-         	</div>
-         )
-      }
-
+      <div className="chat-box">
+       {
+        chats.map(chat => <div id={Math.random()}><span>{ email+ chat }</span></div>)
+       }
+        <div className="dqpl-field-wrap">
+          <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
+          <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
+        </div> 
+      </div>
   	)
   }
 }
