@@ -422,6 +422,17 @@ header.global{
 //  }
 //}
 
+// -------------------- Edit slide form --------------------
+.edit-slide-form {
+  padding-left: 20px;
+
+  .ace_editor {
+    border: 1px solid #ccc;
+    font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
+    max-width: 70em;
+  }
+}
+
 // -------------------- New deck form --------------------
 .new-deck-form {
   .actual-radio-group {
