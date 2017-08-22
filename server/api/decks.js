@@ -3,14 +3,15 @@ const { Deck, Slide } = require('../db/models');
 
 router.get('/:deckId', (req, res, next) => {
   Deck.findById(+req.params.deckId, { include: [Slide] })
-    .then(deck => {
+  .then(deck => {
     if(req.user.id === deck.userId || deck.isViewable){
       res.json(deck)
-      .catch(next);
-    }else{
-     next(new Error('This deck is not for you!'))}
+	}else{
+     next(new Error('This deck is not for you!'))
+	}
   })
-);
+  .catch(next)
+});
 
 router.get('/:deckId/slides', (req, res, next) => {
   Deck.findById(+req.params.deckId)
@@ -30,3 +31,5 @@ router.get('/:deckId/slides', (req, res, next) => {
 }); //the relevant security params here are on the deck not the slides, what should we do? 
 
 module.exports = router;
+
+
