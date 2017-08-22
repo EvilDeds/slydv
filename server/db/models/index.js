@@ -1,6 +1,7 @@
 const User = require('./user');
 const Deck = require('./deck');
 const Slide = require('./slide');
+const Chat = require('./chat');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -14,6 +15,11 @@ User.hasMany(Deck);
 Slide.belongsTo(Deck);
 Deck.hasMany(Slide);
 
+Chat.belongsTo(User);
+
+Chat.belongsTo(Deck);
+Deck.hasMany(Chat);
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -21,5 +27,5 @@ Deck.hasMany(Slide);
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User, Deck, Slide,
+  User, Deck, Slide, Chat,
 };

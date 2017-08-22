@@ -8,6 +8,7 @@ export { default as EditSlideForm } from './EditSlideForm';
 export { default as Landing } from './Landing';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './main';
+export { default as ChatBox } from './ChatBox';
 export { default as NewDeckForm } from './NewDeckForm.jsx';
 export { default as NewSlideButton } from './NewSlideButton';
 export { default as Runkit } from './Runkit';
