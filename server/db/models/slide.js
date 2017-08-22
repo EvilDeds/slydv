@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+// JSONb - store object in db - convert slide text options to an object for
+// future issues
 
 const Slide = db.define('slide', {
   title: {

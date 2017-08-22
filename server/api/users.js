@@ -1,5 +1,8 @@
 const router = require('express').Router();
 const { User, Deck } = require('../db/models');
+// move to decks? Get userId from req.user for lookup
+// if (req.user)
+// based on own routing
 
 module.exports = router;
 

@@ -41,7 +41,7 @@ body {
       margin-bottom: 0;
     }
   }
-}
+}// end body
 
 
 // --------------- Flexbox Default Styles --------------
@@ -438,3 +438,6 @@ header.global{
     margin-top: 3px;
   }
 }
+
+@import './slide.scss';
+

@@ -1,0 +1,20 @@
+//coreys notes
+.main-container {
+  //styles here apply to everything in main container.
+  @include flex-column-master(column);
+
+  &-header {
+    //styles here apply to main container header.
+  }
+
+  &-code {
+    @include flex-master();
+  }
+}
+
+//.main-container-header .. headers are always found in main-containers.
+@mixin flex-master($dir: row){
+  display: flex;
+  flex-direction: $dir;
+  justify-content: flex-start;
+}
