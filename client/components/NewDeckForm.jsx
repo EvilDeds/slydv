@@ -27,6 +27,7 @@ class NewDeckForm extends Component {
       newDeck: {
         chats: '',
         deckTitle: '',
+        footerText: '',
         hasFooter: false,
         theme: 'red',
         viewable: false,
@@ -91,6 +92,14 @@ class NewDeckForm extends Component {
               <input type="radio" aria-labelledby="hasFooterLabel" name="hasFooter" value="true" /><span className="radio-label-inline">Yes</span>
               <input type="radio" aria-labelledby="hasFooterLabel" name="hasFooter" value="false" /><span className="radio-label-inline">No</span>
             </div>
+
+            {/* if hasFooter, what goes in it? - conditional ----------*/}
+            { this.state.newDeck.hasFooter && (
+              <div className="dqpl-field-wrap">
+                <label className="control-label" htmlFor="footerText" id="footerTextLabel">Footer Text</label>
+                <input className="dqpl-text-input" type="text" name="footerText" aria-labelledby="footerTextLabel" value={this.state.newDeck.footerText} onChange={this.handleChange} />
+              </div>
+            )}
 
             {/* deck is viewable? -------------------------------------*/}
             <div className="actual-radio-group" role="radiogroup" aria-labelledby="hasFooterLabel" onChange={this.handleChange}>
