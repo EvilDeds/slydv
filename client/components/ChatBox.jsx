@@ -36,22 +36,22 @@ class ChatBox extends Component {
   //   }
   // }
 
-  render(){
-    let chat = this.props.chat;
-    let deck = this.props.deck;
+  render() {
+    const chat = this.props.chat;
+    const deck = this.props.deck;
     return (
       <div className="chat-box">
-       {chat && chat.length ?
-        chat.map(message => (<div key={ message.id }><span>{ message.user.email + " : " + message.message }</span></div>)) :
-        <p>It's quiet in here, too quiet...</p>
-       }
+        {chat && chat.length ?
+          chat.map(message => (<div key={message.id}><span>{`${message.user.email} : ${message.message}`}</span></div>)) :
+          <p>It's quiet in here, too quiet...</p>
+        }
         <div className="dqpl-field-wrap">
           <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
           <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
         </div>
         <button type="submit" onClick={this.handleSubmit}>Send</button>
       </div>
-    )
+    );
   }
 }
 
@@ -59,22 +59,22 @@ const mapState = state => ({
   deck: state.deck,
   slides: state.slide.slideList,
   user: state.user,
-  chat: state.chat
+  chat: state.chat,
 });
 
 const mapDispatch = dispatch => ({
-  loadDeck(deckId){
+  loadDeck(deckId) {
     return dispatch(fetchDeck(deckId));
   },
-  loadSlides(deckId){
+  loadSlides(deckId) {
     return dispatch(fetchSlideList(deckId));
   },
-  loadChats(deckId){
+  loadChats(deckId) {
     return dispatch(fetchMessages(deckId));
   },
-  sendMessage(deckId, userId, message){
+  sendMessage(deckId, userId, message) {
     return dispatch(postMessage(deckId, userId, message));
-  }
+  },
 });
 
 export default withRouter(connect(mapState, mapDispatch)(ChatBox));

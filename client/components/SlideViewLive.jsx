@@ -7,7 +7,7 @@ import { MarkdownFooter } from './Markdown';
 import SlideViewFrame from './SlideViewFrame';
 import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
 import socket from '../socket';
-import ChatBox from './index';
+import ChatBox from './ChatBox';
 
 class SlideViewLive extends Component {
   constructor() {
@@ -83,8 +83,10 @@ class SlideViewLive extends Component {
             : (<h1>Slides not found</h1>)
           }
           {currentSlide && slides && slides.length && deck &&
-            <footer>
-              { deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null }
+
+            <footer className={`footer-${liveOrPresenter}`}>
+              {!presenterView && deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null}
+              {presenterView && <ChatBox />}
               {!liveView &&
                 <div className="slide-nav">
                   {presenterView &&
@@ -103,6 +105,7 @@ class SlideViewLive extends Component {
                 </div>
               }
             </footer>
+
           }
         </div>
       </DocumentTitle>

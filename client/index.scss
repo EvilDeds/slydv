@@ -459,3 +459,14 @@ header.global {
 .user-home {
   margin-left: 20px;
 }
+
+//----------------CHatBox------------------------
+
+.slide-view-live {
+  .chat-box {
+    margin: 0 10px;
+    min-height: 7vh;
+    position: absolute;
+    width: 96.6vw;
+  }
+}
