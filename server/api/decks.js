@@ -2,15 +2,15 @@ const router = require('express').Router();
 const { Deck, Slide } = require('../db/models');
 
 router.get('/:deckId', (req, res, next) => {
-  Deck.findById(+req.params.deckId, { include: [Slide] })
+  Deck.findById(+req.params.deckId, { include: [Slide], order: [[Slide, 'positionInDeck']]  })
   .then(deck => {
     if(req.user.id === deck.userId || deck.viewable ){
       res.json(deck)
-	}else{
-     next(new Error('This deck is not for you!'))
-	}
+	  }else{
+      next(new Error('This deck is not for you!'))
+	  }
   })
-  .catch(next)
+  .catch(next);
 });
 
 router.get('/:deckId/slides', (req, res, next) => {
