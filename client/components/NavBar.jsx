@@ -6,16 +6,16 @@ import { logout } from '../store';
 
 const Navbar = (props) => {
   const { handleClick, isLoggedIn } = props;
+  const userId = props.user.id;
   return (
     <div className="nav-bar">
       <header className="global">
-        <h1><Link to="/home"><img src="/images/logo.png" className="nameplate-img" alt="slydv" width="50" /></Link> <Link to="/home" className="nameplate"><span>SLYDV</span></Link></h1>
+        <h1><Link to={`/users/${userId}/decks`}><img src="/images/logo.png" className="nameplate-img" alt="slydv" width="50" /></Link> <Link to={`/users/${userId}/decks`} className="nameplate"><span>SLYDV</span></Link></h1>
         <nav>
           {
             isLoggedIn
               ? <div className="isLoggedIn">
                 {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
                 <Link to={`/users/${props.user.id}/decks`}>My Decks</Link>
                 <Link to="/new-deck">Make a Deck</Link>
                 <a href="/logout" onClick={handleClick}>Logout</a>
