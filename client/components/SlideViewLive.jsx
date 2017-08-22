@@ -29,9 +29,6 @@ class SlideViewLive extends Component {
     if (nextProps.slides && nextProps.slides.length && (nextProps.slides !== this.props.slides)) {
       this.props.setSlide(nextProps.slides[0]);
     }
-    // if (nextProps.deck.id !== this.props.deck.id && this.props.liveOrPresenter !== 'static') {
-    //   socket.emit('join-room', nextProps.deck.id);
-    // }
   }
 
   componentWillUnmount() {
