@@ -430,6 +430,21 @@ header.global {
   }
 }
 
+// -------------------- Slide View Live --------------------
+.has-footer {
+  .slide-view-frame {
+    height: 91vh;
+  }
+
+  footer {
+    margin: 0 10px;
+    min-height: 7vh;
+    position: absolute;
+    width: 96.6vw;
+  }
+}
+
+// -------------------- Home --------------------
 .user-home {
   margin-left: 20px;
 }

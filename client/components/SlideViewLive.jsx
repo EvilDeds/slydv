@@ -46,6 +46,7 @@ class SlideViewLive extends Component {
     const { currentSlide, deck, slides, liveOrPresenter } = this.props;
     const presenterView = liveOrPresenter === 'presenter';
     // Pass presenterView to SlideViewFrame to tell it to render the presenter notes
+    const footerClass = deck.hasFooter ? 'has-footer' : null;
 
     return (
       <DocumentTitle
@@ -53,7 +54,7 @@ class SlideViewLive extends Component {
           ? `${deck.title}: Slide ${currentSlide.PositionInDeck} | SlyDv` || 'Slideshow | SlyDv'
           : 'SlyDv'}
       >
-        <div className="slide-view-live">
+        <div className={`slide-view-live ${footerClass}`}>
           {deck && deck.id && currentSlide && currentSlide.id
             ? (<SlideViewFrame
               singleSlide={currentSlide}
@@ -63,8 +64,8 @@ class SlideViewLive extends Component {
             : (<h1>Slides not found</h1>)
           }
           {currentSlide && slides && slides.length && deck &&
-            <footer >
-              <MarkdownFooter markdown={deck.footerText} />
+            <footer>
+              { deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null }
               <div className="slide-nav">
                 <button type="button" onClick={() => this.handleClick('prev')}>
                 &lt;{ currentSlide.positionInDeck === 1 ? 'EXIT' : 'PREV'}
