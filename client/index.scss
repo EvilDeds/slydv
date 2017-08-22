@@ -296,7 +296,7 @@ header.global{
   bottom: 0;
   left: 0;
   min-height: 30px;
-  padding: 1rem;
+  padding: 18px 36px;
   position: absolute;
   right: 0;
   text-align: right;
@@ -372,6 +372,7 @@ header.global{
 #main.slide-view-frame > section.slide-block{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 #speaker-note-header {
   font-size: 18px;
