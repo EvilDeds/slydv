@@ -9,9 +9,6 @@ const Deck = db.define('deck', {
   viewable: {
     type: Sequelize.BOOLEAN,
   },
-  chats: {
-    type: Sequelize.TEXT,
-  },
   theme: {
     type: Sequelize.ENUM,
     values: ['red', 'green', 'blue'],

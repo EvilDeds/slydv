@@ -13,6 +13,7 @@ import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store'
 class EditSlideForm extends Component {
   static propTypes = {
     deck: PropTypes.shape({
+      deckTitle: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       slides: PropTypes.arrayOf(PropTypes.shape()),
     }).isRequired,
@@ -130,6 +131,7 @@ class EditSlideForm extends Component {
   handleNewClick() {
     const position = this.props.deck.slides.length + 1;
     const deckId = this.props.deck.id;
+    // const deckTitle = this.props.deck.deckTitle;
     const newSlide = {
       deckId,
       title: '',
@@ -151,7 +153,7 @@ class EditSlideForm extends Component {
         <div className="edit-slide-form">
           {/* positionInDeck -----------------------------------------*/
             this.props.deck && this.props.deck.slides
-              ? <h2>{`Slide ${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
+              ? <h2><span className="header-label">Deck:</span> <span className="deck-title">{this.props.deck.deckTitle}</span><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
               : null
           }
 

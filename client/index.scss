@@ -388,6 +388,17 @@ header.global {
     font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
     max-width: 70em;
   }
+
+  .deck-title {
+    font-style: italic;
+  }
+
+  .header-label {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1pt;
+    color: #999;
+  }
 }
 
 // -------------------- New deck form --------------------

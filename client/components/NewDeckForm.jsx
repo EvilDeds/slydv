@@ -24,7 +24,6 @@ class NewDeckForm extends Component {
     super(props);
     this.state = {
       newDeck: {
-        chats: '',
         deckTitle: '',
         footerText: '',
         hasFooter: false,
