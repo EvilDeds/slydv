@@ -12,6 +12,7 @@ class UserDeckList extends Component {
 
   componentDidMount() {
     this.props.loadDecks(this.props.user.id);
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,7 +26,7 @@ class UserDeckList extends Component {
     return (
       <DocumentTitle title="My Decks | SlyDv">
         <div className="user-deck-list col-lg-9 offset-lg-3">
-          <h3>Check out your decks!</h3>
+          <h3>Welcome, {this.props.user.email}! Check out your decks!</h3>
           <hr />
           { decks.length ? (
             <ul>
