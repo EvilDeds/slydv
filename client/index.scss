@@ -424,6 +424,8 @@ header.global{
 
 // -------------------- Edit slide form --------------------
 .edit-slide-form {
+  padding-left: 20px;
+
   .ace_editor {
     border: 1px solid #ccc;
     font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
@@ -446,8 +448,4 @@ header.global{
     margin-right: 1em;
     margin-top: 3px;
   }
-}
-
-.nav-bar + div {
-  padding-left: 20px;
 }
