@@ -296,7 +296,7 @@ header.global{
   bottom: 0;
   left: 0;
   min-height: 30px;
-  padding: 1rem;
+  padding: 18px 36px;
   position: absolute;
   right: 0;
   text-align: right;
@@ -327,49 +327,52 @@ header.global{
 // ------------- End Flexbox Default Styles ------------
 
 // -------------------- Slide views --------------------
-.slide-view-frame {
-  .slide-block {
-    section {
-      background: #dd8;
-      border: 1px solid #cc3;
-      border-radius: 7pt;
-      flex: 3 1 60%;
-      margin: 4px;
-      order: 2;
-      padding: 5px;
-    }
+#main.slide-view-frame{
+  //for slideviewframe wrapper
+  height:98vh;
+  margin: 5px 10px 0px 8px;
+  padding:0px;
 
-    .mid-page {
-      align-self: flex-end;
-      height: 400px;
-    }
-  }
 }
 
-#main.slide-view-frame > section {
+#main.slide-view-frame > section{
   display: flex;
   flex-flow: column;
-}
+  border:1px solid #ccc;
+  background-color:#f0f0f3;
 
-#main.slide-view-frame > section > header {
-  order: 1;
 }
-
-#main.slide-view-frame > section > div {
-  display: flex;
-  flex-flow: row;
-  order: 2;
+#main.slide-view-frame > section > header{
+  border: 1px solid #e2e2e2;
+  background-color: #eee;
+  order:1;
+}
+#main.slide-view-frame > section > div{
+  display:flex;
+  flex-flow:row;
+  order:2;
 }
 
 #main.slide-view-frame > section > div > section {
-  background: #dd8;
-  border: 1px solid #cc3;
-  border-radius: 7pt;
-  flex: 3 1 60%;
   margin: 4px;
-  order: 2;
   padding: 5px;
+  border: 1px solid #e2e2e2;
+  border-radius: 7pt;
+  background: #eee;
+  flex: 3 1 60%;
+  order: 2;
+
 }
+
+#main.slide-view-frame > section > div > section.mid-page {
+  align-self: flex-end;
+  height: 400px;
+}
+
+#main.slide-view-frame > section.slide-block{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 
 #speaker-note-header {
   font-size: 18px;
@@ -377,50 +380,6 @@ header.global{
   padding-top: 2px;
   text-align: center;
 }
-
-//.slide-view-frame {
-//  .slide-block {
-//    .mid-page {
-//      align-self: flex-end;
-//      height: 400px;
-//    }
-//
-//    .columns-header {}
-//
-//    header,
-//    footer {
-//      background: #feb;
-//      border: 1px solid #eb5;
-//      border-radius: 7pt;
-//      height: 50px;
-//      margin: 4px;
-//      padding: 5px;
-//    }
-//  }
-//
-//  .slide-block {
-//    section {
-//      background: #dd8;
-//      border: 1px solid #cc3;
-//      border-radius: 7pt;
-//      flex: 3 1 60%;
-//      margin: 4px;
-//      order: 2;
-//      padding: 5px;
-//    }
-//  }
-//
-//  aside {
-//    background: #ccf;
-//    border: 1px solid #88b;
-//    border-radius: 7pt;
-//    flex: 1 6 20%;
-//    margin: 4px;
-//    min-width: 200px;
-//    order: 3;
-//    padding: 5px;
-//  }
-//}
 
 // -------------------- Edit slide form --------------------
 .edit-slide-form {
