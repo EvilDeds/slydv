@@ -7,6 +7,7 @@ import { MarkdownFooter } from './Markdown';
 import SlideViewFrame from './SlideViewFrame';
 import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
 import socket from '../socket';
+import ChatBox from './index';
 
 class SlideViewLive extends Component {
   constructor() {

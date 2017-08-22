@@ -42,7 +42,7 @@ class ChatBox extends Component {
     return (
       <div className="chat-box">
        {chat && chat.length ?
-        chat.map(message => <div key={ message.id }><span>{ message.user.email + " : " + message.message }</span></div>) :
+        chat.map(message => (<div key={ message.id }><span>{ message.user.email + " : " + message.message }</span></div>)) :
         <p>It's quiet in here, too quiet...</p>
        }
         <div className="dqpl-field-wrap">
