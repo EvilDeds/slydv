@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Slide } = require('../db/models');
+const { Slide, Deck } = require('../db/models');
 
 router.post('/', (req, res, next) => {
   Slide.create(req.body)
@@ -28,9 +28,28 @@ router.put('/:slideId', (req, res, next) => {
 });
 
 router.delete('/:slideId', (req, res, next) => {
-  Slide.destroy({ where: { id: req.params.slideId } })
-    .then(exSlide => res.json(exSlide))
-    .catch(next);
+  Slide.findById(req.params.slideId)
+  .then(currSlide => {
+      // console.log('deckId',currSlide.deckId);
+      // res.json(foundSlide)
+
+      Deck.findById(+currSlide.deckId, { include: [Slide], where: positionInDeck > currSlide.positionInDeck, order: [[Slide, 'positionInDeck']] })
+      .then(deck => {
+        console.log('deck',deck.slides);
+
+
+      })
+      .catch(next);
+
+    }
+
+  )
+  .catch(next);
+
+
+  // Slide.destroy({ where: { id: req.params.slideId } })
+  //   .then(exSlide => res.json(exSlide))
+  //   .catch(next);
 });
 
 module.exports = router;
