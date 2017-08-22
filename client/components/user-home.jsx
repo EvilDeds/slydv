@@ -10,7 +10,7 @@ export const UserHome = (props) => {
 
   return (
     <DocumentTitle title="Home | SlyDv">
-      <div>
+      <div className="user-home">
         <h3>Welcome, {email}</h3>
       </div>
     </DocumentTitle>
