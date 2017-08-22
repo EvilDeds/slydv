@@ -41,7 +41,6 @@ export default function SlideViewFrame(props) {
       <section className="slide-block">
         { template === 'columns-header' || template === 'repl' ? <MarkdownHeader markdown={title} /> : null }
         { slideBody(template) }
-        { hasFooter && footerText ? <MarkdownFooter markdown={footerText} /> : null }
         {/* Slide numbers and next/previous links should maybe be handled
           in a separate component. I don't think they should be optional,
           but they _could_ be… */}
