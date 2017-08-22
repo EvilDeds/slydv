@@ -2,7 +2,7 @@ body {
   font-family: sans-serif;
 
   a {
-    color: #4ecdc4 !important;
+    color: #4ecdc4;
     text-decoration: none;
     //black
     //color: #fff !important;
@@ -83,18 +83,18 @@ body {
   padding: 5px;
 }
 
- #main > aside {
-   background: #ccf;
-   border: 1px solid #88b;
-   border-radius: 7pt;
-   flex: 1 6 20%;
-   margin: 4px;
-   min-width: 200px;
-   order: 3;
-   padding: 5px;
- }
+#main > aside {
+  background: #ccf;
+  border: 1px solid #88b;
+  border-radius: 7pt;
+  flex: 1 6 20%;
+  margin: 4px;
+  min-width: 200px;
+  order: 3;
+  padding: 5px;
+}
 
-#main > footer{
+#main > footer {
   display: block;
   order: 3;
 }
@@ -111,7 +111,7 @@ footer {
   padding: 5px;
 }
 
-header.global{
+header.global {
   align-items: center;
   display: flex;
   flex-flow: row;
@@ -119,41 +119,39 @@ header.global{
   min-height: 80px;
 }
 
-header.global > h1{
+header.global > h1 {
   display: inline-block;
   width: 20%;
 }
 
-header.global > h1 > img{
+header.global > h1 > img {
   vertical-align: middle;
 }
 
-header.global > nav{
+header.global > nav {
   display: inline-block;
   text-align: right;
-  width: 40%;
+  width: 50%;
 }
 
 
 //LANDING SAMPLES
 
-#main.landing{
+#main.landing {
   flex-flow: column;
   height: 84vh;
 }
 
-#main.landing > section{
+#main.landing > section {
   //background-color:transparent;
   text-align: center;
 }
 
-#main.landing > footer{
+#main.landing > footer {
   //background-color:transparent;
   order: 3;
   text-align: center;
 }
-
-
 
 //BLACK SLICK
 
@@ -171,13 +169,12 @@ header.global > nav{
 //  justify-content:space-between;
 //}
 
-#main.landing2{
+#main.landing2 {
   flex-flow: column;
   height: 88vh;
 }
 
-#main.landing2 > header {
-}
+#main.landing2 > header {}
 
 #main.landing2 > section {
   background-color: #111;
@@ -193,24 +190,25 @@ header.global > nav{
   text-align: center;
 }
 
-#main.landing2 > section > h1{
+#main.landing2 > section > h1 {
   color: #696a6d;
   font-family: "Raleway", Arial, sans-serif;
   font-size: 36px;
   letter-spacing: 4px;
 }
 
-#main.landing2 > section > h1 > img{
+#main.landing2 > section > h1 > img {
   vertical-align: middle;
 }
-#main.landing2 > section > h2{
+
+#main.landing2 > section > h2 {
   color: #999;
   font-family: "Raleway", sans-serif;
   font-size: 30px;
   font-weight: 400;
 }
 
-#main.landing2 > footer{
+#main.landing2 > footer {
   background-color: #000;
   border: 0;
   border-radius: 0pt;
@@ -223,7 +221,7 @@ header.global > nav{
 
 
 //MINT
-header.global{
+header.global {
   align-items: center;
   background-color: #30333A;
   border: none;
@@ -236,15 +234,14 @@ header.global{
   padding-left: 20px;
 }
 
-#main.landing3{
+#main.landing3 {
   flex-flow: column;
   height: 88vh;
 }
 
-#main.landing3 > header {
-}
+#main.landing3 > header {}
 
-#main.landing3 > section{
+#main.landing3 > section {
   background-color: #111;
   background-image: url('/images/bg_dark.png');
   background-repeat: repeat;
@@ -259,25 +256,25 @@ header.global{
   text-align: center;
 }
 
-#main.landing3 > section > h1{
+#main.landing3 > section > h1 {
   color: #696a6d;
   font-family: "Raleway", Arial, sans-serif;
   font-size: 36px;
   letter-spacing: 4px;
 }
 
-#main.landing3 > section > h1 > img{
+#main.landing3 > section > h1 > img {
   vertical-align: middle;
 }
 
-#main.landing3 > section > h2{
+#main.landing3 > section > h2 {
   color: #999;
   font-family: "Raleway", sans-serif;
   font-size: 30px;
   font-weight: 400;
 }
 
-#main.landing3 > footer{
+#main.landing3 > footer {
   background-color: transparent;
   border: 0;
   border-radius: 0;
@@ -296,7 +293,7 @@ header.global{
   bottom: 0;
   left: 0;
   min-height: 30px;
-  padding: 1rem;
+  padding: 18px 36px;
   position: absolute;
   right: 0;
   text-align: right;
@@ -314,7 +311,9 @@ header.global{
     flex-direction: column;
   }
 
-  #main > section, #main > nav, #main > aside {
+  #main > section,
+  #main > nav,
+  #main > aside {
     // Return them to document order
     order: 0;
   }
@@ -327,31 +326,23 @@ header.global{
 // ------------- End Flexbox Default Styles ------------
 
 // -------------------- Slide views --------------------
-.slide-view-frame {
-  .slide-block {
-    section {
-      background: #dd8;
-      border: 1px solid #cc3;
-      border-radius: 7pt;
-      flex: 3 1 60%;
-      margin: 4px;
-      order: 2;
-      padding: 5px;
-    }
-
-    .mid-page {
-      align-self: flex-end;
-      height: 400px;
-    }
-  }
+#main.slide-view-frame {
+  //for slideviewframe wrapper
+  height: 98vh;
+  margin: 5px 10px 0px 8px;
+  padding: 0px;
 }
 
 #main.slide-view-frame > section {
   display: flex;
   flex-flow: column;
+  border: 1px solid #ccc;
+  background-color: #f0f0f3;
 }
 
 #main.slide-view-frame > section > header {
+  border: 1px solid #e2e2e2;
+  background-color: #eee;
   order: 1;
 }
 
@@ -362,14 +353,24 @@ header.global{
 }
 
 #main.slide-view-frame > section > div > section {
-  background: #dd8;
-  border: 1px solid #cc3;
-  border-radius: 7pt;
-  flex: 3 1 60%;
   margin: 4px;
-  order: 2;
   padding: 5px;
+  border: 1px solid #e2e2e2;
+  border-radius: 7pt;
+  background: #eee;
+  flex: 3 1 60%;
+  order: 2;
 }
+
+#main.slide-view-frame > section > div > section.mid-page {
+  align-self: flex-end;
+  height: 400px;
+}
+
+#main.slide-view-frame > section.slide-block {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 
 #speaker-note-header {
   font-size: 18px;
@@ -378,49 +379,16 @@ header.global{
   text-align: center;
 }
 
-//.slide-view-frame {
-//  .slide-block {
-//    .mid-page {
-//      align-self: flex-end;
-//      height: 400px;
-//    }
-//
-//    .columns-header {}
-//
-//    header,
-//    footer {
-//      background: #feb;
-//      border: 1px solid #eb5;
-//      border-radius: 7pt;
-//      height: 50px;
-//      margin: 4px;
-//      padding: 5px;
-//    }
-//  }
-//
-//  .slide-block {
-//    section {
-//      background: #dd8;
-//      border: 1px solid #cc3;
-//      border-radius: 7pt;
-//      flex: 3 1 60%;
-//      margin: 4px;
-//      order: 2;
-//      padding: 5px;
-//    }
-//  }
-//
-//  aside {
-//    background: #ccf;
-//    border: 1px solid #88b;
-//    border-radius: 7pt;
-//    flex: 1 6 20%;
-//    margin: 4px;
-//    min-width: 200px;
-//    order: 3;
-//    padding: 5px;
-//  }
-//}
+// -------------------- Edit slide form --------------------
+.edit-slide-form {
+  margin-left: 20px;
+
+  .ace_editor {
+    border: 1px solid #ccc;
+    font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
+    max-width: 70em;
+  }
+}
 
 // -------------------- New deck form --------------------
 .new-deck-form {
@@ -437,4 +405,29 @@ header.global{
     margin-right: 1em;
     margin-top: 3px;
   }
+}
+
+// -------------------- Navbar --------------------
+.nav-bar {
+  .nameplate-img {
+    vertical-align: middle;
+  }
+
+  .nameplate {
+    color: #666;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+    padding: 18px 0;
+    text-decoration: none;
+
+    span {
+      padding-bottom: 5px;
+      vertical-align: middle;
+    }
+  }
+}
+
+.user-home {
+  margin-left: 20px;
 }

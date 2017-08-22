@@ -1,5 +1,10 @@
+import brace from 'brace';
+import 'brace/ext/language_tools';
+import 'brace/mode/javascript';
+import 'brace/theme/github';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import AceEditor from 'react-ace';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -9,7 +14,7 @@ class EditSlideForm extends Component {
   static propTypes = {
     deck: PropTypes.shape({
       id: PropTypes.number.isRequired,
-      slides: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+      slides: PropTypes.arrayOf(PropTypes.shape()),
     }).isRequired,
     deckLength: PropTypes.number,
     getDeck: PropTypes.func.isRequired,
@@ -35,6 +40,9 @@ class EditSlideForm extends Component {
   };
 
   static defaultProps = {
+    deck: {
+      slides: [],
+    },
     deckLength: 1,
     saved: false,
     singleSlide: {
@@ -71,6 +79,7 @@ class EditSlideForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleReplChange = this.handleReplChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToastClick = this.handleToastClick.bind(this);
     this.handleNewClick = this.handleNewClick.bind(this);
@@ -81,7 +90,7 @@ class EditSlideForm extends Component {
       .then((newSingleSlideAction) => {
         this.setState(Object.assign({}, this.state,
           { singleSlide: newSingleSlideAction.singleSlide }));
-        console.log('single slide', newSingleSlideAction.singleSlide);
+        // console.log('single slide', newSingleSlideAction.singleSlide);
         return this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
       });
   }
@@ -103,10 +112,15 @@ class EditSlideForm extends Component {
     this.setState(this.state);
   }
 
+  handleReplChange(evt) {
+    this.state.singleSlide.codeText = evt;
+    this.setState(this.state);
+  }
+
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
-      .then(returnedUpdateSlideAction => this.setState({ saved: true }));
+      .then(() => this.setState({ saved: true }));
   }
 
   handleToastClick() {
@@ -139,8 +153,7 @@ class EditSlideForm extends Component {
         <div className="edit-slide-form">
           {/* positionInDeck -----------------------------------------*/
             this.props.deck && this.props.deck.slides
-              ? <h2>Slide {this.state.singleSlide.positionInDeck} of
-                {this.props.deck.slides.length}</h2>
+              ? <h2>{`Slide ${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
               : null
           }
 
@@ -201,7 +214,29 @@ class EditSlideForm extends Component {
             { this.state.singleSlide.template === 'repl' ? (
               <div className="dqpl-field-wrap">
                 <label className="dqpl-label" htmlFor="codeText" id="codeText-label">Code</label>
-                <textarea className="dqpl-textarea" id="codeText" value={this.state.singleSlide.codeText} onChange={this.handleChange} aria-labelledby="codeText-label-label" />
+                <AceEditor
+                  aria-labelledby="codeText-label"
+                  editorProps={{
+                    $blockScrolling: true,
+                  }}
+                  fontSize={12}
+                  highlightActiveLine
+                  mode="javascript"
+                  name="codeText"
+                  onChange={this.handleReplChange}
+                  setOptions={{
+                    enableBasicAutocompletion: false,
+                    enableLiveAutocompletion: true,
+                    showLineNumbers: true,
+                    tabSize: 2,
+                    showInvisibles: true,
+                  }}
+                  theme="github"
+                  value={`${this.state.singleSlide.codeText}`}
+                  width="100%"
+                  height="45vh"
+                  wrapEnabled
+                />
               </div>
             ) : null }
 

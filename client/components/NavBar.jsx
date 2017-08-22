@@ -9,7 +9,7 @@ const Navbar = (props) => {
   return (
     <div className="nav-bar">
       <header className="global">
-        <h1><img src="images/logo.png" alt="slydv" width="50" /> SLYDV</h1>
+        <h1><Link to="/home"><img src="/images/logo.png" className="nameplate-img" alt="slydv" width="50" /></Link> <Link to="/home" className="nameplate"><span>SLYDV</span></Link></h1>
         <nav>
           {
             isLoggedIn
