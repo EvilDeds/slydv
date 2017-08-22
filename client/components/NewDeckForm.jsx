@@ -28,7 +28,7 @@ class NewDeckForm extends Component {
         chats: '',
         deckTitle: '',
         hasFooter: false,
-        theme: '',
+        theme: 'red',
         viewable: false,
       },
     };
