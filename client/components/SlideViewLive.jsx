@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
+import { MarkdownFooter } from './Markdown';
 import SlideViewFrame from './SlideViewFrame';
 import { getSingleSlide, fetchDeck, viewNavBar } from '../store';
 
@@ -45,6 +46,7 @@ class SlideViewLive extends Component {
     const { currentSlide, deck, slides, liveOrPresenter } = this.props;
     const presenterView = liveOrPresenter === 'presenter';
     // Pass presenterView to SlideViewFrame to tell it to render the presenter notes
+    const footerClass = deck.hasFooter ? 'has-footer' : null;
 
     return (
       <DocumentTitle
@@ -52,7 +54,7 @@ class SlideViewLive extends Component {
           ? `${deck.title}: Slide ${currentSlide.PositionInDeck} | SlyDv` || 'Slideshow | SlyDv'
           : 'SlyDv'}
       >
-        <div className="slide-view-live">
+        <div className={`slide-view-live ${footerClass}`}>
           {deck && deck.id && currentSlide && currentSlide.id
             ? (<SlideViewFrame
               singleSlide={currentSlide}
@@ -61,15 +63,18 @@ class SlideViewLive extends Component {
             />)
             : (<h1>Slides not found</h1>)
           }
-          {currentSlide && slides && slides.length &&
-            <footer className="slide-nav">
-              <button type="button" onClick={() => this.handleClick('prev')}>
-              &lt;{ currentSlide.positionInDeck === 1 ? 'EXIT' : 'PREV'}
-              </button>
-              {'   '}
-              <button type="button" onClick={() => this.handleClick('next')}>
-                { currentSlide.positionInDeck === slides.length ? 'EXIT' : 'NEXT'}&gt;
-              </button>
+          {currentSlide && slides && slides.length && deck &&
+            <footer>
+              { deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null }
+              <div className="slide-nav">
+                <button type="button" onClick={() => this.handleClick('prev')}>
+                &lt;{ currentSlide.positionInDeck === 1 ? 'EXIT' : 'PREV'}
+                </button>
+                {'   '}
+                <button type="button" onClick={() => this.handleClick('next')}>
+                  { currentSlide.positionInDeck === slides.length ? 'EXIT' : 'NEXT'}&gt;
+                </button>
+              </div>
             </footer>
           }
         </div>
@@ -107,6 +112,7 @@ SlideViewLive.propTypes = {
   currentSlide: PropTypes.shape().isRequired,
   deck: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    footerText: PropTypes.string,
   }).isRequired,
   history: PropTypes.shape().isRequired,
   liveOrPresenter: PropTypes.string.isRequired,
@@ -122,5 +128,8 @@ SlideViewLive.propTypes = {
 };
 
 SlideViewLive.defaultProps = {
+  deck: {
+    footerText: '',
+  },
   slides: [],
 };
