@@ -21,6 +21,10 @@ const Deck = db.define('deck', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  footerText: {
+    type: Sequelize.TEXT,
+    defaultValue: '',
+  },
 });
 
 module.exports = Deck;
