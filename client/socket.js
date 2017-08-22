@@ -9,6 +9,11 @@ socket.on('connect', () => {
   socket.on('new-message', (message) => {
     store.dispatch(getNewMessage(message));
   });
+  // socket.on('join-room', (deckId) => {
+  // 	socket.room = deckId
+  // 	socket.join(room);
+  // 	console.log(socket.room)
+  // });
 });
 
 export default socket;

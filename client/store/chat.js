@@ -7,6 +7,7 @@ const initialMessages = [];
 const GET_MESSAGES = 'GET_MESSAGES';
 const GET_NEW_MESSAGE = 'GET_NEW_MESSAGE';
 
+
 // action creators
 const getMessages = messages => ({ type: GET_MESSAGES, messages });
 export const getNewMessage = message => ({ type: GET_NEW_MESSAGE, message });

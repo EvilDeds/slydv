@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { fetchDeck, fetchSlideList, fetchMessages, postMessage } from '../store';
+import socket from '../socket';
 
 
 class ChatBox extends Component {
@@ -26,6 +27,7 @@ class ChatBox extends Component {
     const deckId = +this.props.match.params.deckId;
     this.props.loadDeck(deckId);
     this.props.loadChats(deckId);
+    socket.emit('join-room', deckId);
   }
 
   // componentWillReceiveProps(nextProps){
