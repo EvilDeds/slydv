@@ -18,7 +18,11 @@ router.put('/:slideId', (req, res, next) => {
   Slide.findById(req.params.slideId)
     .then(slideToUpdate => {
       // console.log('slideToUpdate:', slideToUpdate);
-      return slideToUpdate.update(req.body);
+      if (slideToUpdate.userId === req.user.id){
+        return slideToUpdate.update(req.body);
+      }else{
+        next(new Error('you cannot update this slide'))
+      }
     })
     .then(updatedSlide => {
       // console.log('updatedSlide:', updatedSlide);
@@ -28,9 +32,16 @@ router.put('/:slideId', (req, res, next) => {
 });
 
 router.delete('/:slideId', (req, res, next) => {
-  Slide.destroy({ where: { id: req.params.slideId } })
-    .then(exSlide => res.json(exSlide))
-    .catch(next);
+  Slide.findById(req.params.slideId)
+  .then(slide => {
+    if(slide.userId === req.user.id){
+      return Slide.destroy({where: { id: req.params.slideId } })
+    }else{
+      next(new Error('you cannot delete this slide'))
+    }
+  })
+  .then(exSlide => res.json(exSlide) )
+  .catch(next);
 });
 
 module.exports = router;

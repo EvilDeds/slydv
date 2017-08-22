@@ -130,8 +130,10 @@ class EditSlideForm extends Component {
   handleNewClick() {
     const position = this.props.deck.slides.length + 1;
     const deckId = this.props.deck.id;
+    const userId = this.props.user.id
     const newSlide = {
       deckId,
+      userId,
       title: '',
       firstText: '',
       secondText: '',
@@ -258,6 +260,7 @@ const mapState = state => ({
   deck: state.deck,
   singleSlide: state.slide.singleSlide,
   deckLength: state.slide.slideList.length,
+  user: state.user
 });
 
 const mapDispatch = (dispatch, ownProps) => ({

@@ -44,9 +44,11 @@ class NewDeckForm extends Component {
   }
 
   handleSubmit() {
+    let userId = this.props.user.id
     this.props.sendDeck(Number(this.props.user.id), this.state.newDeck)
       .then((action) => {
         const firstSlide = {
+          userId: userId, 
           deckId: action.deck.id,
           title: '',
           firstText: '',
