@@ -28,8 +28,8 @@ const defaultSlide=[
   { title: 'Slide 1', firstText: ' My first text', secondText: 'My second text', template: 'mid-page', codeText: 'console.log(\'hi\');', positionInDeck: 1, presenterNotes: 'Presenter Notes', deckId: '2' },
   { title: 'Slide 2', firstText: ' My first text', secondText: 'My second text', template: 'single-pane', codeText: 'console.log(\'hi\');', positionInDeck: 2, presenterNotes: 'Presenter Notes', deckId: '2' },
   { title: 'Slide 3', firstText: ' My first text', secondText: 'My second text', template: 'columns', codeText: 'console.log(\'hi\');', positionInDeck: 3, presenterNotes: 'Presenter Notes', deckId: '2' },
-  { title: 'Slide 4', firstText: ' My first text', secondText: 'My second text', template: 'columns-header', codeText: 'console.log(\'hi\');', positionInDeck: 1, presenterNotes: 'Presenter Notes', deckId: '2' },
-  { title: 'Slide 5', firstText: ' My first text', secondText: 'My second text', template: 'repl', codeText: 'console.log(\'hi\');', positionInDeck: 4, presenterNotes: 'Presenter Notes', deckId: '2' },
+  { title: 'Slide 4', firstText: ' My first text', secondText: 'My second text', template: 'columns-header', codeText: 'console.log(\'hi\');', positionInDeck: 4, presenterNotes: 'Presenter Notes', deckId: '2' },
+  { title: 'Slide 5', firstText: ' My first text', secondText: 'My second text', template: 'repl', codeText: 'console.log(\'hi\');', positionInDeck: 5, presenterNotes: 'Presenter Notes', deckId: '2' },
 ];
 
 
