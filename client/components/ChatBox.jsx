@@ -36,12 +36,11 @@ class ChatBox extends Component {
 
   render(){
     let chat = this.props.chat;
-    let email = this.props.user.email;
     let deck = this.props.deck;
     return (
       <div className="chat-box">
        {chat && chat.length ?
-        chat.map(message => <div key={ message.id }><span>{ email + " : " + message.message }</span></div>) :
+        chat.map(message => <div key={ message.id }><span>{ message.user.email + " : " + message.message }</span></div>) :
         <p>It's quiet in here, too quiet...</p>
        }
         <div className="dqpl-field-wrap">

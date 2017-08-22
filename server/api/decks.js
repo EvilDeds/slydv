@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Deck, Slide, Chat } = require('../db/models');
+const { Deck, Slide, Chat, User } = require('../db/models');
 
 router.get('/:deckId', (req, res, next) => {
   Deck.findById(+req.params.deckId, { include: [Slide] })
@@ -8,14 +8,17 @@ router.get('/:deckId', (req, res, next) => {
 });
 
 router.get('/:deckId/chats', (req, res, next) => {
-  Chat.findAll({ where: { deckId: +req.params.deckId } })
+  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}] })
     .then(chats => res.json(chats))
     .catch(next);
 });
 
 router.post('/:deckId/chats', (req, res, next) => {
   Chat.create(req.body)
-  .then( (message) => res.json(message))
+  .then( (message) => {
+    return Chat.findById(message.id, {include: [ { model: User, attributes: [ 'email' ]} ]})
+  })
+  .then(messageWithUser => res.json(messageWithUser))
   .catch(next);
 })
 
@@ -29,3 +32,5 @@ router.get('/:deckId/slides', (req, res, next) => {
 });
 
 module.exports = router;
+
+
