@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Deck, Slide, Chat, User } = require('../db/models');
 
 router.get('/:deckId', (req, res, next) => {
-  Deck.findById(+req.params.deckId, { include: [Slide] })
+  Deck.findById(+req.params.deckId, { include: [Slide], order: [[Slide, 'positionInDeck']] })
     .then(deck => res.json(deck))
     .catch(next);
 });

@@ -3,7 +3,9 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+export { default as DeckOverview } from './DeckOverview';
 export { default as EditSlideForm } from './EditSlideForm';
+export { default as Landing } from './Landing';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './main';
 export { default as ChatBox } from './ChatBox';
@@ -16,8 +18,6 @@ export { default as SlideView3 } from './SlideView3';
 export { default as SlideView4 } from './SlideView4';
 export { default as SlideView5 } from './SlideView5';
 export { default as SlideViewFrame } from './SlideViewFrame';
+export { default as SlideViewLive } from './SlideViewLive';
 export { default as UserDeckList } from './UserDeckList';
 export { default as UserHome } from './user-home';
-export { default as Landing } from './Landing';
-export { default as DeckOverview } from './DeckOverview';
-export { default as SlideViewLive } from './SlideViewLive';

@@ -1,5 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 
 /* -------------- COMPONENT -------------- */
@@ -8,9 +9,11 @@ export const UserHome = (props) => {
   const { email } = props;
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
+    <DocumentTitle title="Home | SlyDv">
+      <div className="user-home">
+        <h3>Welcome, {email}</h3>
+      </div>
+    </DocumentTitle>
   );
 };
 

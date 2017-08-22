@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { withRouter,Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { fetchDeck, fetchSlideList, getSingleSlide, createSlide } from '../store';
 
 class DeckOverview extends Component {
@@ -16,7 +18,7 @@ class DeckOverview extends Component {
     this.props.loadDeck(deckId);
     if (this.props.deck && slides && slides.length &&
         (slides[0].deckId !== this.props.currentSlide.deckId)) {
-        this.props.setSlide(slides[0]);
+      this.props.setSlide(slides[0]);
     }
   }
 
@@ -24,6 +26,26 @@ class DeckOverview extends Component {
     if (nextProps.deck && nextProps.deck.slides && nextProps.deck.slides.length) {
       this.props.setSlide(nextProps.deck.slides[0]);
     }
+  }
+
+  handleClick(slide) {
+    this.props.setSlide(slide);
+  }
+
+  newSlideClick() {
+    const position = this.props.deck.slides.length + 1;
+    const deckId = this.props.deck.id;
+    const newSlide = {
+      codeText: '',
+      deckId,
+      firstText: '',
+      positionInDeck: position,
+      presenterNotes: '',
+      secondText: '',
+      template: 'single-pane',
+      title: '',
+    };
+    this.props.sendSlide(newSlide);
   }
 
   /* Need to add in slide number and ability to change where it is in the queue
@@ -34,10 +56,10 @@ class DeckOverview extends Component {
     const { deck } = this.props;
     const { slides } = deck;
     return (
-      <div>
+      <DocumentTitle title="Deck Overview | SlyDv">
         { deck.id
           ? (
-            <div>
+            <div className="deck-overview">
               <h1>
                 { `${deck.deckTitle} | ` }
                 <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
@@ -70,27 +92,8 @@ class DeckOverview extends Component {
             <h1>Deck not found</h1>
           )
         }
-      </div>
+      </DocumentTitle>
     );
-  }
-
-  handleClick(slide) {
-    this.props.setSlide(slide);
-  }
-  newSlideClick(slide){
-    const position = this.props.deck.slides.length + 1
-    const deckId = this.props.deck.id
-    const newSlide = {
-      deckId: deckId, 
-      title: '',
-      firstText: '',
-      secondText: '',
-      template: 'single-pane',
-      codeText: '',
-      positionInDeck: position,
-      presenterNotes: ''
-    }
-    this.props.sendSlide(newSlide)
   }
 }
 
@@ -110,7 +113,37 @@ const mapDispatch = (dispatch, ownProps) => ({
   setSlide(slide) {
     dispatch(getSingleSlide(slide));
   },
-  sendSlide(slide){ return dispatch(createSlide(slide, ownProps.history))}
+  sendSlide(slide) { return dispatch(createSlide(slide, ownProps.history)); },
 });
 
 export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
+
+/* -------------- PROP TYPES -------------- */
+
+DeckOverview.propTypes = {
+  currentSlide: PropTypes.shape({
+    deckId: PropTypes.number,
+  }).isRequired,
+  deck: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    slides: PropTypes.arrayOf(PropTypes.shape()),
+  }).isRequired,
+  loadDeck: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      deckId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  sendSlide: PropTypes.func.isRequired,
+  setSlide: PropTypes.func.isRequired,
+};
+
+DeckOverview.defaultProps = {
+  currentSlide: {
+    deckId: null,
+  },
+  deck: {
+    slides: [],
+  },
+};
+

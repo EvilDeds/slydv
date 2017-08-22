@@ -2,11 +2,11 @@ body {
   font-family: sans-serif;
 
   a {
+    color: #4ecdc4;
     text-decoration: none;
     //black
-    //color:#fff !important;
+    //color: #fff !important;
     //mint
-    color:#4ecdc4 !important;
   }
 
   label {
@@ -18,138 +18,140 @@ body {
     margin: 1em;
   }
 
-  form div {
-    display: inline-block;
-    margin: 1em;
-  }
-
-  .markdown {
-    p:first-child {
-      margin-top: 0em;
-    }
-    p:last-child {
-      margin-bottom: 0em;
-    }
-  }
+  // I couldn't find whatever this style is supposed to be applying to, but it's fucking up all the other forms. If you actually need this style somewhere, stick a class name on it.
+  // form {
+  //   div {
+  //     display: inline-block;
+  //     margin: 1em;
+  //   }
+  // }
 
   .deckview-slide-container {
     button {
       display: inline-block;
     }
   }
+
+  .markdown {
+    p:first-child {
+      margin-top: 0;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 
-/* --------------- Flexbox Default Styles -------------- */
+// --------------- Flexbox Default Styles --------------
 
-//body {
-//  font: 24px Helvetica;
-//  background: #333333;
-//}
+// body {
+//   font: 24px Helvetica;
+//   background: #333333;
+// }
 
-//parent
+// parent
 #main {
-  //min-height: 575px;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-flow: row;
+  height: 100vh;
+  margin: 0;
+  // min-height: 575px;
+  padding: 0;
 }
 
 //children
 #main > section {
-  margin: 4px;
-  padding: 5px;
+  background: #dd8;
   border: 1px solid #cc3;
   border-radius: 7pt;
-  background: #dd8;
   flex: 3 1 60%;
+  margin: 4px;
   order: 2;
+  padding: 5px;
 }
 
 #main > nav {
-  margin: 4px;
-  padding: 5px;
+  background: #ccf;
   border: 1px solid #88b;
   border-radius: 7pt;
-  background: #ccf;
   flex: 1 6 20%;
-  min-width:200px;
+  margin: 4px;
+  min-width: 200px;
   order: 1;
+  padding: 5px;
 }
 
- #main > aside {
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #88b;
-   border-radius: 7pt;
-   background: #ccf;
-   flex: 1 6 20%;
-   min-width:200px;
-   order: 3;
- }
+#main > aside {
+  background: #ccf;
+  border: 1px solid #88b;
+  border-radius: 7pt;
+  flex: 1 6 20%;
+  margin: 4px;
+  min-width: 200px;
+  order: 3;
+  padding: 5px;
+}
 
-#main > footer{
-  display:block;
+#main > footer {
+  display: block;
   order: 3;
 }
 
 
- header,
- footer {
-   display: block;
-   margin: 4px;
-   padding: 5px;
-   min-height: 100px;
-   border: 1px solid #eb5;
-   border-radius: 7pt;
-   background: #feb;
- }
+header,
+footer {
+  background: #feb;
+  border: 1px solid #eb5;
+  border-radius: 7pt;
+  display: block;
+  margin: 4px;
+  min-height: 100px;
+  padding: 5px;
+}
 
-header.global{
-  min-height: 80px;
-  display:flex;
-  flex-flow:row;
+header.global {
   align-items: center;
-  justify-content:space-between;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  min-height: 80px;
 }
 
-header.global > h1{
-  display:inline-block;
-  width:20%;
+header.global > h1 {
+  display: inline-block;
+  width: 20%;
 }
 
-header.global > h1 > img{
+header.global > h1 > img {
   vertical-align: middle;
 }
 
-header.global > nav{
-  display:inline-block;
-  width:40%;
-  text-align:right;
+header.global > nav {
+  display: inline-block;
+  text-align: right;
+  width: 50%;
 }
 
 
 //LANDING SAMPLES
 
-#main.landing{
-  height:84vh;
-  flex-flow:column;
+#main.landing {
+  flex-flow: column;
+  height: 84vh;
 }
 
-#main.landing > section{
+#main.landing > section {
   //background-color:transparent;
-  text-align:center;
+  text-align: center;
 }
 
-#main.landing > footer{
+#main.landing > footer {
   //background-color:transparent;
-  text-align:center;
-  order:3;
+  order: 3;
+  text-align: center;
 }
-
-
 
 //BLACK SLICK
 
@@ -159,163 +161,160 @@ header.global > nav{
 //  flex-flow:row;
 //  align-items: center;
 //  background-color:#000;
-//  margin:0px;
+//  margin: 0;
 //  padding-left:20px;
 //  border:none;
-//  border-radius:0px;
+//  border-radius: 0;
 //  border-top:3px solid #6986f4;
 //  justify-content:space-between;
 //}
 
-#main.landing2{
-  height:88vh;
-  flex-flow:column;
-
-}
-#main.landing2 > header{
-
+#main.landing2 {
+  flex-flow: column;
+  height: 88vh;
 }
 
-#main.landing2 > section{
-  background-color:#111111;
-  background-image: url("/styles/flexor/img/backgrounds/buildings.png");
-  margin:0px;
-  border-radius: 0pt;
-  border:0px;
-  border-top:2px solid #2d562f;
-  text-align:center;
-  color:#fff;
+#main.landing2 > header {}
 
-  display:flex;
+#main.landing2 > section {
+  background-color: #111;
+  background-image: url('/styles/flexor/img/backgrounds/buildings.png');
+  border: 0;
+  border-radius: 0;
+  border-top: 2px solid #2d562f;
+  color: #fff;
+  display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0;
+  text-align: center;
 }
 
-#main.landing2 > section > h1{
-  font-family:"Raleway", Arial, sans-serif;
-  letter-spacing: 4px;
-  font-size:36px;
+#main.landing2 > section > h1 {
   color: #696a6d;
-}
-#main.landing2 > section > h1 > img{
-  vertical-align:middle;
-}
-#main.landing2 > section > h2{
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  font-size:30px;
-  color:#999;
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 36px;
+  letter-spacing: 4px;
 }
 
-#main.landing2 > footer{
+#main.landing2 > section > h1 > img {
+  vertical-align: middle;
+}
+
+#main.landing2 > section > h2 {
+  color: #999;
+  font-family: "Raleway", sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+#main.landing2 > footer {
   background-color: #000;
-  text-align:center;
-  margin:0px;
-  padding-top:10px;
+  border: 0;
   border-radius: 0pt;
-  border:0px;
-  border-top:2px solid #632624;
-  order:3;
+  border-top: 2px solid #632624;
+  margin: 0;
+  order: 3;
+  padding-top: 10px;
+  text-align: center;
 }
 
 
 //MINT
-header.global{
-  min-height: 40px;
-  display:flex;
-  flex-flow:row;
+header.global {
   align-items: center;
-  background-color:#30333A;
-  margin:0px;
-  padding-left:20px;
-  border:none;
-  border-radius:0px;
-  justify-content:space-between;
+  background-color: #30333A;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 20px;
 }
 
-#main.landing3{
-  height:88vh;
-  flex-flow:column;
-
+#main.landing3 {
+  flex-flow: column;
+  height: 88vh;
 }
 
-#main.landing3 > header{
+#main.landing3 > header {}
 
-}
-
-#main.landing3 > section{
-  background-color:#111111;
-  background-image: url("/images/bg_dark.png");
+#main.landing3 > section {
+  background-color: #111;
+  background-image: url('/images/bg_dark.png');
   background-repeat: repeat;
-  margin:0px;
-  border-radius: 0pt;
-  border:0px;
-  border-top:10px solid #4ecdc4;
-  text-align:center;
-  color:#fff;
-
-  display:flex;
+  border: 0;
+  border-radius: 0;
+  border-top: 10px solid #4ecdc4;
+  color: #fff;
+  display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0;
+  text-align: center;
 }
 
-#main.landing3 > section > h1{
-  font-family:"Raleway", Arial, sans-serif;
-  letter-spacing: 4px;
-  font-size:36px;
+#main.landing3 > section > h1 {
   color: #696a6d;
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 36px;
+  letter-spacing: 4px;
 }
-#main.landing3 > section > h1 > img{
-  vertical-align:middle;
+
+#main.landing3 > section > h1 > img {
+  vertical-align: middle;
 }
-#main.landing3 > section > h2{
+
+#main.landing3 > section > h2 {
+  color: #999;
   font-family: "Raleway", sans-serif;
+  font-size: 30px;
   font-weight: 400;
-  font-size:30px;
-  color:#999;
 }
 
-#main.landing3 > footer{
+#main.landing3 > footer {
   background-color: transparent;
-  text-align:center;
-  margin:0px;
-  padding-top:10px;
-  border-radius: 0pt;
-  border:0px;
-  order:3;
-  display:none;
+  border: 0;
+  border-radius: 0;
+  display: none;
+  margin: 0;
+  order: 3;
+  padding-top: 10px;
+  text-align: center;
 }
 
+// END LANDING SAMPLES
 
-//END LANDING SAMPLES
-
-
-#slideNav{
-  position: absolute;
-  right: 0;
+.slide-nav {
+  background: transparent;
+  border: 0;
   bottom: 0;
   left: 0;
-  padding: 1rem;
-  text-align: right;
   min-height: 30px;
-  background:transparent;
-  border:none;
+  padding: 18px 36px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+
+  button {
+    display: inline-block;
+  }
 }
 
-#slideNav > button{
-  display:inline-block;
-}
+// Too narrow to support three columns
 
-
-
-/* Too narrow to support three columns */
 @media all and (max-width: 640px) {
-  #main, #page {
+  #main,
+  #page {
     flex-direction: column;
   }
 
-  #main > section, #main > nav, #main > aside {
-    /* Return them to document order */
+  #main > section,
+  #main > nav,
+  #main > aside {
+    // Return them to document order
     order: 0;
   }
 
@@ -324,88 +323,122 @@ header.global{
   }
 }
 
-/* ------------- End Flexbox Default Styles ------------ */
+// ------------- End Flexbox Default Styles ------------
 
-/* -------------------- Slide views -------------------- */
-
-#main.SlideViewFrame{
+// -------------------- Slide views --------------------
+#main.slide-view-frame {
   //for slideviewframe wrapper
-
+  height: 98vh;
+  margin: 5px 10px 0px 8px;
+  padding: 0px;
 }
 
-#main.SlideViewFrame > section{
+#main.slide-view-frame > section {
   display: flex;
   flex-flow: column;
-}
-#main.SlideViewFrame > section > header{
-  order:1;
-}
-#main.SlideViewFrame > section > div{
-  display:flex;
-  flex-flow:row;
-  order:2;
+  border: 1px solid #ccc;
+  background-color: #f0f0f3;
 }
 
-#main.SlideViewFrame > section > div > section {
+#main.slide-view-frame > section > header {
+  border: 1px solid #e2e2e2;
+  background-color: #eee;
+  order: 1;
+}
+
+#main.slide-view-frame > section > div {
+  display: flex;
+  flex-flow: row;
+  order: 2;
+}
+
+#main.slide-view-frame > section > div > section {
   margin: 4px;
   padding: 5px;
-  border: 1px solid #cc3;
+  border: 1px solid #e2e2e2;
   border-radius: 7pt;
-  background: #dd8;
+  background: #eee;
   flex: 3 1 60%;
   order: 2;
 }
 
+#main.slide-view-frame > section > div > section.mid-page {
+  align-self: flex-end;
+  height: 400px;
+}
 
-#speaker-note-header {
-  padding-top: 2px;
-  padding-bottom: 5px;
-  font-size: 18px;
-  text-align: center;
+#main.slide-view-frame > section.slide-block {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
-//.SlideViewFrame {
-//  .slide-block {
-//    .mid-page {
-//      align-self: flex-end;
-//      height: 400px;
-//    }
-//
-//    .columns-header {}
-//
-//    header,
-//    footer {
-//      background: #feb;
-//      border: 1px solid #eb5;
-//      border-radius: 7pt;
-//      height: 50px;
-//      margin: 4px;
-//      padding: 5px;
-//    }
-//  }
-//
-//  .slide-block {
-//    section {
-//      background: #dd8;
-//      border: 1px solid #cc3;
-//      border-radius: 7pt;
-//      flex: 3 1 60%;
-//      margin: 4px;
-//      order: 2;
-//      padding: 5px;
-//    }
-//  }
-//
-//  aside {
-//    background: #ccf;
-//    border: 1px solid #88b;
-//    border-radius: 7pt;
-//    flex: 1 6 20%;
-//    margin: 4px;
-//    min-width: 200px;
-//    order: 3;
-//    padding: 5px;
-//  }
-//}
+#speaker-note-header {
+  font-size: 18px;
+  padding-bottom: 5px;
+  padding-top: 2px;
+  text-align: center;
+}
 
+// -------------------- Edit slide form --------------------
+.edit-slide-form {
+  margin-left: 20px;
+
+  .ace_editor {
+    border: 1px solid #ccc;
+    font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
+    max-width: 70em;
+  }
+
+  .deck-title {
+    font-style: italic;
+  }
+
+  .header-label {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1pt;
+    color: #999;
+  }
+}
+
+// -------------------- New deck form --------------------
+.new-deck-form {
+  .actual-radio-group {
+    margin-bottom: 24px;
+  }
+
+  [type="radio"] {
+    display: inline-block;
+  }
+
+  .radio-label-inline {
+    display: inline-block;
+    margin-right: 1em;
+    margin-top: 3px;
+  }
+}
+
+// -------------------- Navbar --------------------
+.nav-bar {
+  .nameplate-img {
+    vertical-align: middle;
+  }
+
+  .nameplate {
+    color: #666;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+    padding: 18px 0;
+    text-decoration: none;
+
+    span {
+      padding-bottom: 5px;
+      vertical-align: middle;
+    }
+  }
+}
+
+.user-home {
+  margin-left: 20px;
+}
