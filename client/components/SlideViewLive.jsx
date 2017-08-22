@@ -4,16 +4,19 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import SlideViewFrame from './SlideViewFrame';
-import { getSingleSlide, fetchDeck, viewNavBar } from '../store';
+import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
+import socket from '../socket';
 
 class SlideViewLive extends Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
+    this.startSlideShow = this.startSlideShow.bind(this);
   }
 
   componentDidMount() {
     const deckId = +this.props.match.params.deckId;
+    socket.emit('join-room', deckId);
     this.props.showNavBar(false);
     if (!(this.props.deck && this.props.deck.id)
         || (deckId !== this.props.deck.id)) this.props.loadDeck(deckId);
@@ -25,6 +28,9 @@ class SlideViewLive extends Component {
     if (nextProps.slides && nextProps.slides.length && (nextProps.slides !== this.props.slides)) {
       this.props.setSlide(nextProps.slides[0]);
     }
+    // if (nextProps.deck.id !== this.props.deck.id && this.props.liveOrPresenter !== 'static') {
+    //   socket.emit('join-room', nextProps.deck.id);
+    // }
   }
 
   componentWillUnmount() {
@@ -33,17 +39,32 @@ class SlideViewLive extends Component {
 
   handleClick(dir) {
     if (this.props.currentSlide.positionInDeck !== 1 && dir === 'prev') {
-      this.props.setSlide(this.props.slides[this.props.currentSlide.positionInDeck - 2]);
+      const prevSlide = this.props.slides[this.props.currentSlide.positionInDeck - 2];
+      if (this.props.liveOrPresenter === 'static') {
+        this.props.setSlide(prevSlide);
+      } else if (this.props.liveOrPresenter === 'presenter') {
+        this.props.setSlideAndEmit(prevSlide);
+      }
     } else if (this.props.currentSlide.positionInDeck !== this.props.slides.length && dir === 'next') {
-      this.props.setSlide(this.props.slides[this.props.currentSlide.positionInDeck]);
+      const nextSlide = this.props.slides[this.props.currentSlide.positionInDeck];
+      if (this.props.liveOrPresenter === 'static') {
+        this.props.setSlide(nextSlide);
+      } else if (this.props.liveOrPresenter === 'presenter') {
+        this.props.setSlideAndEmit(nextSlide);
+      }
     } else {
       this.props.history.push(`/decks/${this.props.deck.id}`);
     }
   }
 
+  startSlideShow(){
+    window.open(`/decks/${this.props.deck.id}/live`)
+  }
+
   render() {
     const { currentSlide, deck, slides, liveOrPresenter } = this.props;
     const presenterView = liveOrPresenter === 'presenter';
+    const liveView = liveOrPresenter === 'live';
     // Pass presenterView to SlideViewFrame to tell it to render the presenter notes
 
     return (
@@ -61,8 +82,14 @@ class SlideViewLive extends Component {
             />)
             : (<h1>Slides not found</h1>)
           }
-          {currentSlide && slides && slides.length &&
+          {currentSlide && slides && slides.length && !liveView &&
             <footer className="slide-nav">
+              {presenterView &&
+                <button type="button" onClick={this.startSlideShow}>
+                  START PRESENTATION
+                </button>
+              }
+              {'   '}
               <button type="button" onClick={() => this.handleClick('prev')}>
               &lt;{ currentSlide.positionInDeck === 1 ? 'EXIT' : 'PREV'}
               </button>
@@ -96,6 +123,9 @@ const mapDispatch = dispatch => ({
   },
   showNavBar(bool) {
     dispatch(viewNavBar(bool));
+  },
+  setSlideAndEmit(slide) {
+    dispatch(getSlideAndEmit(slide));
   },
 });
 

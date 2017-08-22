@@ -1,6 +1,6 @@
 /* global window */
 import io from 'socket.io-client';
-import store, { getNewMessage } from './store';
+import store, { getNewMessage, getSingleSlide } from './store';
 
 const socket = io(window.location.origin);
 
@@ -9,11 +9,9 @@ socket.on('connect', () => {
   socket.on('new-message', (message) => {
     store.dispatch(getNewMessage(message));
   });
-  // socket.on('join-room', (deckId) => {
-  // 	socket.room = deckId
-  // 	socket.join(room);
-  // 	console.log(socket.room)
-  // });
+  socket.on('change-slide', (slide) => {
+    store.dispatch(getSingleSlide(slide));
+  });
 });
 
 export default socket;
