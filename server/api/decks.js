@@ -4,7 +4,7 @@ const { Deck, Slide } = require('../db/models');
 router.get('/:deckId', (req, res, next) => {
   Deck.findById(+req.params.deckId, { include: [Slide] })
   .then(deck => {
-    if(req.user.id === deck.userId || deck.isViewable){
+    if(req.user.id === deck.userId || deck.viewable ){
       res.json(deck)
 	}else{
      next(new Error('This deck is not for you!'))
@@ -16,7 +16,7 @@ router.get('/:deckId', (req, res, next) => {
 router.get('/:deckId/slides', (req, res, next) => {
   Deck.findById(+req.params.deckId)
   .then(deck => {
-  	if(req.user.id === deck.userId || deck.isViewable){
+  	if(req.user.id === deck.userId || deck.viewable ){
       Slide.findAll({
       where: { deckId: +req.params.deckId },
       order: [['positionInDeck', 'ASC']],

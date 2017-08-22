@@ -18,7 +18,11 @@ router.put('/:slideId', (req, res, next) => {
   Slide.findById(req.params.slideId)
     .then(slideToUpdate => {
       // console.log('slideToUpdate:', slideToUpdate);
-      return slideToUpdate.update(req.body);
+      if (slideToUpdate.userId === req.user.id){
+        return slideToUpdate.update(req.body);
+      }else{
+        next(new Error('you cannot update this slide'))
+      }
     })
     .then(updatedSlide => {
       // console.log('updatedSlide:', updatedSlide);

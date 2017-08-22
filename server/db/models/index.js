@@ -13,6 +13,7 @@ Deck.belongsTo(User);
 User.hasMany(Deck);
 Slide.belongsTo(Deck);
 Deck.hasMany(Slide);
+Slide.belongsTo(User);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
