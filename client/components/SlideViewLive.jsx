@@ -41,16 +41,16 @@ class SlideViewLive extends Component {
   handleClick(dir) {
     if (this.props.currentSlide.positionInDeck !== 1 && dir === 'prev') {
       const prevSlide = this.props.slides[this.props.currentSlide.positionInDeck - 2];
-      if (this.props.liveOrPresenter === 'static') {
+      if (this.props.viewTypeParam === 'static') {
         this.props.setSlide(prevSlide);
-      } else if (this.props.liveOrPresenter === 'presenter') {
+      } else if (this.props.viewTypeParam === 'presenter') {
         this.props.setSlideAndEmit(prevSlide);
       }
     } else if (this.props.currentSlide.positionInDeck !== this.props.slides.length && dir === 'next') {
       const nextSlide = this.props.slides[this.props.currentSlide.positionInDeck];
-      if (this.props.liveOrPresenter === 'static') {
+      if (this.props.viewTypeParam === 'static') {
         this.props.setSlide(nextSlide);
-      } else if (this.props.liveOrPresenter === 'presenter') {
+      } else if (this.props.viewTypeParam === 'presenter') {
         this.props.setSlideAndEmit(nextSlide);
       }
     } else {
@@ -63,16 +63,16 @@ class SlideViewLive extends Component {
   }
 
   render() {
-    const { currentSlide, deck, slides, liveOrPresenter } = this.props;
-    const presenterView = liveOrPresenter === 'presenter';
-    const liveView = liveOrPresenter === 'live';
+    const { currentSlide, deck, slides, viewTypeParam } = this.props;
+    const presenterView = viewTypeParam === 'presenter';
+    const liveView = viewTypeParam === 'live';
     // Pass presenterView to SlideViewFrame to tell it to render the presenter notes
     const footerClass = deck.hasFooter ? 'has-footer' : null;
 
     return (
       <DocumentTitle
         title={deck && deck.id && currentSlide && currentSlide.id
-          ? `${deck.title}: Slide ${currentSlide.PositionInDeck} | SlyDv` || 'Slideshow | SlyDv'
+          ? `${deck.deckTitle}: Slide ${currentSlide.positionInDeck} | SlyDv` || 'Slideshow | SlyDv'
           : 'SlyDv'}
       >
         <div className={`slide-view-live ${footerClass}`}>
@@ -86,7 +86,7 @@ class SlideViewLive extends Component {
           }
           {currentSlide && slides && slides.length && deck &&
 
-            <footer className={`footer-${liveOrPresenter}`}>
+            <footer className={`footer-${viewTypeParam}`}>
               {!presenterView && deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null}
               {presenterView && 
               <Infinite containerHeight={200} elementHeight={40}>
@@ -125,7 +125,7 @@ const mapState = (state, ownProps) => ({
   slides: state.deck.slides,
   currentSlide: state.slide.singleSlide,
   deck: state.deck,
-  liveOrPresenter: ownProps.match.params.liveOrPresenter,
+  viewTypeParam: ownProps.match.params.viewTypeParam,
 });
 
 const mapDispatch = dispatch => ({
@@ -154,7 +154,7 @@ SlideViewLive.propTypes = {
     footerText: PropTypes.string,
   }).isRequired,
   history: PropTypes.shape().isRequired,
-  liveOrPresenter: PropTypes.string.isRequired,
+  viewTypeParam: PropTypes.string.isRequired,
   loadDeck: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
