@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList, getSingleSlide, createSlide } from '../store';
+import { fetchDeck, fetchSlideList, getSingleSlide, createSlide, deleteSlide } from '../store';
 
 class DeckOverview extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.newSlideClick = this.newSlideClick.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +47,18 @@ class DeckOverview extends Component {
       title: '',
     };
     this.props.sendSlide(newSlide);
+  }
+
+  handleClickDelete(slide) {
+    this.props.deleteSlide(slide.id);
+    // reload the deck to change state and redraw
+    const deckId = +this.props.match.params.deckId;
+    const { slides } = this.props.deck;
+    this.props.loadDeck(deckId);
+    if (this.props.deck && slides && slides.length &&
+      (slides[0].deckId !== this.props.currentSlide.deckId)) {
+      this.props.setSlide(slides[0]);
+    }
   }
 
   /* Need to add in slide number and ability to change where it is in the queue
@@ -85,6 +98,15 @@ class DeckOverview extends Component {
                               </button>
                             </Link>
                           </td>
+                          <td>
+                            <button
+                              className="dqpl-button-secondary"
+                              type="button"
+                              onClick={() => this.handleClickDelete(slide)}
+                            >
+                              Delete
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -121,6 +143,9 @@ const mapDispatch = (dispatch, ownProps) => ({
   setSlide(slide) {
     dispatch(getSingleSlide(slide));
   },
+  deleteSlide(slide) {
+    dispatch(deleteSlide(slide));
+  },
   sendSlide(slide) { return dispatch(createSlide(slide, ownProps.history)); },
 });
 
@@ -136,6 +161,7 @@ DeckOverview.propTypes = {
     id: PropTypes.number.isRequired,
     slides: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
+  deleteSlide: PropTypes.func.isRequired,
   loadDeck: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -154,4 +180,3 @@ DeckOverview.defaultProps = {
     slides: [],
   },
 };
-
