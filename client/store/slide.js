@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchDeck } from './deck';
 import socket from '../socket';
 
 /* -------------- ACTION TYPES -------------- */

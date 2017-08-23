@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Slide } = require('../db/models');
+const { Slide, Deck } = require('../db/models');
+const Bluebird = require('bluebird');
 
 router.post('/', (req, res, next) => {
   Slide.create(req.body)
@@ -28,9 +29,39 @@ router.put('/:slideId', (req, res, next) => {
 });
 
 router.delete('/:slideId', (req, res, next) => {
-  Slide.destroy({ where: { id: req.params.slideId } })
-    .then(exSlide => res.json(exSlide))
+  Slide.findById(req.params.slideId)
+  .then(currSlide => {
+    // get all slides after deleted slide
+    Deck.findById(+currSlide.deckId, {
+      include: [{  model: Slide,  where: { positionInDeck: { $gt: currSlide.positionInDeck } }   }],
+      order: [[Slide, 'positionInDeck']]
+    })
+    .then(deck => {
+      // move positionInDeck of each slide up one
+      Bluebird.map(deck.slides, item => {
+        let newPos=item.positionInDeck-1;
+        // console.log(newPos);
+        Slide.update({
+          positionInDeck: newPos,
+        }, {
+          where: {
+            id: item.id
+          }
+        });
+      });
+    })
     .catch(next);
+  })
+  .then(()=>{
+    return Slide.destroy({ where: { id: req.params.slideId } })
+      .then(exSlide => res.json(exSlide))
+      .catch(next);
+    }
+  )
+  .catch(next);
+
+
+
 });
 
 module.exports = router;
