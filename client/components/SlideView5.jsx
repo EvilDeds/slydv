@@ -11,7 +11,7 @@ export default function SlideView5(props) {
     <div className="SlideView5">
       <MarkdownSection className="slide-column-left" markdown={firstText} />
       <section className="slide-column-right">
-        <Runkit codeText={codeText} />
+        <div className="runkit-container"><Runkit codeText={codeText} /></div>
       </section>
     </div>
   );
