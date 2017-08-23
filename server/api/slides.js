@@ -39,8 +39,10 @@ router.delete('/:slideId', (req, res, next) => {
     .then(deck => {
       // move positionInDeck of each slide up one
       Bluebird.map(deck.slides, item => {
+        let newPos=item.positionInDeck-1;
+        // console.log(newPos);
         Slide.update({
-          positionInDeck: item.positionInDeck-1,
+          positionInDeck: newPos,
         }, {
           where: {
             id: item.id
@@ -50,11 +52,18 @@ router.delete('/:slideId', (req, res, next) => {
     })
     .catch(next);
   })
+  .then(()=>{
+    return Slide.destroy({ where: { id: req.params.slideId } })
+      .then(exSlide => res.json(exSlide))
+      .catch(next);
+    }
+  )
+  // .then(destroyedSlide =>{
+  //   console.log('destroyed slide',destroyedSlide.deckId);
+  // })
   .catch(next);
 
-  Slide.destroy({ where: { id: req.params.slideId } })
-    .then(exSlide => res.json(exSlide))
-    .catch(next);
+
 
 });
 
