@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 // action types
 const NEW_DECK = 'NEW_DECK';
 const UPDATE_DECK = 'UPDATE_DECK';
@@ -8,20 +9,20 @@ const GET_DECK = 'GET_DECK';
 // initial state
 
 const defaultDeck = {
-  id: 0,
-  userId: 0,
   deckTitle: '',
-  viewable: false,
-  chats: '',
-  theme: 'red',
+  footerText: '',
   hasFooter: false,
+  id: 0,
+  theme: 'red',
+  userId: 0,
+  viewable: false,
 };
 
 // action creators
 
 const updateDeck = deck => ({ type: UPDATE_DECK, deck });
 const newDeck = deck => ({ type: NEW_DECK, deck });
-const getDeck = deck => ({ type: GET_DECK, deck })
+const getDeck = deck => ({ type: GET_DECK, deck });
 
 // thunk creators
 

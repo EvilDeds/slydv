@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList, getSingleSlide, createSlide } from '../store';
+import { fetchDeck, fetchSlideList, getSingleSlide, createSlide, deleteSlide } from '../store';
 
 class DeckOverview extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.newSlideClick = this.newSlideClick.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +49,18 @@ class DeckOverview extends Component {
     this.props.sendSlide(newSlide);
   }
 
+  handleClickDelete(slide) {
+    this.props.deleteSlide(slide.id);
+    // reload the deck to change state and redraw
+    const deckId = +this.props.match.params.deckId;
+    const { slides } = this.props.deck;
+    this.props.loadDeck(deckId);
+    if (this.props.deck && slides && slides.length &&
+      (slides[0].deckId !== this.props.currentSlide.deckId)) {
+      this.props.setSlide(slides[0]);
+    }
+  }
+
   /* Need to add in slide number and ability to change where it is in the queue
   https://pattern-library.dequelabs.com/components/option-menus
   ^ May be useful for option dropdowns */
@@ -61,33 +74,48 @@ class DeckOverview extends Component {
           ? (
             <div className="deck-overview">
               <h1>
-                { `${deck.deckTitle} | ` }
-                <Link to={`/decks/${deck.id}/static`}>VIEW SLIDES</Link>
-                {' | '}
-                <Link to={`/decks/${deck.id}/presenter`}>PRESENTER VIEW</Link>
+                {deck.deckTitle}
+                <Link className="present-link" to={`/decks/${this.props.deck.id}/edit`}>Edit Deck</Link>
+                <Link className="present-link" to={`/decks/${deck.id}/static`}>View Slides</Link>
+                <Link className="present-link" to={`/decks/${deck.id}/presenter`}>Presenter View</Link>
               </h1>
               <hr />
               { deck && slides && slides.length
-                ? slides.map(slide => (
-                  <div key={slide.id} className="deckview-slide-container">
-                    <h2>
-                      { `${slide.title} ` }
-                      <Link to={`/editslide/${slide.id}`}>
-                        <button
-                          className="dqpl-button-primary"
-                          type="button"
-                          onClick={() => this.handleClick(slide)}
-                        >
-                            Edit
-                        </button>
-                      </Link>
-                    </h2>
-                  </div>
-                ))
+                ? (
+                  <table>
+                    <tbody>
+                      {slides.map(slide => (
+                        <tr key={slide.id} className="deckview-slide-container">
+                          <td>{ `${slide.title} ` }</td>
+                          <td>
+                            <Link to={`/editslide/${slide.id}`}>
+                              <button
+                                className="dqpl-button-secondary"
+                                type="button"
+                                onClick={() => this.handleClick(slide)}
+                              >
+                                  Edit
+                              </button>
+                            </Link>
+                          </td>
+                          <td>
+                            <button
+                              className="dqpl-button-secondary"
+                              type="button"
+                              onClick={() => this.handleClickDelete(slide)}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )
                 : (<h2>This deck has no slides.</h2>)
-
               }
-              <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>ADD A SLIDE</button>
+              <hr />
+              <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>Add a Slide</button>
             </div>
           )
           : (
@@ -115,6 +143,9 @@ const mapDispatch = (dispatch, ownProps) => ({
   setSlide(slide) {
     dispatch(getSingleSlide(slide));
   },
+  deleteSlide(slide) {
+    dispatch(deleteSlide(slide));
+  },
   sendSlide(slide) { return dispatch(createSlide(slide, ownProps.history)); },
 });
 
@@ -130,6 +161,7 @@ DeckOverview.propTypes = {
     id: PropTypes.number.isRequired,
     slides: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
+  deleteSlide: PropTypes.func.isRequired,
   loadDeck: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -148,4 +180,3 @@ DeckOverview.defaultProps = {
     slides: [],
   },
 };
-
