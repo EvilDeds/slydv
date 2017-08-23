@@ -20,6 +20,7 @@ class EditSlideForm extends Component {
     }).isRequired,
     deckLength: PropTypes.number,
     getDeck: PropTypes.func.isRequired,
+    isDirty: PropTypes.bool,
     loadSlide: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -46,6 +47,7 @@ class EditSlideForm extends Component {
       slides: [],
     },
     deckLength: 1,
+    isDirty: false,
     saved: false,
     singleSlide: {
       id: null,
@@ -66,6 +68,7 @@ class EditSlideForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isDirty: props.isDirty,
       saved: props.saved,
       singleSlide: {
         codeText: props.singleSlide.codeText,
@@ -81,10 +84,11 @@ class EditSlideForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleNewClick = this.handleNewClick.bind(this);
     this.handleReplChange = this.handleReplChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleToastClick = this.handleToastClick.bind(this);
-    this.handleNewClick = this.handleNewClick.bind(this);
+    this.handleSavedToastClick = this.handleSavedToastClick.bind(this);
+    this.handleViewClick = this.handleViewClick.bind(this);
   }
 
   componentDidMount() {
@@ -110,23 +114,9 @@ class EditSlideForm extends Component {
   }
 
   handleChange(evt) {
+    this.state.isDirty = true;
     this.state.singleSlide[evt.target.id] = evt.target.value;
     this.setState(this.state);
-  }
-
-  handleReplChange(evt) {
-    this.state.singleSlide.codeText = evt;
-    this.setState(this.state);
-  }
-
-  handleSubmit(evt) {
-    evt.preventDefault();
-    this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
-      .then(() => this.setState({ saved: true }));
-  }
-
-  handleToastClick() {
-    this.setState({ saved: false });
   }
 
   handleNewClick() {
@@ -146,9 +136,35 @@ class EditSlideForm extends Component {
     this.props.sendSlide(newSlide);
   }
 
+  handleReplChange(evt) {
+    this.state.isDirty = true;
+    this.state.singleSlide.codeText = evt;
+    this.setState(this.state);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
+      .then(() => this.setState({ saved: true }));
+  }
+
+  handleSavedToastClick() {
+    this.setState({
+      isDirty: false,
+      saved: false,
+    });
+  }
+
+  handleViewClick() {
+    if (this.state.isDirty) {
+
+    }
+  }
+
   render() {
     // console.log('this.props:', this.props);
     // console.log('this.state:', this.state);
+    console.log('this.state.isDirty:', this.state.isDirty);
     return (
       <DocumentTitle title="Edit Slide | SlyDv">
         <div className="edit-slide-form">
@@ -158,13 +174,24 @@ class EditSlideForm extends Component {
               : null
           }
 
+          {/* did user try to view or new without saving? ---------*/}
+          { this.state.isDirty ? (
+            <div className="dqpl-toast dqpl-toast-error">
+              <div className="dqpl-toast-message">
+                <div className="fa fa-minus-circle" aria-hidden="true" /><span>Your changes are not saved. <Link to={}>Cancel</Link> or <Link to={}>continue anyway</Link>?</span>
+              </div>
+              <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleErrorToastClick} />
+            </div>
+          ) : null
+          }
+
           {/* was the form saved? ------------------------------------*/}
           { this.state.saved ? (
             <div className="dqpl-toast dqpl-toast-success">
               <div className="dqpl-toast-message">
                 <div className="fa fa-info-circle" aria-hidden="true" /><span>Changes saved.</span>
               </div>
-              <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleToastClick} />
+              <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleSavedToastClick} />
             </div>
           ) : null
           }
@@ -250,8 +277,10 @@ class EditSlideForm extends Component {
             <hr />
 
             {/* save and clear buttons ---------------------------------*/}
-            <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-            <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button>
+            <div className="button-row">
+              <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
+              <button className="dqpl-button-primary" type="button" onClick={this.handleViewClick}>View</button>
+              <button className="dqpl-button-secondary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button></div>
           </form>
         </div>
       </DocumentTitle>

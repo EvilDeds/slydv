@@ -397,10 +397,23 @@ header.global {
 .edit-slide-form {
   margin-left: 20px;
 
+  hr {
+    margin-left: -20px;
+  }
+
   .ace_editor {
     border: 1px solid #ccc;
     font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
     max-width: 70em;
+  }
+
+  .button-row {
+    text-align: center;
+
+    button {
+      display: inline-block;
+      margin: 0 5px;
+    }
   }
 
   .deck-title {
