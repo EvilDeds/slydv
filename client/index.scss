@@ -415,6 +415,10 @@ header.global {
 
 // -------------------- New/edit deck forms --------------------
 .dumb-deck-form {
+  hr {
+    margin-left: -20px;
+  }
+
   .actual-radio-group {
     margin-bottom: 24px;
   }

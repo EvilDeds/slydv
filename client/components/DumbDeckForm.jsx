@@ -45,6 +45,7 @@ export default function DumbDeckForm(props) {
           <input type="radio" aria-labelledby="viewableLabel" name="viewable" value="true" checked={props.deck.viewable === true} onChange={props.handleRadioChange} /><span className="radio-label-inline">Yes</span>
           <input type="radio" aria-labelledby="viewableLabel" name="viewable" value="false" checked={props.deck.viewable === false} onChange={props.handleRadioChange} /><span className="radio-label-inline">No</span>
         </div>
+        <hr />
 
         {/* save deck and edit the first slide --------------------*/}
         <button className="dqpl-button-primary" type="button" onClick={props.handleSubmit}>{props.submitLabel}</button>
