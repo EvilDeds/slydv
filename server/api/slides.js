@@ -58,9 +58,6 @@ router.delete('/:slideId', (req, res, next) => {
       .catch(next);
     }
   )
-  // .then(destroyedSlide =>{
-  //   console.log('destroyed slide',destroyedSlide.deckId);
-  // })
   .catch(next);
 
 
