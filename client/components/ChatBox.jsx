@@ -40,7 +40,7 @@ class ChatBox extends Component {
     const chat = this.props.chat;
     const deck = this.props.deck;
     return (
-      <div className="chat-box">
+      <form className="chat-box" onSubmit={this.handleSubmit}>
        <div className="chat-log">
         {chat && chat.length ?
           chat.map(message => (<div key={message.id}><span>{`${message.user.email} : ${message.message}`}</span></div>)) :
@@ -52,7 +52,7 @@ class ChatBox extends Component {
           <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
         </div>
         <button type="submit" onClick={this.handleSubmit}>Send</button>
-      </div>
+      </form>
     );
   }
 }
