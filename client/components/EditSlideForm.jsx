@@ -8,6 +8,7 @@ import AceEditor from 'react-ace';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store';
 
 class EditSlideForm extends Component {
@@ -153,7 +154,7 @@ class EditSlideForm extends Component {
         <div className="edit-slide-form">
           {/* positionInDeck -----------------------------------------*/
             this.props.deck && this.props.deck.slides
-              ? <h2><span className="header-label">Deck:</span> <span className="deck-title">{this.props.deck.deckTitle}</span><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
+              ? <h2><span className="header-label">Deck:</span> <Link to={`/decks/${this.props.deck.id}`} className="deck-title">{this.props.deck.deckTitle}</Link><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
               : null
           }
 
