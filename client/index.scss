@@ -401,10 +401,8 @@ header.global {
   }
 }
 
-// -------------------- New deck form --------------------
-.new-deck-form {
-  margin-left: 20px;
-
+// -------------------- New/edit deck forms --------------------
+.dumb-deck-form {
   .actual-radio-group {
     margin-bottom: 24px;
   }
@@ -418,6 +416,11 @@ header.global {
     margin-right: 1em;
     margin-top: 3px;
   }
+}
+
+.edit-deck-form,
+.new-deck-form {
+  margin-left: 20px;
 }
 
 // -------------------- Navbar --------------------

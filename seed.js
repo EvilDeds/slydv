@@ -7,8 +7,8 @@ const defaultUser = [
 ];
 
 const defaultDeck = [
-  { deckTitle: 'Deck Number One', viewable: true, chats: 'Chat Text', theme: 'red', hasFooter: true, footerText: '[@deckmistress](https://twitter.com/deckmistress) | [mistress@slydv.com](mailto:mistress@slydv.com?Deck Number One) | [#slydv](https://twitter.com/hashtag/slydv?src=hash)', userId: 1 },
-  { deckTitle: 'Deck Number Two', viewable: true, chats: 'Chat Text', theme: 'red', hasFooter: true, footerText: 'This is a _footer_ with _italics_!', userId: 1 },
+  { deckTitle: 'Deck Number One', viewable: true, theme: 'red', hasFooter: true, footerText: '[@deckmistress](https://twitter.com/deckmistress) | [mistress@slydv.com](mailto:mistress@slydv.com?Deck Number One) | [#slydv](https://twitter.com/hashtag/slydv?src=hash)', userId: 1 },
+  { deckTitle: 'Deck Number Two', viewable: true, theme: 'red', hasFooter: true, footerText: 'This is a _footer_ with _italics_!', userId: 1 },
 ];
 
 const defaultSlide = [
