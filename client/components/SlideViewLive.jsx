@@ -9,6 +9,8 @@ import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store
 import socket from '../socket';
 import ChatBox from './ChatBox';
 
+import Infinite from 'react-infinite';
+
 class SlideViewLive extends Component {
   constructor() {
     super();
@@ -86,7 +88,11 @@ class SlideViewLive extends Component {
 
             <footer className={`footer-${viewTypeParam}`}>
               {!presenterView && deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null}
-              {presenterView && <ChatBox />}
+              {presenterView && 
+              <Infinite containerHeight={200} elementHeight={40}>
+                <ChatBox />
+              </Infinite>
+              }
               {!liveView &&
                 <div className="slide-nav">
                   {presenterView &&
