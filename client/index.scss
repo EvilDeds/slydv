@@ -1,3 +1,17 @@
+@mixin smallcaps($size) {
+  font-size: $size;
+  letter-spacing: 1pt;
+  text-transform: uppercase;
+}
+
+@mixin table-td-padding($td-pad) {
+  table {
+    td {
+      padding: $td-pad;
+    }
+  }
+}
+
 body {
   font-family: sans-serif;
 
@@ -394,9 +408,7 @@ header.global {
   }
 
   .header-label {
-    text-transform: uppercase;
-    font-size: 0.8em;
-    letter-spacing: 1pt;
+    @include smallcaps(.8em);
     color: #999;
   }
 }
@@ -420,8 +432,8 @@ header.global {
 
 .edit-deck-form,
 .new-deck-form {
-  margin-top: 20px;
   margin-left: 20px;
+  margin-top: 20px;
 }
 
 // -------------------- Navbar --------------------
@@ -464,7 +476,7 @@ header.global {
   margin-left: 20px;
 }
 
-// override weird Deque toast positioning -------------------
+// --------- override weird Deque toast positioning ---------
 .dqpl-toast {
   top: 0;
 }
@@ -472,5 +484,40 @@ header.global {
 @media (min-width: 1024px) {
   body:not(.dqpl-no-sidebar) .dqpl-toast {
     left: 0;
+  }
+}
+
+// ------------------------ Deck overview -------------------
+.deck-overview {
+  @include table-td-padding(3px);
+
+  margin-left: 20px;
+
+  hr {
+    margin-left: -20px;
+  }
+
+  .edit-deck-button {
+    display: inline-block;
+  }
+
+  .present-link {
+    @include smallcaps(.7em);
+
+    &::before {
+      color: #666;
+      content: '   |   ';
+    }
+  }
+}
+
+// --------------------------- Deck list -------------------
+.user-deck-list {
+  @include table-td-padding(3px);
+
+  margin-left: 20px;
+
+  hr {
+    margin-left: -20px;
   }
 }

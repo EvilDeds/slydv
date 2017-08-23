@@ -61,33 +61,39 @@ class DeckOverview extends Component {
           ? (
             <div className="deck-overview">
               <h1>
-                { `${deck.deckTitle} | ` }
-                <Link to={`/decks/${deck.id}/static`}>VIEW SLIDES</Link>
-                {' | '}
-                <Link to={`/decks/${deck.id}/presenter`}>PRESENTER VIEW</Link>
+                {deck.deckTitle}
+                <Link className="present-link" to={`/decks/${this.props.deck.id}/edit`}>Edit Deck</Link>
+                <Link className="present-link" to={`/decks/${deck.id}/static`}>View Slides</Link>
+                <Link className="present-link" to={`/decks/${deck.id}/presenter`}>Presenter View</Link>
               </h1>
               <hr />
               { deck && slides && slides.length
-                ? slides.map(slide => (
-                  <div key={slide.id} className="deckview-slide-container">
-                    <h2>
-                      { `${slide.title} ` }
-                      <Link to={`/editslide/${slide.id}`}>
-                        <button
-                          className="dqpl-button-primary"
-                          type="button"
-                          onClick={() => this.handleClick(slide)}
-                        >
-                            Edit
-                        </button>
-                      </Link>
-                    </h2>
-                  </div>
-                ))
+                ? (
+                  <table>
+                    <tbody>
+                      {slides.map(slide => (
+                        <tr key={slide.id} className="deckview-slide-container">
+                          <td>{ `${slide.title} ` }</td>
+                          <td>
+                            <Link to={`/editslide/${slide.id}`}>
+                              <button
+                                className="dqpl-button-secondary"
+                                type="button"
+                                onClick={() => this.handleClick(slide)}
+                              >
+                                  Edit
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )
                 : (<h2>This deck has no slides.</h2>)
-
               }
-              <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>ADD A SLIDE</button>
+              <hr />
+              <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>Add a Slide</button>
             </div>
           )
           : (
