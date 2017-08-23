@@ -423,6 +423,11 @@ header.global {
     @include smallcaps(.8em);
     color: #999;
   }
+
+  .save-from-toast {
+    display: inline-block;
+    margin-bottom: 4px;
+  }
 }
 
 // -------------------- New/edit deck forms --------------------

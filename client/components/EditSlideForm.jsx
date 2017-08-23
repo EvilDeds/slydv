@@ -12,63 +12,15 @@ import { Link } from 'react-router-dom';
 import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store';
 
 class EditSlideForm extends Component {
-  static propTypes = {
-    deck: PropTypes.shape({
-      deckTitle: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      slides: PropTypes.arrayOf(PropTypes.shape()),
-    }).isRequired,
-    deckLength: PropTypes.number,
-    getDeck: PropTypes.func.isRequired,
-    isDirty: PropTypes.bool,
-    loadSlide: PropTypes.func.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        slideId: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-    saved: PropTypes.bool,
-    sendSlide: PropTypes.func.isRequired,
-    singleSlide: PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      firstText: PropTypes.string,
-      secondText: PropTypes.string,
-      template: PropTypes.string,
-      codeText: PropTypes.string,
-      positionInDeck: PropTypes.number,
-      presenterNotes: PropTypes.string,
-    }),
-    updateSlide: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    deck: {
-      slides: [],
-    },
-    deckLength: 1,
-    isDirty: false,
-    saved: false,
-    singleSlide: {
-      id: null,
-      title: '',
-      firstText: '',
-      secondText: '',
-      // template: 'mid-page',
-      // template: 'single-pane',
-      // template: 'columns-header',
-      // template: 'columns',
-      template: '',
-      codeText: '',
-      positionInDeck: 1,
-      presenterNotes: '',
-    },
-  };
-
   constructor(props) {
     super(props);
     this.state = {
+      deckLength: props.deckLength,
+      errorToast: props.errorToast,
+      errorType: props.errorType,
       isDirty: props.isDirty,
+      cleanButtonClassName: props.cleanButtonClassName,
+      dirtyButtonClassName: props.dirtyButtonClassName,
       saved: props.saved,
       singleSlide: {
         codeText: props.singleSlide.codeText,
@@ -80,13 +32,14 @@ class EditSlideForm extends Component {
         secondText: props.singleSlide.secondText,
         title: props.singleSlide.title,
       },
-      deckLength: props.deckLength,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleErrorToastClick = this.handleErrorToastClick.bind(this);
     this.handleNewClick = this.handleNewClick.bind(this);
     this.handleReplChange = this.handleReplChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitFromErrorToast = this.handleSubmitFromErrorToast.bind(this);
     this.handleSavedToastClick = this.handleSavedToastClick.bind(this);
     this.handleViewClick = this.handleViewClick.bind(this);
   }
@@ -96,7 +49,6 @@ class EditSlideForm extends Component {
       .then((newSingleSlideAction) => {
         this.setState(Object.assign({}, this.state,
           { singleSlide: newSingleSlideAction.singleSlide }));
-        // console.log('single slide', newSingleSlideAction.singleSlide);
         return this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
       });
   }
@@ -110,19 +62,29 @@ class EditSlideForm extends Component {
           this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
         });
     }
-    // this.setState({ firstText: nextProps.singleSlide.firstText });
   }
 
   handleChange(evt) {
+    this.state.saved = false;
     this.state.isDirty = true;
+    this.state.dirtyButtonClassName = 'dqpl-button-secondary';
+    this.state.cleanButtonClassName = 'dqpl-button-primary';
     this.state.singleSlide[evt.target.id] = evt.target.value;
     this.setState(this.state);
+  }
+
+  // Close the error toast without making a decision about saving the current slide
+  handleErrorToastClick() {
+    // console.log('error toast was closed without resolution');
+    this.setState({
+      errorToast: false,
+      errorType: '',
+    });
   }
 
   handleNewClick() {
     const position = this.props.deck.slides.length + 1;
     const deckId = this.props.deck.id;
-    // const deckTitle = this.props.deck.deckTitle;
     const newSlide = {
       deckId,
       title: '',
@@ -133,6 +95,33 @@ class EditSlideForm extends Component {
       positionInDeck: position,
       presenterNotes: '',
     };
+
+    // If the current slide has been changed but not saved, show an error toast
+    if (this.state.isDirty) {
+      this.setState({
+        errorToast: true,
+        errorType: 'new-before-save',
+      });
+    } else {
+      this.props.sendSlide(newSlide);
+    }
+  }
+
+  // If there was an error toast and the user decided to create a new slide anyway
+  handleNewClickFromErrorToast() {
+    const position = this.state.deckLength + 1;
+    const deckId = this.props.deck.id;
+    const newSlide = {
+      deckId,
+      title: '',
+      firstText: '',
+      secondText: '',
+      template: 'single-pane',
+      codeText: '',
+      positionInDeck: position,
+      presenterNotes: '',
+    };
+    console.log('newSlide:', newSlide);
     this.props.sendSlide(newSlide);
   }
 
@@ -145,7 +134,29 @@ class EditSlideForm extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
-      .then(() => this.setState({ saved: true }));
+      .then(() => this.setState({
+        errorToast: false,
+        errorType: '',
+        saved: true,
+        cleanButtonClassName: 'dqpl-button-secondary',
+        dirtyButtonClassName: 'dqpl-button-primary',
+      }));
+  }
+
+  // If there was an error toast and the user decided to save the current slide
+  handleSubmitFromErrorToast(evt) {
+    evt.preventDefault();
+    const char = evt.which || evt.keyCode;
+    if ((evt.type === 'keydown' && char === 32) || evt.type === 'click') {
+      this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
+        .then(() => this.setState({
+          errorToast: false,
+          errorType: '',
+          saved: true,
+          cleanButtonClassName: 'dqpl-button-secondary',
+          dirtyButtonClassName: 'dqpl-button-primary',
+        }));
+    }
   }
 
   handleSavedToastClick() {
@@ -157,14 +168,30 @@ class EditSlideForm extends Component {
 
   handleViewClick() {
     if (this.state.isDirty) {
-
+      this.setState({
+        errorToast: true,
+        errorType: 'view-before-save',
+      });
+    } else {
+      this.props.history.push(`/decks/${this.props.deck.id}/live`);
     }
   }
 
   render() {
     // console.log('this.props:', this.props);
-    // console.log('this.state:', this.state);
-    console.log('this.state.isDirty:', this.state.isDirty);
+    // console.log('this.state.isDirty:', this.state.isDirty);
+    let errorContinue = null;
+    if (this.state.errorType) {
+      if (this.state.errorType === 'view-before-save') {
+        errorContinue = <Link to={`/decks/${this.props.deck.id}/live`}>Or preview anyway?</Link>;
+      } {/* else {
+        errorContinue = (<Link
+          onClick={this.handleNewClickFromErrorToast}
+          to={this.props.match.url}
+        >Or create a new slide anyway?</Link>);*/
+      }
+    }
+
     return (
       <DocumentTitle title="Edit Slide | SlyDv">
         <div className="edit-slide-form">
@@ -175,10 +202,13 @@ class EditSlideForm extends Component {
           }
 
           {/* did user try to view or new without saving? ---------*/}
-          { this.state.isDirty ? (
+          { this.state.isDirty && this.state.errorToast ? (
             <div className="dqpl-toast dqpl-toast-error">
               <div className="dqpl-toast-message">
-                <div className="fa fa-minus-circle" aria-hidden="true" /><span>Your changes are not saved. <Link to={}>Cancel</Link> or <Link to={}>continue anyway</Link>?</span>
+                <div className="fa fa-minus-circle" aria-hidden="true" />
+                <span>Your changes are not saved.
+                  <Link to={`/editslide/${this.props.singleSlide.id}`} className="save-from-toast" role="button" onClick={this.handleSubmitFromErrorToast} onKeyDown={this.handleSubmitFromErrorToast}>Save now</Link>? {errorContinue}
+                </span>
               </div>
               <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleErrorToastClick} />
             </div>
@@ -278,9 +308,9 @@ class EditSlideForm extends Component {
 
             {/* save and clear buttons ---------------------------------*/}
             <div className="button-row">
-              <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
-              <button className="dqpl-button-primary" type="button" onClick={this.handleViewClick}>View</button>
-              <button className="dqpl-button-secondary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button></div>
+              <button className={this.state.cleanButtonClassName} type="button" onClick={this.handleSubmit}>Save</button>
+              <button className={this.state.dirtyButtonClassName} type="button" onClick={this.handleViewClick}>View</button>
+              <button className={`${this.state.dirtyButtonClassName} new-slide`} type="button" onClick={this.handleNewClick}>New Slide</button></div>
           </form>
         </div>
       </DocumentTitle>
@@ -302,3 +332,68 @@ const mapDispatch = (dispatch, ownProps) => ({
 });
 
 export default withRouter(connect(mapState, mapDispatch)(EditSlideForm));
+
+/* ----- PROP TYPES AND DEFAULTS ----- */
+
+EditSlideForm.propTypes = {
+  deck: PropTypes.shape({
+    deckTitle: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    slides: PropTypes.arrayOf(PropTypes.shape()),
+  }).isRequired,
+  deckLength: PropTypes.number,
+  errorToast: PropTypes.bool,
+  errorType: PropTypes.string,
+  getDeck: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
+  isDirty: PropTypes.bool,
+  loadSlide: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      slideId: PropTypes.string.isRequired,
+    }).isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+  cleanButtonClassName: PropTypes.string,
+  dirtyButtonClassName: PropTypes.string,
+  saved: PropTypes.bool,
+  sendSlide: PropTypes.func.isRequired,
+  singleSlide: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    firstText: PropTypes.string,
+    secondText: PropTypes.string,
+    template: PropTypes.string,
+    codeText: PropTypes.string,
+    positionInDeck: PropTypes.number,
+    presenterNotes: PropTypes.string,
+  }),
+  updateSlide: PropTypes.func.isRequired,
+};
+
+EditSlideForm.defaultProps = {
+  deck: {
+    slides: [],
+  },
+  deckLength: 1,
+  errorToast: false,
+  errorType: '',
+  isDirty: false,
+  cleanButtonClassName: 'dqpl-button-secondary',
+  dirtyButtonClassName: 'dqpl-button-primary',
+  saved: false,
+  singleSlide: {
+    id: null,
+    title: '',
+    firstText: '',
+    secondText: '',
+    // template: 'mid-page',
+    // template: 'single-pane',
+    // template: 'columns-header',
+    // template: 'columns',
+    template: '',
+    codeText: '',
+    positionInDeck: 1,
+    presenterNotes: '',
+  },
+};
