@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
@@ -22,28 +23,57 @@ class UserDeckList extends Component {
 
   render() {
     const decks = this.props.deckList;
-    const userEmail=this.props.user.email;
+    const userEmail = this.props.user.email;
     return (
       <DocumentTitle title="My Decks | SlyDv">
         <div className="user-deck-list col-lg-9 offset-lg-3">
           <h3>Welcome, {userEmail}! Check out your decks!</h3>
           <hr />
           { decks.length ? (
-            <ul>
-              {decks.map(deck => (
-                <li key={deck.id}>
-                  <Link to={`/decks/${deck.id}`} >
-                    {deck.deckTitle}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <table>
+              <tbody>
+                {decks.map(deck => (
+                  <tr key={deck.id}>
+                    <td>
+                      <Link to={`/decks/${deck.id}`} >
+                        {deck.deckTitle}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/decks/${deck.id}`}>
+                        <button
+                          className="dqpl-button-secondary"
+                          type="button"
+                        >
+                            View Slide List
+                        </button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/decks/${deck.id}/edit`}>
+                        <button
+                          className="dqpl-button-secondary"
+                          type="button"
+                        >
+                            Edit Deck Properties
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           ) : (
             <p>You have no decks yet!</p>
           )}
           <hr />
           <Link to="/new-deck">
-            Make a New Deck!
+            <button
+              className="dqpl-button-primary"
+              type="button"
+            >
+                Make a New Deck!
+            </button>
           </Link>
         </div>
       </DocumentTitle>
@@ -62,3 +92,16 @@ const mapDispatch = dispatch => ({
 
 export default connect(mapState, mapDispatch)(UserDeckList);
 
+
+/* -------------- PROP TYPES -------------- */
+
+UserDeckList.propTypes = {
+  deckList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  loadDecks: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+// UserDeckList.defaultProps = {};

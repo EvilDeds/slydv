@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import history from './history';
 
 import {
+  EditDeckForm,
   EditSlideForm,
   Login,
   Main,
@@ -39,6 +40,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route exact path ="/decks/:deckId/chats" component={ChatBox} />
             <Route exact path="/decks/:deckId" component={DeckOverview} />
+            <Route exact path="/decks/:deckId/edit" component={EditDeckForm} />
             <Route exact path="/decks/:deckId/:liveOrPresenter" component={SlideViewLive} />
             <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
