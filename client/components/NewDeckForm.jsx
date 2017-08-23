@@ -34,19 +34,22 @@ class NewDeckForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleRadioChange = this.handleRadioChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    console.log("e:", e);
-    // There's this weird issue where you can only change
-    console.log(`e.target.value: ${e.target.value} (${typeof e.target.value})`);
+    this.setState({
+      newDeck: Object.assign({}, this.state.newDeck, { [e.target.name]: e.target.value }),
+    });
+  }
+
+  handleRadioChange(e) {
+    // console.log(`e.target.name: ${e.target.name}`);
+    // console.log(`e.target.value: ${e.target.value} (${typeof e.target.value})`);
     let value = e.target.value;
-    if ((e.target.name === 'hasFooter' || e.target.name === 'viewable') && typeof value === 'string') {
-      console.log(typeof value);
-      value = (value === 'true');
-    }
-    console.log(`value: ${value} (${typeof value})`);
+    value = (value === 'true');
+    // console.log(`value: ${value} (${typeof value})`);
     this.setState({
       newDeck: Object.assign({}, this.state.newDeck, { [e.target.name]: value }),
     });
@@ -73,9 +76,11 @@ class NewDeckForm extends Component {
     return (
       <DocumentTitle title="Make a Deck | SlyDv">
         <div className="new-deck-form">
+          <p><i>Is there anything more beautiful than a fresh deck?</i></p>
           { this.state.newDeck && (<DumbDeckForm
             deck={this.state.newDeck}
             handleChange={this.handleChange}
+            handleRadioChange={this.handleRadioChange}
             handleSubmit={this.handleSubmit}
             submitLabel="Save & Start Your Deck"
           />)}

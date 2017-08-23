@@ -420,6 +420,7 @@ header.global {
 
 .edit-deck-form,
 .new-deck-form {
+  margin-top: 20px;
   margin-left: 20px;
 }
 
@@ -461,4 +462,15 @@ header.global {
 // -------------------- Home --------------------
 .user-home {
   margin-left: 20px;
+}
+
+// override weird Deque toast positioning -------------------
+.dqpl-toast {
+  top: 0;
+}
+
+@media (min-width: 1024px) {
+  body:not(.dqpl-no-sidebar) .dqpl-toast {
+    left: 0;
+  }
 }

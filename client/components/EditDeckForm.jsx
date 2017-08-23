@@ -48,6 +48,7 @@ class EditDeckForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleRadioChange = this.handleRadioChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToastClick = this.handleToastClick.bind(this);
   }
@@ -61,13 +62,16 @@ class EditDeckForm extends Component {
   }
 
   handleChange(e) {
-    // There's this weird issue where you can only change
+    this.setState({
+      deck: Object.assign({}, this.state.deck, { [e.target.name]: e.target.value }),
+    });
+  }
+
+  handleRadioChange(e) {
+    // console.log(`e.target.name: ${e.target.name}`);
     // console.log(`e.target.value: ${e.target.value} (${typeof e.target.value})`);
     let value = e.target.value;
-    if ((e.target.name === 'hasFooter' || e.target.name === 'viewable') && typeof value === 'string') {
-      // console.log(typeof value);
-      value = (value === 'true');
-    }
+    value = (value === 'true');
     // console.log(`value: ${value} (${typeof value})`);
     this.setState({
       deck: Object.assign({}, this.state.deck, { [e.target.name]: value }),
@@ -104,6 +108,7 @@ class EditDeckForm extends Component {
           { this.state.deck && (<DumbDeckForm
             deck={this.state.deck}
             handleChange={this.handleChange}
+            handleRadioChange={this.handleRadioChange}
             handleSubmit={this.handleSubmit}
             submitLabel="Save Deck"
           />)}
