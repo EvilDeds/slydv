@@ -246,6 +246,8 @@ class EditSlideForm extends Component {
               <textarea className="dqpl-textarea" id="presenterNotes" value={this.state.singleSlide.presenterNotes} onChange={this.handleChange} aria-labelledby="presenterNotes-label" />
             </div>
 
+            <hr />
+
             {/* save and clear buttons ---------------------------------*/}
             <button className="dqpl-button-primary" type="button" onClick={this.handleSubmit}>Save</button>
             <button className="dqpl-button-primary new-slide" type="button" onClick={this.handleNewClick}>New Slide</button>
