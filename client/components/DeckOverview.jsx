@@ -62,7 +62,9 @@ class DeckOverview extends Component {
             <div className="deck-overview">
               <h1>
                 { `${deck.deckTitle} | ` }
-                <Link to={`/decks/${deck.id}/live`}>START SLIDESHOW</Link>
+                <Link to={`/decks/${deck.id}/static`}>VIEW SLIDES</Link>
+                {' | '}
+                <Link to={`/decks/${deck.id}/presenter`}>PRESENTER VIEW</Link>
               </h1>
               <hr />
               { deck && slides && slides.length

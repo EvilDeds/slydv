@@ -6,9 +6,14 @@ module.exports = (io) => {
       socket.in(message.deckId).broadcast.emit('new-message', message);
     });
 
-   socket.on('join-room', (deckId) => {
-  	socket.join(deckId);
-  });
+    socket.on('join-room', (deckId) => {
+      socket.join(deckId);
+    });
+
+    socket.on('change-slide', (slide) => {
+      console.log('changing slide on the server', slide);
+      socket.in(slide.deckId).broadcast.emit('change-slide', slide);
+    });
 
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`);
