@@ -19,8 +19,10 @@ import {
   Landing,
   DeckOverview,
   SlideViewLive,
+  ChatBox,
+  RemoteControl,
 } from './components';
-import ChatBox from './components/ChatBox';
+//import ChatBox from './components/ChatBox';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -38,10 +40,11 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route exact path ="/decks/:deckId/chats" component={ChatBox} />
+            <Route exact path="/decks/:deckId/chats" component={ChatBox} />
+            <Route exact path="/decks/:deckId/remote" component={RemoteControl} />
             <Route exact path="/decks/:deckId" component={DeckOverview} />
             <Route exact path="/decks/:deckId/edit" component={EditDeckForm} />
-            <Route exact path="/decks/:deckId/:liveOrPresenter" component={SlideViewLive} />
+            <Route exact path="/decks/:deckId/:viewTypeParam" component={SlideViewLive} />
             <Route path="/editslide/:slideId" component={EditSlideForm} />
             <Route path="/login" component={Login} />
             <Route path="/new-deck" component={NewDeckForm} />
