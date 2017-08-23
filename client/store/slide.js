@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {fetchDeck} from './deck';
+import { fetchDeck } from './deck';
+import socket from '../socket';
 
 /* -------------- ACTION TYPES -------------- */
 
@@ -19,6 +20,13 @@ const getSlideList = slideList => ({ type: GET_SLIDE_LIST, slideList });
 export const getSingleSlide = singleSlide => ({ type: GET_SINGLE_SLIDE, singleSlide });
 
 /* -------------- THUNK CREATORS -------------- */
+
+export function getSlideAndEmit(slide) {
+  return function thunk(dispatch) {
+    socket.emit('change-slide', slide);
+    return dispatch(getSingleSlide(slide));
+  };
+}
 
 export function fetchSlideList(deckId) {
   return function thunk(dispatch) {

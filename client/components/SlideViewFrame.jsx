@@ -12,12 +12,12 @@ import {
 } from './index';
 
 export default function SlideViewFrame(props) {
-  // props will include `singleSlide`, `hasFooter`, and `footer`
+  // props will include `singleSlide`, `hasFooter`, and `footerText`
   // (the latter two come from the slide’s parent deck).
 
   // Give incoming props less wieldy names
   const { title, template, presenterNotes } = props.singleSlide;
-  const { hasFooter, footer } = props.currentDeck;
+  const { hasFooter, footerText } = props.currentDeck;
 
   const slideBody = (thisTemplate) => {
     switch (thisTemplate) {
@@ -41,7 +41,6 @@ export default function SlideViewFrame(props) {
       <section className="slide-block">
         { template === 'columns-header' || template === 'repl' ? <MarkdownHeader markdown={title} /> : null }
         { slideBody(template) }
-        { hasFooter && footer ? <MarkdownFooter markdown={footer} /> : null }
         {/* Slide numbers and next/previous links should maybe be handled
           in a separate component. I don't think they should be optional,
           but they _could_ be… */}
@@ -66,10 +65,9 @@ SlideViewFrame.propTypes = {
     id: PropTypes.number,
     deckTitle: PropTypes.string,
     viewable: PropTypes.boolean,
-    chats: PropTypes.string,
     theme: PropTypes.string,
     hasFooter: PropTypes.boolean,
-    footer: PropTypes.string,
+    footerText: PropTypes.string,
   }),
   presenterView: PropTypes.bool,
 };
@@ -93,10 +91,9 @@ SlideViewFrame.defaultProps = {
     id: 1,
     deckTitle: 'Test Deck',
     viewable: true,
-    chats: '',
     theme: 'red',
     hasFooter: true,
-    footer: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
+    footerText: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
   },
   presenterView: false,
 };

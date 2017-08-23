@@ -27,7 +27,7 @@ export function MarkdownHeader(props) {
 
 export function MarkdownFooter(props) {
   return (
-    <footer className="markdown markdown-footer" dangerouslySetInnerHTML={{ __html: marked(props.markdown) }} />
+    <div className="markdown markdown-footer" dangerouslySetInnerHTML={{ __html: marked(props.markdown) }} />
   );
 }
 

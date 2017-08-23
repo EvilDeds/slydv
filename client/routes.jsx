@@ -19,6 +19,7 @@ import {
   DeckOverview,
   SlideViewLive,
 } from './components';
+import ChatBox from './components/ChatBox';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -36,6 +37,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route exact path ="/decks/:deckId/chats" component={ChatBox} />
             <Route exact path="/decks/:deckId" component={DeckOverview} />
             <Route exact path="/decks/:deckId/:liveOrPresenter" component={SlideViewLive} />
             <Route path="/editslide/:slideId" component={EditSlideForm} />

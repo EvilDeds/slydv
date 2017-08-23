@@ -29,7 +29,7 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then((res) => {
         dispatch(getUser(res.data));
-        history.push('/home');
+        history.push('/users/'+res.data.id+'/decks');
       })
       .catch(error =>
         dispatch(getUser({ error })));

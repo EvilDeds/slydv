@@ -22,10 +22,11 @@ class UserDeckList extends Component {
 
   render() {
     const decks = this.props.deckList;
+    const userEmail=this.props.user.email;
     return (
       <DocumentTitle title="My Decks | SlyDv">
         <div className="user-deck-list col-lg-9 offset-lg-3">
-          <h3>Check out your decks!</h3>
+          <h3>Welcome, {userEmail}! Check out your decks!</h3>
           <hr />
           { decks.length ? (
             <ul>

@@ -8,8 +8,9 @@ import user from './user';
 import userDeckList from './userDeckList';
 import deck from './deck';
 import showNavBar from './showNavBar';
+import chat from './chat';
 
-const reducer = combineReducers({ slide, user, userDeckList, deck, showNavBar });
+const reducer = combineReducers({ slide, user, userDeckList, deck, showNavBar, chat });
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
 const store = createStore(reducer, composeWithDevTools(middleware));
 
@@ -19,3 +20,4 @@ export * from './user';
 export * from './userDeckList';
 export * from './deck';
 export * from './showNavBar';
+export * from './chat';
