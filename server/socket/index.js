@@ -11,7 +11,6 @@ module.exports = (io) => {
     });
 
     socket.on('change-slide', (slide) => {
-      console.log('changing slide on the server', slide);
       socket.in(slide.deckId).broadcast.emit('change-slide', slide);
     });
 

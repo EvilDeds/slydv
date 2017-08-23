@@ -385,7 +385,6 @@ header.global {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
 #speaker-note-header {
   font-size: 18px;
   padding-bottom: 5px;
@@ -476,10 +475,6 @@ header.global {
 
 // -------------------- Slide View Live --------------------
 .has-footer {
-  .slide-view-frame {
-    height: 91vh;
-  }
-
   footer {
     margin: 0 10px;
     min-height: 7vh;
@@ -488,10 +483,30 @@ header.global {
   }
 }
 
+div.slide-view-live.has-footer > #main{
+  height:90vh;
+}
+
+
+
 // -------------------- Home --------------------
 .user-home {
   margin-left: 20px;
 }
+
+
+//----------------CHatBox------------------------
+
+.slide-view-live {
+  .chat-box {
+    margin: 0 10px;
+    min-height: 7vh;
+    max-height: 20vh;
+    position: absolute;
+    width: 96.6vw;
+    overflow: auto;
+    }
+  }
 
 // --------- override weird Deque toast positioning ---------
 .dqpl-toast {
