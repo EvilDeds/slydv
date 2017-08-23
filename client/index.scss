@@ -472,7 +472,6 @@ header.global {
 }
 
 // -------------------- Remote --------------------
-
 .remote-container {
   height: 100vh;
   width: 98%;
@@ -504,7 +503,8 @@ header.global {
     padding: 5px;
     order: 2;
     .show-notes-btn-container {
-      height: 36px;
+      height: 40px;
+      margin: 3px;
       order: 0;
     }
     .markdown {
