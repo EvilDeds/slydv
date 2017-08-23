@@ -41,11 +41,13 @@ class ChatBox extends Component {
     const deck = this.props.deck;
     return (
       <div className="chat-box">
+       <div className="chat-log">
         {chat && chat.length ?
           chat.map(message => (<div key={message.id}><span>{`${message.user.email} : ${message.message}`}</span></div>)) :
           <p>It's quiet in here, too quiet...</p>
         }
-        <div className="dqpl-field-wrap">
+        </div>
+        <div className="dqpl-field-wrap chat-form">
           <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
           <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
         </div>

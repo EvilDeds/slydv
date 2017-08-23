@@ -480,17 +480,20 @@ header.global {
   margin-left: 20px;
 }
 
-<<<<<<< HEAD
+
 //----------------CHatBox------------------------
 
 .slide-view-live {
   .chat-box {
     margin: 0 10px;
     min-height: 7vh;
+    max-height: 20vh;
     position: absolute;
     width: 96.6vw;
     overflow: auto;
-=======
+    }
+  }
+
 // --------- override weird Deque toast positioning ---------
 .dqpl-toast {
   top: 0;
@@ -534,6 +537,5 @@ header.global {
 
   hr {
     margin-left: -20px;
->>>>>>> origin/master
   }
 }
