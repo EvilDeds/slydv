@@ -12,7 +12,7 @@ const CLEAR_CHATS = 'CLEAR_CHATS';
 // action creators
 const getMessages = messages => ({ type: GET_MESSAGES, messages });
 export const getNewMessage = message => ({ type: GET_NEW_MESSAGE, message });
-const clearChats = () => ({ type: CLEAR_CHATS });
+const clearChats = () => ({ type: CLEAR_CHATS, messages: [] });
 // thunk creators
 
 export function fetchMessages(deckId) {
@@ -50,6 +50,8 @@ export default function (state = initialMessages, action) {
       return action.messages;
     case GET_NEW_MESSAGE:
       return [...state, action.message];
+    case CLEAR_CHATS:
+      return action.messages;
     default:
       return state;
   }
