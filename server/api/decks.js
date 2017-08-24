@@ -28,12 +28,14 @@ router.delete ('/:deckId/chats', (req, res, next) => {
   Chat.findAll({where: {deckId : +req.params.deckId}, include: [ {model: Deck, attributes: ['userId']}]})
   .then((chats) => {
     if(chats[0].deck.userId === req.user.id){
-      return chats.destroy()
+      console.log('im here!');
+      return Chats.destroy({where: {deckId : +req.params.deckId}})  
     }else{
       next(new Error('these are not your chats'))
     }
   })
-  .then((exChats) => res.json(exChats))
+  .then((exChats) => {
+    res.json(exChats)})
   .catch(next)
 })
 

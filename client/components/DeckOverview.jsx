@@ -12,6 +12,10 @@ class DeckOverview extends Component {
     this.newSlideClick = this.newSlideClick.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
     this.handleClearChats = this.handleClearChats.bind(this);
+    this.handleDismiss = this.handleDismiss.bind(this);
+    this.state = {
+      chatsCleared: false
+    }
   }
 
   componentDidMount() {
@@ -64,8 +68,15 @@ class DeckOverview extends Component {
 
   handleClearChats(){
     this.props.clearChats(this.props.deck.id)
-    .then(console.log('chats are clear'));
+    .then( this.setState({ chatsCleared : true }));
   }
+
+  handleDismiss(){
+    this.setState({ chatsCleared : false });
+  }
+
+
+  
 
   /* Need to add in slide number and ability to change where it is in the queue
   https://pattern-library.dequelabs.com/components/option-menus
@@ -74,11 +85,21 @@ class DeckOverview extends Component {
   render() {
     const { deck } = this.props;
     const { slides } = deck;
+
+    const chatDeleteToast = (
+      <div className="dqpl-toast dqpl-toast-success">
+       <div className="dqpl-toast-message">
+        <div className="fa fa-info-circle" aria-hidden="true" /><span>Chat Log Cleared</span>
+        </div>
+          <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleDismiss}/>
+        </div>
+      )
     return (
       <DocumentTitle title="Deck Overview | SlyDv">
         { deck.id
           ? (
             <div className="deck-overview">
+            { this.state.chatsCleared && chatDeleteToast }
               <h1>
                 {deck.deckTitle}
                 <Link className="present-link" to={`/decks/${this.props.deck.id}/edit`}>Edit Deck</Link>
@@ -203,3 +224,5 @@ DeckOverview.defaultProps = {
     slides: [],
   },
 };
+
+
