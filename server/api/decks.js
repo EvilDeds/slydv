@@ -43,9 +43,15 @@ router.delete ('/:deckId/chats', (req, res, next) => {
 router.post('/:deckId/chats', (req, res, next) => {
   Chat.create(req.body)
   .then( (message) => {
-    return Chat.findById(message.id, { include: [ { model: User, attributes: [ 'email' ]} ]})
+    return Chat.findById(message.id, { include: [ { model: User, attributes: [ 'email' ]}, { model: Deck, attributes: ['userId', 'viewable']} ]})
   })
-  .then(messageWithUser => res.json(messageWithUser))
+  .then((messageWithUser) => {
+    if(messageWithUser.deck.userId === req.user.id || messageWithUser.deck.viewable){
+      res.json(messageWithUser);
+    }else{
+      next(new Error('you cannot send chats here'))
+    }
+  })
   .catch(next);
 })
 
