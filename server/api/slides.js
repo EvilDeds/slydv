@@ -3,13 +3,9 @@ const { Slide, Deck } = require('../db/models');
 const Bluebird = require('bluebird');
 
 router.post('/', (req, res, next) => {
-  Slide.create(req.body, {include: [{model: Deck, attributes: ['userID']}]})
+  Slide.create(req.body)
     .then(newSlide => {
-      if(newSlide.deck.userID === req.user.id){
         res.json(newSlide)
-      }else{
-        next(new Error('you cannot add slides to this deck'))
-      }
     })
     .catch(next);
 });
