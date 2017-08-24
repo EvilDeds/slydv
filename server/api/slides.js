@@ -3,32 +3,48 @@ const { Slide, Deck } = require('../db/models');
 const Bluebird = require('bluebird');
 
 router.post('/', (req, res, next) => {
-  Slide.create(req.body)
-    .then(newSlide => res.json(newSlide))
+  Slide.create(req.body, {include: [{model: Deck, attributes: ['userID']}]})
+    .then(newSlide => {
+      if(newSlide.deck.userID === req.user.id){
+        res.json(newSlide)
+      }else{
+        next(new Error('you cannot add slides to this deck'))
+      }
+    })
     .catch(next);
 });
 
 router.get('/:slideId', (req, res, next) => {
-  Slide.findById(req.params.slideId)
-    .then(foundSlide => res.json(foundSlide))
+  Slide.findById(req.params.slideId, {include: [{model: Deck, attributes: ['userId', 'viewable']}]})
+    .then((foundSlide) => {
+      if(foundSlide.deck.userId === req.user.id || foundSlide.deck.viewable ){
+        res.json(foundSlide);
+      }else{
+        next(new Error('this slide is private'))
+      }
+    })
     .catch(next);
 });
 
 router.put('/:slideId', (req, res, next) => {
-  // console.log('req.params.slideId:', req.params.slideId);
-  Slide.findById(req.params.slideId)
+  
+  Slide.findById(req.params.slideId, {include: [{model: Deck, attributes: ['userId']}]})
     .then(slideToUpdate => {
-      // console.log('slideToUpdate:', slideToUpdate);
-      return slideToUpdate.update(req.body);
+      if(slideToUpdate.deck.userId === req.user.id){
+        return slideToUpdate.update(req.body);
+      }else{
+        next(new Error('this slide cannot be updated'))
+      }
     })
     .then(updatedSlide => {
-      // console.log('updatedSlide:', updatedSlide);
+     
       res.json(updatedSlide);
     })
     .catch(next);
 });
 
-router.delete('/:slideId', (req, res, next) => {
+router.delete('/:slideId', (req, res, next) => { //this route left unsecure because nested promises? 
+
   Slide.findById(req.params.slideId)
   .then(currSlide => {
     // get all slides after deleted slide
@@ -38,6 +54,11 @@ router.delete('/:slideId', (req, res, next) => {
     })
     .then(deck => {
       // move positionInDeck of each slide up one
+      if(deck.userId === req.user.id){
+        console.log('you are authorized');
+      }else{
+        next(new Error('this is not your slide'))
+      }
       Bluebird.map(deck.slides, item => {
         let newPos=item.positionInDeck-1;
         // console.log(newPos);
