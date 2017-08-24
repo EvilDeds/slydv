@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
+// import Infinite from 'react-infinite';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
+import ChatBox from './ChatBox';
 import { MarkdownFooter } from './Markdown';
 import SlideViewFrame from './SlideViewFrame';
-import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
 import socket from '../socket';
-import ChatBox from './ChatBox';
-
-import Infinite from 'react-infinite';
+import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
 
 class SlideViewLive extends Component {
   constructor() {
@@ -58,12 +57,12 @@ class SlideViewLive extends Component {
     }
   }
 
-  startSlideShow(){
-    window.open(`/decks/${this.props.deck.id}/live`)
+  startSlideShow() {
+    window.open(`/decks/${this.props.deck.id}/live`);
   }
 
   render() {
-    const { currentSlide, deck, slides, viewTypeParam } = this.props;
+    const { currentSlide, deck, email, slides, viewTypeParam } = this.props;
     const presenterView = viewTypeParam === 'presenter';
     const liveView = viewTypeParam === 'live';
     // Pass presenterView to SlideViewFrame to tell it to render the presenter notes
@@ -87,30 +86,38 @@ class SlideViewLive extends Component {
           {currentSlide && slides && slides.length && deck &&
 
             <footer className={`footer-${viewTypeParam}`}>
-              {!presenterView && deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null}
+              {!presenterView && deck.hasFooter
+                ? <MarkdownFooter markdown={deck.footerText} />
+                : null }
               {presenterView &&
 
-                <ChatBox height={150}/>
+                <ChatBox height={150} />
               }
               {!liveView &&
                 <div className="slide-nav">
-                  {presenterView &&
-                    <button type="button" onClick={this.startSlideShow}>
-                      START PRESENTATION
+                  <div className="arrow-buttons">
+                    <button className="dqpl-button-primary" type="button" onClick={() => this.handleClick('prev')}>
+                    &lt; { currentSlide.positionInDeck === 1 ? 'EXIT' : 'PREV'}
                     </button>
+                    <button className="dqpl-button-primary" onClick={() => this.handleClick('next')}>
+                      { currentSlide.positionInDeck === slides.length ? 'EXIT' : 'NEXT'} &gt;
+                    </button>
+                  </div>
+                  {presenterView &&
+                  <div className="presenter-buttons">
+                    <button className="dqpl-button-secondary" type="button" onClick={this.startSlideShow}>
+                      START PRESENTATION
+                    </button><br />
+                    <a href={`mailto:${email}?subject=SlyDv Remote&body=http://www.slydv.tech/decks/${this.props.deck.id}/remote`}>
+                      <button className="dqpl-button-secondary" type="button">
+                        E-MAIL REMOTE LINK
+                      </button>
+                    </a>
+                  </div>
                   }
-                  {'   '}
-                  <button type="button" onClick={() => this.handleClick('prev')}>
-                  &lt;{ currentSlide.positionInDeck === 1 ? 'EXIT' : 'PREV'}
-                  </button>
-                  {'   '}
-                  <button type="button" onClick={() => this.handleClick('next')}>
-                    { currentSlide.positionInDeck === slides.length ? 'EXIT' : 'NEXT'}&gt;
-                  </button>
                 </div>
               }
             </footer>
-
           }
         </div>
       </DocumentTitle>
@@ -121,9 +128,10 @@ class SlideViewLive extends Component {
 /* -----CONNECT TO STORE AND PROPS----- */
 
 const mapState = (state, ownProps) => ({
-  slides: state.deck.slides,
   currentSlide: state.slide.singleSlide,
   deck: state.deck,
+  email: state.user.email,
+  slides: state.deck.slides,
   viewTypeParam: ownProps.match.params.viewTypeParam,
 });
 
@@ -152,6 +160,7 @@ SlideViewLive.propTypes = {
     id: PropTypes.number.isRequired,
     footerText: PropTypes.string,
   }).isRequired,
+  email: PropTypes.string,
   history: PropTypes.shape().isRequired,
   viewTypeParam: PropTypes.string.isRequired,
   loadDeck: PropTypes.func.isRequired,
@@ -161,6 +170,7 @@ SlideViewLive.propTypes = {
     }).isRequired,
   }).isRequired,
   setSlide: PropTypes.func.isRequired,
+  setSlideAndEmit: PropTypes.func.isRequired,
   showNavBar: PropTypes.func.isRequired,
   slides: PropTypes.arrayOf(PropTypes.shape()),
 };
@@ -169,5 +179,6 @@ SlideViewLive.defaultProps = {
   deck: {
     footerText: '',
   },
+  email: '',
   slides: [],
 };

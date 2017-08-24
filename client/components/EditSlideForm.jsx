@@ -129,7 +129,10 @@ class EditSlideForm extends Component {
   }
 
   handleReplChange(evt) {
+    this.state.saved = false;
     this.state.isDirty = true;
+    this.state.dirtyButtonClassName = 'dqpl-button-secondary';
+    this.state.cleanButtonClassName = 'dqpl-button-primary';
     this.state.singleSlide.codeText = evt;
     this.setState(this.state);
   }

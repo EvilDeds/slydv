@@ -315,15 +315,29 @@ header.global {
   border: 0;
   bottom: 0;
   left: 0;
-  min-height: 30px;
-  padding: 18px 30px;
+  padding: 18px 15px;
   position: absolute;
   right: 0;
   text-align: right;
 
-  button {
-    display: inline-block;
+    button {
+      display: inline-block;
+    }
+
+  .arrow-buttons {
+    button {
+      margin-left: 10px;
+    }
   }
+
+  .presenter-buttons {
+    text-align: right;
+
+    button {
+      margin-top: 30px;
+    }
+  }
+
 }
 
 // Too narrow to support three columns
