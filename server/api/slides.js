@@ -44,6 +44,7 @@ router.put('/:slideId', (req, res, next) => {
 });
 
 router.delete('/:slideId', (req, res, next) => { //this route left unsecure because nested promises? 
+
   Slide.findById(req.params.slideId)
   .then(currSlide => {
     // get all slides after deleted slide
@@ -53,6 +54,11 @@ router.delete('/:slideId', (req, res, next) => { //this route left unsecure beca
     })
     .then(deck => {
       // move positionInDeck of each slide up one
+      if(deck.userId === req.user.id){
+        console.log('you are authorized');
+      }else{
+        next(new Error('this is not your slide'))
+      }
       Bluebird.map(deck.slides, item => {
         let newPos=item.positionInDeck-1;
         // console.log(newPos);
