@@ -195,9 +195,8 @@ class EditSlideForm extends Component {
   }
 
   render() {
-    console.log('this.state:', this.state);
+    // console.log('this.state:', this.state);
     // console.log('this.props:', this.props);
-    // console.log('this.state.isDirty:', this.state.isDirty);
     let errorContinue = null;
     if (this.state.errorType) {
       if (this.state.errorType === 'view-before-save') {
