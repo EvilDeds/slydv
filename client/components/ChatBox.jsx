@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import Infinite from 'react-infinite';
 import { fetchDeck, fetchSlideList, fetchMessages, postMessage } from '../store';
 import socket from '../socket';
 
@@ -40,19 +41,19 @@ class ChatBox extends Component {
     const chat = this.props.chat;
     const deck = this.props.deck;
     return (
-      <form className="chat-box" onSubmit={this.handleSubmit}>
-       <div className="chat-log">
-        {chat && chat.length ?
-          chat.map(message => (<div key={message.id}><span>{`${message.user.email} : ${message.message}`}</span></div>)) :
-          <p>It's quiet in here, too quiet...</p>
+      <div className="chat-box">
+        {chat && chat.length
+          ? <Infinite className="chat-log" containerHeight={this.props.height || 500} elementHeight={20} displayBottomUpwards={true} >
+                {chat.map(message => (<div className="chat-message" key={message.id}><span><b>{`${message.user.email} : `}</b>{message.message}</span></div>))}
+          </Infinite>
+          :  <p>It's quiet in here, too quiet...</p>
         }
-        </div>
-        <div className="dqpl-field-wrap chat-form">
+        <form className="dqpl-field-wrap chat-form" onSubmit={this.handleSubmit}>
           <label className="dqpl-label" htmlFor="currentMessage" id="currentMessage-label">Speak!</label>
           <input className="dqpl-text-input" type="text" id="currentMessage" value={this.state.currentMessage} onChange={this.handleChange} aria-labelledby="title-label" />
-        </div>
-        <button type="submit" onClick={this.handleSubmit}>Send</button>
-      </form>
+          <button className="chat-send" type="submit" onClick={this.handleSubmit}>Send</button>
+        </form>
+      </div>
     );
   }
 }
