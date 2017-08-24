@@ -88,6 +88,17 @@ class DeckOverview extends Component {
                         <tr key={slide.id} className="deckview-slide-container">
                           <td>{ `${slide.title} ` }</td>
                           <td>
+                            <Link to={`/decks/${deck.id}/live`}>
+                              <button
+                                className="dqpl-button-secondary"
+                                type="button"
+                                onClick={() => this.handleClick(slide)}
+                              >
+                                  View
+                              </button>
+                            </Link>
+                          </td>
+                          <td>
                             <Link to={`/editslide/${slide.id}`}>
                               <button
                                 className="dqpl-button-secondary"

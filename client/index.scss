@@ -57,6 +57,9 @@ body {
   }
 }
 
+.markdown-speaker-container{
+
+}
 
 // --------------- Flexbox Default Styles --------------
 
@@ -106,6 +109,7 @@ body {
   min-width: 200px;
   order: 3;
   padding: 5px;
+  overflow: auto;
 }
 
 #main > footer {
@@ -396,10 +400,23 @@ header.global {
 .edit-slide-form {
   margin-left: 20px;
 
+  hr {
+    margin-left: -20px;
+  }
+
   .ace_editor {
     border: 1px solid #ccc;
     font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
     max-width: 70em;
+  }
+
+  .button-row {
+    text-align: center;
+
+    button {
+      display: inline-block;
+      margin: 0 5px;
+    }
   }
 
   .deck-title {
@@ -409,6 +426,11 @@ header.global {
   .header-label {
     @include smallcaps(.8em);
     color: #999;
+  }
+
+  .save-from-toast {
+    display: inline-block;
+    margin-bottom: 4px;
   }
 }
 
@@ -480,6 +502,18 @@ div.slide-view-live.has-footer > #main{
 .user-home {
   margin-left: 20px;
 }
+//----------------ChatBox------------------------
+
+.slide-view-live {
+  .chat-box {
+    margin: 0 10px;
+    min-height: 7vh;
+    max-height: 20vh;
+    position: absolute;
+    width: 96.6vw;
+    overflow: auto;
+  }
+}
 
 // --------- override weird Deque toast positioning ---------
 .dqpl-toast {
@@ -511,7 +545,7 @@ div.slide-view-live.has-footer > #main{
 
     &::before {
       color: #666;
-      content: '   |   ';
+      content: '   |   ';
     }
   }
 }
@@ -527,8 +561,60 @@ div.slide-view-live.has-footer > #main{
   }
 }
 
+// -------------------- Remote --------------------
+.remote-container {
+  height: 100vh;
+  width: 98%;
+  background-color: #30333A;
+  color: #4ecdc4;
+  padding: 10px 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-flow: column;
+  h1{
+    text-align: center;
+    padding: 2px 2px;
+    margin: 3px 3px;
+  }
+  h2{
+    text-align: center;
+    padding: 2px 2px;
+    margin: 3px 3px;
+  }
+  .remote-button-container {
+    min-height: 36px;
+    display: flex;
+    flex-flow: row;
+    order: 1;
+  }
+  .remote-speaker-notes {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    order: 2;
+    .show-notes-btn-container {
+      height: 40px;
+      margin: 3px;
+      order: 0;
+    }
+    .markdown {
+      flex-grow: 1;
+      overflow: auto;
+      padding-top: 10px;
+      order: 1;
+      p {
+        font-size: 18px;
+      }
+    }
+  }//end .remote-speaker-notes
+}//end .remote-container
 
 
+.runkit-container{
+  overflow: auto;
+  max-height: 100%;
+  padding-left: 25px
+}
 
 
 
@@ -849,8 +935,6 @@ http://markedstyle.com/styles/antique
   top: -1px; }
 
 
-
-//GREEN
 
 
 
