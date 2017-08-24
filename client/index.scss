@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800');
+
+$slydv-turquoise: #4ecdc4;
+
 @mixin smallcaps($size) {
   font-size: $size;
   letter-spacing: 1pt;
@@ -13,10 +18,10 @@
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 
   a {
-    color: #4ecdc4;
+    color: $slydv-turquoise;
     text-decoration: none;
     //black
     //color: #fff !important;
@@ -265,7 +270,7 @@ header.global {
   background-repeat: repeat;
   border: 0;
   border-radius: 0;
-  border-top: 10px solid #4ecdc4;
+  border-top: 10px solid $slydv-turquoise;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -470,7 +475,9 @@ header.global {
   .nameplate {
     color: #666;
     display: inline-block;
+    font-family: Raleway, 'Source Sans Pro', sans-serif;
     font-weight: bold;
+    letter-spacing: 4px;
     margin: 0;
     padding: 18px 0;
     text-decoration: none;
@@ -594,7 +601,7 @@ div.slide-view-live.has-footer > #main{
   height: 100vh;
   width: 98%;
   background-color: #30333A;
-  color: #4ecdc4;
+  color: $slydv-turquoise;
   padding: 10px 5px;
   border: 1px solid #ccc;
   display: flex;
@@ -637,13 +644,13 @@ div.slide-view-live.has-footer > #main{
   }//end .remote-speaker-notes
 }//end .remote-container
 
-
 .runkit-container{
   overflow: auto;
   max-height: 100%;
   padding-left: 25px
 }
 
+<<<<<<< HEAD
 
 
 
@@ -1506,3 +1513,10 @@ Description:  Clean, Swiss typography with no frills.
 
 
 // --------------------------- END THEMES -------------------
+
+.dqpl-toast-error {
+  a {
+    color: white;
+  }
+}
+
