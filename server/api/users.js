@@ -6,14 +6,26 @@ module.exports = router;
 router.put('/:userId/decks/:deckId', (req, res, next) => {
   const deckId = req.params.deckId;
   Deck.findById(deckId)
-  .then( deck => deck.update(req.body))
+  .then( (deck) => {
+    if(deck.userId === req.user.id){
+      return deck.update(req.body)
+    }else{
+      next(new Error('this is not your deck to update'))
+    }
+  })
   .then( updated => res.json(updated))
   .catch(next);
 })
 
 router.post('/:userId/decks', (req, res, next) => {
   Deck.create(Object.assign({}, req.body, {userId : +req.params.userId}))
-  .then( deck => res.json(deck))
+  .then( (deck) => {
+    if(deck.userId === req.user.id){
+      res.json(deck)
+    }else{
+      next(new Error('deck cannot be created here'));
+    }
+  })
   .catch(next);
 })
 
@@ -23,7 +35,9 @@ router.get('/:userId/decks', (req, res, next) => {
       userId: Number(req.params.userId),
     },
   })
-    .then(decks => res.json(decks))
+    .then((decks) => {
+      res.json(decks.filter((deck) => { return (deck.userId === req.user.id || deck.viewable) }))
+    })
     .catch(next);
 });
 
