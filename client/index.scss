@@ -534,6 +534,9 @@ div.slide-view-live.has-footer > #main{
 
 // --------------------------- THEMES -------------------
 
+
+//RED
+
 /*
 This document has been created with Marked.app <http://marked2app.com>, Copyright 2013 Brett Terpstra
 Content is property of the document author
@@ -542,6 +545,8 @@ Please leave this notice in place, along with any additional credits below.
 Title:  Antique
 Author:  Brett Terpstra
 Description:  An "antiqued" theme with off-white background and serif typography
+
+http://markedstyle.com/styles/antique
 */
 #main.slide-view-frame.red {
   font-family: Palatino, Georgia, "Times New Roman", serif;
@@ -712,7 +717,9 @@ Description:  An "antiqued" theme with off-white background and serif typography
     color: #514d3f;
     overflow: auto;
     text-indent: 0px;
-    padding: 25px; }
+    //padding: 25px;
+    margin: 5px 10px 0px 8px;
+  }
   #main.slide-view-frame.red ::selection {
     background: rgba(157, 193, 200, 0.5); }
   #main.slide-view-frame.red h1::selection, #main.slide-view-frame.red h2::selection, #main.slide-view-frame.red h3::selection, #main.slide-view-frame.red h4::selection, #main.slide-view-frame.red h5::selection, #main.slide-view-frame.red h6::selection {
@@ -840,5 +847,11 @@ Description:  An "antiqued" theme with off-white background and serif typography
 #main.slide-view-frame.red sub {
   vertical-align: sub;
   top: -1px; }
+
+
+
+//GREEN
+
+
 
 // --------------------------- END THEMES -------------------
