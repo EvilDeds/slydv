@@ -17,6 +17,7 @@ router.put('/:userId/decks/:deckId', (req, res, next) => {
   .catch(next);
 })
 
+
 router.post('/:userId/decks', (req, res, next) => {
   Deck.create(Object.assign({}, req.body, {userId : +req.params.userId}))
   .then( (deck) => {
@@ -30,6 +31,7 @@ router.post('/:userId/decks', (req, res, next) => {
 })
 
 router.get('/:userId/decks', (req, res, next) => {
+  console.log ('in the getting route')
   Deck.findAll({
     where: {
       userId: Number(req.params.userId),

@@ -40,6 +40,25 @@ router.delete ('/:deckId/chats', (req, res, next) => {
   .catch(next)
 })
 
+router.delete('/delete/:deckId', (req, res, next) => {
+  const deckId = req.params.deckId;
+  Deck.findById(deckId)
+  .then( (deck) => {
+    if (deck.userId === req.user.id){
+      return Deck.destroy({where : {id: deckId}})
+    }else{
+      next(new Error('you cannot delete this deck'))
+    }
+  })
+   .then((exDeck) => {
+    return Slide.findAll({where: {deckId: exDeck.id}})
+  })
+  .then((slides) => {
+    return Slide.destroy({where: {deckId : deckId }})
+  })
+  .catch(next);
+})
+
 router.post('/:deckId/chats', (req, res, next) => {
   Chat.create(req.body)
   .then( (message) => {

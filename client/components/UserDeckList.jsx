@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchUserDeckList } from '../store';
+import { fetchUserDeckList, destroyDeck } from '../store';
 
 class UserDeckList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -19,6 +20,13 @@ class UserDeckList extends Component {
     if (nextProps.user && nextProps.user.id !== this.props.user.id) {
       this.props.loadDecks(nextProps.user.id);
     }
+    if (nextProps.deckList && nextProps.deckList.length !== this.props.deckList.length){
+      this.props.loadDecks(nextProps.user.id);
+    }
+  }
+  
+  handleDelete(e){
+     this.props.dumpDeck(e.target.value)
   }
 
   render() {
@@ -59,6 +67,16 @@ class UserDeckList extends Component {
                         </button>
                       </Link>
                     </td>
+                    <td>
+                    <button
+                     className="dqpl-button-secondary"
+                     type="button"
+                     onClick={this.handleDelete}
+                     value={deck.id}
+                        >
+                        Delete Deck
+                        </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -87,7 +105,12 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  loadDecks(userId) { dispatch(fetchUserDeckList(userId)); },
+  loadDecks(userId) { 
+    dispatch(fetchUserDeckList(userId)); 
+  },
+  dumpDeck(deckId) {
+    return dispatch(destroyDeck(deckId));
+  }
 });
 
 export default connect(mapState, mapDispatch)(UserDeckList);

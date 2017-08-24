@@ -192,6 +192,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   clearChats(deckId) {
     return dispatch(deleteChatLog(deckId));
   },
+
 });
 
 export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
