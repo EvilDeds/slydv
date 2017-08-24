@@ -17,9 +17,9 @@ export default function DumbDeckForm(props) {
           <label htmlFor="theme" id="themeLabel">Choose a Deck Theme</label>
           <div className="dqpl-select">
             <select name="theme" aria-labelledby="themeLabel" value={props.deck.theme} onChange={props.handleChange}>
-              <option value="red">Red</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
+              <option value="antique">Antique</option>
+              <option value="swiss">Swiss</option>
+              <option value="ulysses">Ulysses</option>
             </select>
           </div>
         </div>
