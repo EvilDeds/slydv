@@ -6,12 +6,13 @@ const initialMessages = [];
 // action types
 const GET_MESSAGES = 'GET_MESSAGES';
 const GET_NEW_MESSAGE = 'GET_NEW_MESSAGE';
+const CLEAR_CHATS = 'CLEAR_CHATS';
 
 
 // action creators
 const getMessages = messages => ({ type: GET_MESSAGES, messages });
 export const getNewMessage = message => ({ type: GET_NEW_MESSAGE, message });
-
+const clearChats = () => ({ type: CLEAR_CHATS });
 // thunk creators
 
 export function fetchMessages(deckId) {
@@ -33,6 +34,15 @@ export function postMessage(deckId, userId, message) {
   };
 }
 
+export function deleteChatLog(deckId) {
+  return function thunk(dispatch) {
+    return axios.delete(`/api/decks/${deckId}/chats`)
+      .then((res) => {
+        dispatch(clearChats(res.data))
+      })
+      .catch((err) => console.error(err))
+  }
+}
 // reducer
 export default function (state = initialMessages, action) {
   switch (action.type) {

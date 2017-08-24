@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList, getSingleSlide, createSlide, deleteSlide } from '../store';
+import { fetchDeck, fetchSlideList, getSingleSlide, createSlide, deleteSlide, deleteChatLog } from '../store';
 
 class DeckOverview extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class DeckOverview extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.newSlideClick = this.newSlideClick.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
+    this.handleClearChats = this.handleClearChats.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +60,11 @@ class DeckOverview extends Component {
       (slides[0].deckId !== this.props.currentSlide.deckId)) {
       this.props.setSlide(slides[0]);
     }
+  }
+
+  handleClearChats(){
+    this.props.clearChats(this.props.deck.id)
+    .then(console.log('chats are clear'));
   }
 
   /* Need to add in slide number and ability to change where it is in the queue
@@ -127,6 +133,7 @@ class DeckOverview extends Component {
               }
               <hr />
               <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>Add a Slide</button>
+               <button className="dqpl-button-secondary" type="button" onClick={this.handleClearChats}> Clear ChatLog </button>
             </div>
           )
           : (
@@ -157,7 +164,12 @@ const mapDispatch = (dispatch, ownProps) => ({
   deleteSlide(slide) {
     dispatch(deleteSlide(slide));
   },
-  sendSlide(slide) { return dispatch(createSlide(slide, ownProps.history)); },
+  sendSlide(slide) { 
+    return dispatch(createSlide(slide, ownProps.history)); 
+  },
+  clearChats(deckId) {
+    return dispatch(deleteChatLog(deckId));
+  },
 });
 
 export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
