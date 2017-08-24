@@ -88,10 +88,9 @@ class SlideViewLive extends Component {
 
             <footer className={`footer-${viewTypeParam}`}>
               {!presenterView && deck.hasFooter ? <MarkdownFooter markdown={deck.footerText} /> : null}
-              {presenterView && 
-              <Infinite containerHeight={200} elementHeight={40}>
-                <ChatBox />
-              </Infinite>
+              {presenterView &&
+
+                <ChatBox height={150}/>
               }
               {!liveView &&
                 <div className="slide-nav">

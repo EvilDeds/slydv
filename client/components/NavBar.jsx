@@ -7,10 +7,12 @@ import { logout } from '../store';
 const Navbar = (props) => {
   const { handleClick, isLoggedIn } = props;
   const userId = props.user.id;
+  const nameplateLink = userId ? `/users/${userId}/decks` : '/';
+
   return (
     <div className="nav-bar">
       <header className="global">
-        <h1><Link to={`/users/${userId}/decks`}><img src="/images/logo.png" className="nameplate-img" alt="slydv" width="50" /></Link> <Link to={`/users/${userId}/decks`} className="nameplate"><span>SLYDV</span></Link></h1>
+        <h1><Link to={nameplateLink}><img src="/images/logo.png" className="nameplate-img" alt="slydv" width="50" /></Link> <Link to={nameplateLink} className="nameplate"><span>SLYDV</span></Link></h1>
         <nav>
           {
             isLoggedIn
