@@ -103,11 +103,14 @@ class EditSlideForm extends Component {
         errorType: 'new-before-save',
       });
     } else {
+      this.setState({
+        saved: false,
+      });
       this.props.sendSlide(newSlide);
     }
   }
 
-  // If there was an error toast and the user decided to create a new slide anyway
+  // If there was an error toast and the user decided to create a new slide anyway. This doesn't work, so the link is disabled.
   handleNewClickFromErrorToast() {
     const position = this.state.deckLength + 1;
     const deckId = this.props.deck.id;
@@ -141,6 +144,14 @@ class EditSlideForm extends Component {
         cleanButtonClassName: 'dqpl-button-secondary',
         dirtyButtonClassName: 'dqpl-button-primary',
       }));
+    this.setState({
+      isDirty: false,
+    });
+    setTimeout(() => {
+      this.setState({
+        saved: false,
+      });
+    }, 5000);
   }
 
   // If there was an error toast and the user decided to save the current slide
@@ -153,9 +164,15 @@ class EditSlideForm extends Component {
           errorToast: false,
           errorType: '',
           saved: true,
+          isDirty: false,
           cleanButtonClassName: 'dqpl-button-secondary',
           dirtyButtonClassName: 'dqpl-button-primary',
         }));
+      setTimeout(() => {
+        this.setState({
+          saved: false,
+        });
+      }, 5000);
     }
   }
 
@@ -178,12 +195,12 @@ class EditSlideForm extends Component {
   }
 
   render() {
+    // console.log('this.state:', this.state);
     // console.log('this.props:', this.props);
-    // console.log('this.state.isDirty:', this.state.isDirty);
     let errorContinue = null;
     if (this.state.errorType) {
       if (this.state.errorType === 'view-before-save') {
-        errorContinue = <Link to={`/decks/${this.props.deck.id}/live`}>Or preview anyway?</Link>;
+        errorContinue = <Link to={`/decks/${this.props.deck.id}/live`}>Or discard your changes and preview anyway?</Link>;
       } {/* else {
         errorContinue = (<Link
           onClick={this.handleNewClickFromErrorToast}
