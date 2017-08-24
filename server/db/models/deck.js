@@ -11,7 +11,7 @@ const Deck = db.define('deck', {
   },
   theme: {
     type: Sequelize.ENUM,
-    values: ['antique', 'swiss', 'ulysses'],
+    values: ['antique', 'swiss', 'ulysses', 'red', 'green', 'blue'],
     defaultValue: 'antique',
   },
   hasFooter: {
