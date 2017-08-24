@@ -12,10 +12,6 @@ import {
 } from './index';
 
 export default function SlideViewFrame(props) {
-  // props will include `singleSlide`, `hasFooter`, and `footerText`
-  // (the latter two come from the slide’s parent deck).
-
-  // Give incoming props less wieldy names
   const { title, template, presenterNotes } = props.singleSlide;
   const { hasFooter, footerText } = props.currentDeck;
 
@@ -39,11 +35,8 @@ export default function SlideViewFrame(props) {
   return (
     <div id="main" className={`slide-view-frame ${props.currentDeck.theme}`}>
       <section className="slide-block">
-        { template === 'columns-header' || template === 'repl' ? <MarkdownHeader markdown={title} /> : null }
+        { template === 'columns-header' || template === 'repl' ? <h1><MarkdownHeader markdown={title} /></h1> : null }
         { slideBody(template) }
-        {/* Slide numbers and next/previous links should maybe be handled
-          in a separate component. I don't think they should be optional,
-          but they _could_ be… */}
       </section>
       { props.presenterView && <MarkdownSpeakerNotes markdown={presenterNotes} /> }
     </div>
@@ -75,25 +68,25 @@ SlideViewFrame.propTypes = {
 SlideViewFrame.defaultProps = {
   singleSlide: {
     id: 1,
-    title: '__This is a slide title__',
-    firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.!',
-    secondText: '%%%!It has two columns, separated by an unlikely sequence of punctuation marks.',
+    title: '',
+    firstText: '',
+    secondText: '',
     // template: 'mid-page',
     // template: 'single-pane',
     // template: 'columns-header',
     // template: 'columns',
     template: 'repl',
-    codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
+    codeText: '',
     positionInDeck: 1,
-    presenterNotes: 'This is a speaker note in Markdown.',
+    presenterNotes: '',
   },
   currentDeck: {
     id: 1,
-    deckTitle: 'Test Deck',
+    deckTitle: '',
     viewable: true,
     theme: 'red',
     hasFooter: true,
-    footerText: 'Glorious Presentation by Footer McFootery\n[fmcfootery@mcfootery.com](fmcfootery@mcfootery.com)',
+    footerText: '',
   },
   presenterView: false,
 };
