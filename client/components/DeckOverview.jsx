@@ -105,6 +105,7 @@ class DeckOverview extends Component {
                 <Link className="present-link" to={`/decks/${this.props.deck.id}/edit`}>Edit Deck</Link>
                 <Link className="present-link" to={`/decks/${deck.id}/static`}>View Slides</Link>
                 <Link className="present-link" to={`/decks/${deck.id}/presenter`}>Presenter View</Link>
+                <Link className="present-link" to={`/decks/${deck.id}/chats`}>Chat Log</Link>
               </h1>
               <hr />
               { deck && slides && slides.length
