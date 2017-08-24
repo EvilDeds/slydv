@@ -14,13 +14,15 @@ router.get('/:deckId', (req, res, next) => {
 });
 
 router.get('/:deckId/chats', (req, res, next) => {
-  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}, { model: deck, attributes: ['userId','viewable']}] })
+  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}, { model: Deck, attributes: ['userId','viewable']}] })
     .then((chats) => {
-      if (chats[0].deck.userId === req.user.id || chats[0].deck.viewable ){
+      if(!chats.length){res.json(chats)
+      }else if (chats[0].deck.userId === req.user.id || chats[0].deck.viewable){
         res.json(chats)
       }else{
         next(new Error('these chats are private'))
       }
+    
     })
     .catch(next);
 });
@@ -28,8 +30,7 @@ router.delete ('/:deckId/chats', (req, res, next) => {
   Chat.findAll({where: {deckId : +req.params.deckId}, include: [ {model: Deck, attributes: ['userId']}]})
   .then((chats) => {
     if(chats[0].deck.userId === req.user.id){
-      console.log('im here!');
-      return Chats.destroy({where: {deckId : +req.params.deckId}})  
+      return Chat.destroy({where: {deckId : +req.params.deckId}})  
     }else{
       next(new Error('these are not your chats'))
     }
