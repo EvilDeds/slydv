@@ -58,7 +58,7 @@ body {
 }
 
 .markdown-speaker-container{
-  
+
 }
 
 // --------------- Flexbox Default Styles --------------
@@ -311,7 +311,7 @@ header.global {
   bottom: 0;
   left: 0;
   min-height: 30px;
-  padding: 18px 36px;
+  padding: 18px 30px;
   position: absolute;
   right: 0;
   text-align: right;
@@ -484,6 +484,13 @@ header.global {
 
 // -------------------- Slide View Live --------------------
 .has-footer {
+  .footer-presenter {
+    height: 205px;
+    .slide-nav {
+      position: relative;
+    }
+  }
+
   footer {
     margin: 0 10px;
     min-height: 7vh;
@@ -504,14 +511,35 @@ div.slide-view-live.has-footer > #main{
 }
 //----------------ChatBox------------------------
 
+.chat-box{
+  padding: 3px;
+  .chat-send {
+    display: inline-block;
+    margin: 5px;
+  }
+  .chat-form {
+    margin: 2px;
+  }
+  .chat-log {
+    border: 1px solid #a0a0a0;
+    border-radius: 4pt;
+  }
+  .chat-message {
+    margin: 2px 8px;
+  }
+
+}
+
 .slide-view-live {
   .chat-box {
-    margin: 0 10px;
+    height: 200px;
+    margin: 0 2px;
     min-height: 7vh;
     max-height: 20vh;
     position: absolute;
     width: 96.6vw;
-    overflow: auto;
+    //overflow: auto;
+    max-width: 67vw;
     }
   }
 
@@ -615,3 +643,4 @@ div.slide-view-live.has-footer > #main{
   max-height: 100%;
   padding-left: 25px
 }
+
