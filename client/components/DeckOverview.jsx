@@ -106,7 +106,7 @@ class DeckOverview extends Component {
                 <li><Link to={`/decks/${deck.id}/static`}><div className="fa fa-eye" /> Preview Slides</Link></li>
                 <li><Link to={`/decks/${deck.id}/presenter`}><div className="fa fa-play" /> Open Presenter View</Link></li>
                 <li><Link to={`/decks/${deck.id}/chats`}><div className="fa fa-comments" /> View Chat Log</Link></li>
-                <li><Link to={`/decks/${deck.id}`} onClick={this.handleClearChats}><div className="fa fa-remove" /> Clear ChatLog</Link></li>
+                <li><Link to={`/decks/${deck.id}`} onClick={this.handleClearChats}><div className="fa fa-remove" /> Clear Chat Log</Link></li>
               </ul>
               <hr />
               { deck && slides && slides.length
