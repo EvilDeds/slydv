@@ -9,24 +9,44 @@ class Runkit extends React.Component {
   constructor(props) {
     super(props);
     this.changeCode = this.changeCode.bind(this);
+    // this.run = this.run.bind(this);
+    // this.state = {
+    //   loadFunc: () => {},
+    // };
   }
 
-  changeCode() {
-    // (this.source and event are undefined, but we can update state in the callback below)
-    this.refs.embed.getSource(code => this.props.changeSlideCode(code, this.props.currentSlide));
+  /* These functions are not currently working as we'd like.
+      There is no current obvious way to get Runkit to evaluate
+      other than when it loads or when the URL changes.
+      onLoad={this.state.loadFunc} */
 
+  // componentWillReceiveProps(nextProps) {
+  //   const { currentSlide } = this.props;
+  //   const nextSlide = nextProps.currentSlide;
+  //   if (currentSlide.id === nextSlide.id
+  //       && currentSlide.codeText !== nextSlide.codeText) {
+  //     this.setState({ loadFunc: this.run });
+  //   }
+  // }
+
+  // run() {
+  //   return this.refs.embed.evaluate();
+  // }
+
+  changeCode() {
+    this.refs.embed.getSource(code => this.props.changeSlideCode(code, this.props.currentSlide));
   }
 
   render() {
     return (
       <Embed
         source={this.props.currentSlide.codeText}
-        readOnly={ false }
+        readOnly={false}
         onEvaluate={this.changeCode}
         ref="embed"
-        minHeight="250px"
+        minHeight="100px"
       />
-    )
+    );
   }
 }
 
@@ -37,8 +57,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   changeSlideCode(code, slide) {
     const newSlide = { ...slide, codeText: code };
-    dispatch(getSingleSlide(newSlide));
     socket.emit('change-slide', newSlide);
+    dispatch(getSingleSlide(newSlide));
   },
 });
 
