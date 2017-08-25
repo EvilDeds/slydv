@@ -309,10 +309,11 @@ header.global {
 // END LANDING SAMPLES
 
 .slide-nav {
-  background: transparent;
+  // background: transparent;
+  // background-color:rgba(0,255,0,0.3);
   border: 0;
-  bottom: 0;
-  left: 0;
+  bottom: -190;
+  max-width: 240px;
   padding: 18px 15px;
   position: absolute;
   right: 0;
@@ -505,8 +506,9 @@ header.global {
 .has-footer {
   .footer-presenter {
     height: 205px;
+
     .slide-nav {
-      position: relative;
+      bottom: 0;
     }
   }
 
