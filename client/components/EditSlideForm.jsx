@@ -271,10 +271,7 @@ class EditSlideForm extends Component {
 
             {/* title - conditional label ------------------------------------*/}
             <div className={`dqpl-field-wrap ${titleVisibility}`}>
-              <label className="dqpl-label" htmlFor="title" id="title-label">Title <button className="dqpl-help-button title-tip" type="button" aria-label="First name help" data-help-text="<strong>Note:</strong> The contents of this title field are not displayed on slides using this template, but it will be used as the slide title on the deck overview page.">
-                <div className="fa fa-question-circle" aria-hidden="true" />
-              </button>
-</label>
+              <label className="dqpl-label" htmlFor="title" id="title-label">Title</label>
               <input className="dqpl-text-input" type="text" id="title" value={this.state.singleSlide.title} onChange={this.handleChange} aria-labelledby="title-label" />
             </div>
 
