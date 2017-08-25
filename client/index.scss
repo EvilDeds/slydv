@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800');
 
 $slydv-turquoise: #4ecdc4;
+$slydv-teal: #099;
 
 @mixin smallcaps($size) {
   font-size: $size;
@@ -21,7 +22,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 
   a {
-    color: $slydv-turquoise;
+    color: $slydv-teal;
     text-decoration: none;
     //black
     //color: #fff !important;
@@ -33,6 +34,7 @@ body {
   }
 
   nav a {
+    color: $slydv-turquoise;
     display: inline-block;
     margin: 1em;
   }
@@ -593,17 +595,23 @@ div.slide-view-live.has-footer > #main{
     margin-left: -20px;
   }
 
-  .edit-deck-button {
-    display: inline-block;
+  .deck-options {
+    a {
+      @include smallcaps(1em);
+    }
+
+    li {
+      display: inline-block;
+      margin-right: 1.5em;
+      // &::before {
+      //   color: #666;
+      //   content: '   |   ';
+      // }
+    }
   }
 
-  .present-link {
-    @include smallcaps(.7em);
-
-    &::before {
-      color: #666;
-      content: '   |   ';
-    }
+  .edit-deck-button {
+    display: inline-block;
   }
 }
 
@@ -615,6 +623,13 @@ div.slide-view-live.has-footer > #main{
 
   hr {
     margin-left: -20px;
+  }
+
+  table {
+    button {
+      margin-left: 0;
+      margin-right: auto;
+    }
   }
 }
 

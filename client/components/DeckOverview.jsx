@@ -14,8 +14,8 @@ class DeckOverview extends Component {
     this.handleClearChats = this.handleClearChats.bind(this);
     this.handleDismiss = this.handleDismiss.bind(this);
     this.state = {
-      chatsCleared: false
-    }
+      chatsCleared: false,
+    };
   }
 
   componentDidMount() {
@@ -34,9 +34,34 @@ class DeckOverview extends Component {
     }
   }
 
+  handleClearChats() {
+    this.props.clearChats(this.props.deck.id)
+      .then(this.setState({ chatsCleared: true }));
+  }
+
   handleClick(slide) {
     this.props.setSlide(slide);
   }
+
+  handleClickDelete(slide) {
+    this.props.deleteSlide(slide.id);
+    // reload the deck to change state and redraw
+    const deckId = +this.props.match.params.deckId;
+    const { slides } = this.props.deck;
+    this.props.loadDeck(deckId);
+    if (this.props.deck && slides && slides.length &&
+      (slides[0].deckId !== this.props.currentSlide.deckId)) {
+      this.props.setSlide(slides[0]);
+    }
+  }
+
+  handleDismiss() {
+    this.setState({ chatsCleared: false });
+  }
+
+  /* Need to add in slide number and ability to change where it is in the queue
+  https://pattern-library.dequelabs.com/components/option-menus
+  ^ May be useful for option dropdowns */
 
   newSlideClick() {
     const position = this.props.deck.slides.length + 1;
@@ -54,46 +79,19 @@ class DeckOverview extends Component {
     this.props.sendSlide(newSlide);
   }
 
-  handleClickDelete(slide) {
-    this.props.deleteSlide(slide.id);
-    // reload the deck to change state and redraw
-    const deckId = +this.props.match.params.deckId;
-    const { slides } = this.props.deck;
-    this.props.loadDeck(deckId);
-    if (this.props.deck && slides && slides.length &&
-      (slides[0].deckId !== this.props.currentSlide.deckId)) {
-      this.props.setSlide(slides[0]);
-    }
-  }
-
-  handleClearChats(){
-    this.props.clearChats(this.props.deck.id)
-    .then( this.setState({ chatsCleared : true }));
-  }
-
-  handleDismiss(){
-    this.setState({ chatsCleared : false });
-  }
-
-
-  
-
-  /* Need to add in slide number and ability to change where it is in the queue
-  https://pattern-library.dequelabs.com/components/option-menus
-  ^ May be useful for option dropdowns */
-
   render() {
     const { deck } = this.props;
     const { slides } = deck;
 
     const chatDeleteToast = (
       <div className="dqpl-toast dqpl-toast-success">
-       <div className="dqpl-toast-message">
-        <div className="fa fa-info-circle" aria-hidden="true" /><span>Chat Log Cleared</span>
+        <div className="dqpl-toast-message">
+          <div className="fa fa-info-circle" aria-hidden="true" /><span>Chat Log Cleared</span>
         </div>
-          <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleDismiss}/>
-        </div>
-      )
+        <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleDismiss} />
+      </div>
+    );
+
     return (
       <DocumentTitle title="Deck Overview | SlyDv">
         { deck.id
@@ -102,11 +100,14 @@ class DeckOverview extends Component {
             { this.state.chatsCleared && chatDeleteToast }
               <h1>
                 {deck.deckTitle}
-                <Link className="present-link" to={`/decks/${this.props.deck.id}/edit`}>Edit Deck</Link>
-                <Link className="present-link" to={`/decks/${deck.id}/static`}>View Slides</Link>
-                <Link className="present-link" to={`/decks/${deck.id}/presenter`}>Presenter View</Link>
-                <Link className="present-link" to={`/decks/${deck.id}/chats`}>Chat Log</Link>
               </h1>
+              <ul className="deck-options">
+                <li><Link to={`/decks/${this.props.deck.id}/edit`}><div className="fa fa-gear" /> Edit Deck</Link></li>
+                <li><Link to={`/decks/${deck.id}/static`}><div className="fa fa-eye" /> Preview Slides</Link></li>
+                <li><Link to={`/decks/${deck.id}/presenter`}><div className="fa fa-play" /> Open Presenter View</Link></li>
+                <li><Link to={`/decks/${deck.id}/chats`}><div className="fa fa-comments" /> View Chat Log</Link></li>
+                <li><Link to={`/decks/${deck.id}`} onClick={this.handleClearChats}><div className="fa fa-remove" /> Clear ChatLog</Link></li>
+              </ul>
               <hr />
               { deck && slides && slides.length
                 ? (
@@ -114,7 +115,7 @@ class DeckOverview extends Component {
                     <tbody>
                       {slides.map(slide => (
                         <tr key={slide.id} className="deckview-slide-container">
-                          <td>{ `${slide.title} ` }</td>
+                          <td>{`${slide.title}`}</td>
                           <td>
                             <Link to={`/decks/${deck.id}/live`}>
                               <button
@@ -155,7 +156,6 @@ class DeckOverview extends Component {
               }
               <hr />
               <button className="dqpl-button-primary" type="button" onClick={this.newSlideClick}>Add a Slide</button>
-               <button className="dqpl-button-secondary" type="button" onClick={this.handleClearChats}> Clear ChatLog </button>
             </div>
           )
           : (
@@ -186,8 +186,8 @@ const mapDispatch = (dispatch, ownProps) => ({
   deleteSlide(slide) {
     dispatch(deleteSlide(slide));
   },
-  sendSlide(slide) { 
-    return dispatch(createSlide(slide, ownProps.history)); 
+  sendSlide(slide) {
+    return dispatch(createSlide(slide, ownProps.history));
   },
   clearChats(deckId) {
     return dispatch(deleteChatLog(deckId));
@@ -199,6 +199,7 @@ export default withRouter(connect(mapState, mapDispatch)(DeckOverview));
 /* -------------- PROP TYPES -------------- */
 
 DeckOverview.propTypes = {
+  clearChats: PropTypes.func.isRequired,
   currentSlide: PropTypes.shape({
     deckId: PropTypes.number,
   }).isRequired,
