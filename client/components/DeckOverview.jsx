@@ -97,7 +97,7 @@ class DeckOverview extends Component {
         { deck.id
           ? (
             <div className="deck-overview">
-            { this.state.chatsCleared && chatDeleteToast }
+              { this.state.chatsCleared && chatDeleteToast }
               <h1>
                 {deck.deckTitle}
               </h1>
@@ -106,7 +106,7 @@ class DeckOverview extends Component {
                 <li><Link to={`/decks/${deck.id}/static`}><div className="fa fa-eye" /> Preview Slides</Link></li>
                 <li><Link to={`/decks/${deck.id}/presenter`}><div className="fa fa-play" /> Open Presenter View</Link></li>
                 <li><Link to={`/decks/${deck.id}/chats`}><div className="fa fa-comments" /> View Chat Log</Link></li>
-                <li><Link to={`/decks/${deck.id}`} onClick={this.handleClearChats}><div className="fa fa-remove" /> Clear ChatLog</Link></li>
+                <li><Link to={`/decks/${deck.id}`} onClick={this.handleClearChats}><div className="fa fa-remove" /> Clear Chat Log</Link></li>
               </ul>
               <hr />
               { deck && slides && slides.length
@@ -117,7 +117,7 @@ class DeckOverview extends Component {
                         <tr key={slide.id} className="deckview-slide-container">
                           <td>{`${slide.title}`}</td>
                           <td>
-                            <Link to={`/decks/${deck.id}/live`}>
+                            <Link to={`/decks/${deck.id}/static`}>
                               <button
                                 className="dqpl-button-secondary"
                                 type="button"
@@ -226,5 +226,3 @@ DeckOverview.defaultProps = {
     slides: [],
   },
 };
-
-
