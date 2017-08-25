@@ -14,7 +14,7 @@ router.get('/:deckId', (req, res, next) => {
 });
 
 router.get('/:deckId/chats', (req, res, next) => {
-  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}, { model: Deck, attributes: ['userId','viewable']}], order: [[Chat, 'createdAt']] })
+  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}, { model: Deck, attributes: ['userId','viewable']}], order: [['createdAt']] })
     .then((chats) => {
       if(!chats.length){res.json(chats)
       }else if (chats[0].deck.userId === req.user.id || chats[0].deck.viewable){
