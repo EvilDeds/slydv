@@ -314,7 +314,7 @@ header.global {
   // background: transparent;
   // background-color:rgba(0,255,0,0.3);
   border: 0;
-  bottom: -190;
+  bottom: -190px;
   max-width: 240px;
   padding: 18px 15px;
   position: absolute;
@@ -1549,3 +1549,18 @@ Description:  Clean, Swiss typography with no frills.
   }
 }
 
+.footer-static {
+  .slide-nav {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+.has-footer {
+  .footer-static {
+    .slide-nav {
+      bottom: 9vh;
+      right: 20px;
+    }
+  }
+}
