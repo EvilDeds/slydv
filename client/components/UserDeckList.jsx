@@ -35,27 +35,12 @@ class UserDeckList extends Component {
                 {decks.map(deck => (
                   <tr key={deck.id}>
                     <td>
-                      <Link to={`/decks/${deck.id}`} >
-                        {deck.deckTitle}
-                      </Link>
-                    </td>
-                    <td>
                       <Link to={`/decks/${deck.id}`}>
                         <button
                           className="dqpl-button-secondary"
                           type="button"
                         >
-                            View Slide List
-                        </button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={`/decks/${deck.id}/edit`}>
-                        <button
-                          className="dqpl-button-secondary"
-                          type="button"
-                        >
-                            Edit Deck Properties
+                          { deck.deckTitle.length > 40 ? `${deck.deckTitle.slice(0, 40)}…` : deck.deckTitle }
                         </button>
                       </Link>
                     </td>
