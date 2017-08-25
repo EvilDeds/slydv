@@ -76,7 +76,7 @@ class DeckOverview extends Component {
   }
 
 
-  
+
 
   /* Need to add in slide number and ability to change where it is in the queue
   https://pattern-library.dequelabs.com/components/option-menus
@@ -116,7 +116,7 @@ class DeckOverview extends Component {
                         <tr key={slide.id} className="deckview-slide-container">
                           <td>{ `${slide.title} ` }</td>
                           <td>
-                            <Link to={`/decks/${deck.id}/live`}>
+                            <Link to={`/decks/${deck.id}/static`}>
                               <button
                                 className="dqpl-button-secondary"
                                 type="button"
@@ -186,8 +186,8 @@ const mapDispatch = (dispatch, ownProps) => ({
   deleteSlide(slide) {
     dispatch(deleteSlide(slide));
   },
-  sendSlide(slide) { 
-    return dispatch(createSlide(slide, ownProps.history)); 
+  sendSlide(slide) {
+    return dispatch(createSlide(slide, ownProps.history));
   },
   clearChats(deckId) {
     return dispatch(deleteChatLog(deckId));

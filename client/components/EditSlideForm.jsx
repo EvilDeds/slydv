@@ -193,7 +193,7 @@ class EditSlideForm extends Component {
         errorType: 'view-before-save',
       });
     } else {
-      this.props.history.push(`/decks/${this.props.deck.id}/live`);
+      this.props.history.push(`/decks/${this.props.deck.id}/static`);
     }
   }
 
@@ -203,7 +203,7 @@ class EditSlideForm extends Component {
     let errorContinue = null;
     if (this.state.errorType) {
       if (this.state.errorType === 'view-before-save') {
-        errorContinue = <Link to={`/decks/${this.props.deck.id}/live`}>Or discard your changes and preview anyway?</Link>;
+        errorContinue = <Link to={`/decks/${this.props.deck.id}/static`}>Or discard your changes and preview anyway?</Link>;
       } {/* else {
         errorContinue = (<Link
           onClick={this.handleNewClickFromErrorToast}
