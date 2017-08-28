@@ -15,7 +15,7 @@ Slydv is written using JavaScript, react-redux, Sequelize, Postgres, and socket.
 
 *check us out at slydv.tech*
 
-** SlyDv Brought To You By:  **
+__SlyDv Brought To You By:__
 * India Amos
 * Alice Chuang
 * Georgina Hoagland
