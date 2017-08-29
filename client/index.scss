@@ -3,6 +3,7 @@
 
 $slydv-turquoise: #4ecdc4;
 $slydv-teal: #099;
+$inactive-field: #bddede;
 
 @mixin smallcaps($size) {
   font-size: $size;
@@ -1545,13 +1546,12 @@ Description:  Clean, Swiss typography with no frills.
 
 }
 
-
-
-
-
-
-
 // --------------------------- END THEMES -------------------
+.dqpl-textarea {
+  height: 7.5em;
+  max-width: 100%;
+  width: 49%;
+}
 
 .dqpl-toast-error {
   a {
@@ -1572,5 +1572,11 @@ Description:  Clean, Swiss typography with no frills.
       bottom: 9vh;
       right: 20px;
     }
+  }
+}
+
+.hidden-title {
+  input {
+    background-color: $inactive-field;
   }
 }
