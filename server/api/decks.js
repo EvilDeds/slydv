@@ -7,14 +7,14 @@ router.get('/:deckId', (req, res, next) => {
       if (deck.userId === req.user.id || deck.viewable){
         res.json(deck)
       }else{
-        next(new Error('You cannot view this deck.')) 
+        next(new Error('You cannot view this deck.'))
       }
     })
     .catch(next);
 });
 
 router.get('/:deckId/chats', (req, res, next) => {
-  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}, { model: Deck, attributes: ['userId','viewable']}] })
+  Chat.findAll({ where: { deckId: +req.params.deckId } , include: [ { model: User, attributes: ['email']}, { model: Deck, attributes: ['userId','viewable']}], order: [['createdAt']] })
     .then((chats) => {
       if(!chats.length){res.json(chats)
       }else if (chats[0].deck.userId === req.user.id || chats[0].deck.viewable){
@@ -22,7 +22,7 @@ router.get('/:deckId/chats', (req, res, next) => {
       }else{
         next(new Error('these chats are private'))
       }
-    
+
     })
     .catch(next);
 });
@@ -30,7 +30,7 @@ router.delete ('/:deckId/chats', (req, res, next) => {
   Chat.findAll({where: {deckId : +req.params.deckId}, include: [ {model: Deck, attributes: ['userId']}]})
   .then((chats) => {
     if(chats[0].deck.userId === req.user.id){
-      return Chat.destroy({where: {deckId : +req.params.deckId}})  
+      return Chat.destroy({where: {deckId : +req.params.deckId}})
     }else{
       next(new Error('these are not your chats'))
     }
@@ -59,7 +59,7 @@ router.get('/:deckId/slides', (req, res, next) => {
   Slide.findAll({
     where: { deckId: +req.params.deckId },
     order: [['positionInDeck', 'ASC']],
-    include: [ {model: Deck, attributes: ['userId', 'viewable']}] 
+    include: [ {model: Deck, attributes: ['userId', 'viewable']}]
   })
     .then((slides) => {
       if (slides[0].deck.userId === req.user.id || slides[0].deck.viewable){

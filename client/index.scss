@@ -425,6 +425,10 @@ header.global {
     margin-left: -20px;
   }
 
+  [type="text"] {
+    width: 50%;
+  }
+
   .ace_editor {
     border: 1px solid #ccc;
     font-family: 'source-code-pro', 'Consolas', 'Ubuntu Mono', 'Monaco', 'Menlo', monospace;
@@ -477,6 +481,10 @@ header.global {
 
   [type="radio"] {
     display: inline-block;
+  }
+
+  [type="text"] {
+    width: 50%;
   }
 
   .radio-label-inline {
@@ -620,7 +628,7 @@ div.slide-view-live.has-footer > #main{
 
 // --------------------------- Deck list -------------------
 .user-deck-list {
-  @include table-td-padding(3px);
+  // @include table-td-padding(3px);
 
   margin-left: 20px;
 
@@ -628,11 +636,13 @@ div.slide-view-live.has-footer > #main{
     margin-left: -20px;
   }
 
-  table {
-    button {
-      margin-left: 0;
-      margin-right: auto;
-    }
+  ul {
+    margin-left: 1em;
+  }
+
+  li {
+    font-size: 1.15em;
+    line-height: 2;
   }
 }
 
