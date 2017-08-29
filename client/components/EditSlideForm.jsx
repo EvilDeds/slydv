@@ -208,14 +208,28 @@ class EditSlideForm extends Component {
     if (this.state.errorType) {
       if (this.state.errorType === 'view-before-save') {
         errorContinue = <Link to={`/decks/${this.props.deck.id}/static`}>Or discard your changes and preview anyway?</Link>;
-      } {/* else {
+      } { /* else {
         errorContinue = (<Link
           onClick={this.handleNewClickFromErrorToast}
           to={this.props.match.url}
-        >Or create a new slide anyway?</Link>);*/
+        >Or create a new slide anyway?</Link>); */
       }
     }
-    const titleVisibility = this.state.singleSlide.template === 'columns-header' ? 'visible-title' : 'hidden-title';
+    let titleVisibility;
+    let titleTooltip;
+    if (this.state.singleSlide.template === 'columns-header') {
+      titleVisibility = 'visible-title';
+    } else {
+      titleVisibility = 'hidden-title';
+      titleTooltip = (
+        <div className="dqpl-help-button-wrap">
+          <button className="dqpl-help-button" type="button" aria-label="Slide title help" data-help-text="This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field." aria-describedby="title-tooltip-label">
+            <div className="fa fa-question-circle" aria-hidden="true" />
+          </button>
+          <div className="dqpl-tooltip" role="tooltip" id="title-tooltip-label">This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field.</div>
+        </div>
+      );
+    }
 
     return (
       <DocumentTitle title="Edit Slide | SlyDv">
@@ -278,12 +292,7 @@ class EditSlideForm extends Component {
               <label className="dqpl-label" htmlFor="title" id="title-label">Title</label>
               <div className="dqpl-field-help">
                 <input className="dqpl-text-input" id="title" type="text" aria-labelledby="title-label" value={this.state.singleSlide.title} />
-                <div className="dqpl-help-button-wrap">
-                  <button className="dqpl-help-button" type="button" aria-label="Slide title help" data-help-text="This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field." aria-describedby="title-tooltip-label">
-                    <div className="fa fa-question-circle" aria-hidden="true" />
-                  </button>
-                  <div className="dqpl-tooltip" role="tooltip" id="title-tooltip-label">This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field.</div>
-                </div>
+                {titleTooltip}
               </div>
             </div>
 
