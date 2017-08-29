@@ -456,6 +456,16 @@ header.global {
     display: inline-block;
     margin-bottom: 4px;
   }
+
+  // .title-tip {
+  //   font-size: 0.9em;
+  // }
+
+  .visible-title {
+    .title-tip {
+      display: none;
+    }
+  }
 }
 
 // -------------------- New/edit deck forms --------------------

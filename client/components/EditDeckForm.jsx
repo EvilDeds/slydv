@@ -94,6 +94,10 @@ class EditDeckForm extends Component {
     return (
       <DocumentTitle title="Edit Deck | SlyDv">
         <div className="edit-deck-form">
+          <h1>Edit Deck</h1>
+
+          <p className="instructions"><em>All text fields on this form accept <a href="https://guides.github.com/features/mastering-markdown/">GitHub-flavored Markdown</a>.</em></p>
+
           {/* was the form saved? ------------------------------------*/}
           { this.state.saved ? (
             <div className="dqpl-toast dqpl-toast-success">

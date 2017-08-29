@@ -211,13 +211,18 @@ class EditSlideForm extends Component {
         >Or create a new slide anyway?</Link>);*/
       }
     }
+    const titleVisibility = this.state.singleSlide.template === 'columns-header' ? 'visible-title' : 'hidden-title';
 
     return (
       <DocumentTitle title="Edit Slide | SlyDv">
         <div className="edit-slide-form">
+          <h1>Edit Slide</h1>
+
+          <p className="instructions"><em>All text fields on this form accept <a href="https://guides.github.com/features/mastering-markdown/">GitHub-flavored Markdown</a>.</em></p>
+
           {/* positionInDeck -----------------------------------------*/
             this.props.deck && this.props.deck.slides
-              ? <h2><span className="header-label">Deck:</span> <Link to={`/decks/${this.props.deck.id}`} className="deck-title">{this.props.deck.deckTitle}</Link><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h2>
+              ? <h3><span className="header-label">Deck:</span> <Link to={`/decks/${this.props.deck.id}`} className="deck-title">{this.props.deck.deckTitle}</Link><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h3>
               : null
           }
 
@@ -259,26 +264,22 @@ class EditSlideForm extends Component {
                   <option value="single-pane">single pane</option>
                   <option value="columns">2 columns</option>
                   <option value="columns-header">header + 2 columns</option>
-                  <option value="repl">Header + REPL</option>
+                  <option value="repl">text + REPL</option>
                 </select>
               </div>
             </div>
 
-            {/* title - conditional ------------------------------------*/}
-            { this.state.singleSlide.template === 'columns-header' || this.state.singleSlide.template === 'repl' ? (
-              <div className="dqpl-field-wrap">
-                <label className="dqpl-label" htmlFor="title" id="title-label">Title</label>
-                <input className="dqpl-text-input" type="text" id="title" value={this.state.singleSlide.title} onChange={this.handleChange} aria-labelledby="title-label" />
-              </div>
-            ) : null }
+            {/* title - conditional label ------------------------------------*/}
+            <div className={`dqpl-field-wrap ${titleVisibility}`}>
+              <label className="dqpl-label" htmlFor="title" id="title-label">Title</label>
+              <input className="dqpl-text-input" type="text" id="title" value={this.state.singleSlide.title} onChange={this.handleChange} aria-labelledby="title-label" />
+            </div>
 
-            {/* firstText - conditional --------------------------------*/}
-            { this.state.singleSlide.template !== 'repl' ? (
-              <div className="dqpl-field-wrap">
-                <label className="dqpl-label" htmlFor="firstText" id="firstText-label">{ this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? 'Left column' : 'Text'}</label>
-                <textarea className="dqpl-textarea" id="firstText" value={this.state.singleSlide.firstText} onChange={this.handleChange} aria-labelledby="firstText-label-label" />
-              </div>
-            ) : null }
+            {/* firstText --------------------------------*/}
+            <div className="dqpl-field-wrap">
+              <label className="dqpl-label" htmlFor="firstText" id="firstText-label">{ this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? 'Left column' : 'Text'}</label>
+              <textarea className="dqpl-textarea" id="firstText" value={this.state.singleSlide.firstText} onChange={this.handleChange} aria-labelledby="firstText-label-label" />
+            </div>
 
             {/* secondText - conditional ------------------------------------*/}
             { this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? (
