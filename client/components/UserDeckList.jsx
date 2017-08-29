@@ -30,24 +30,15 @@ class UserDeckList extends Component {
           <h3>Welcome, {userEmail}! Check out your decks!</h3>
           <hr />
           { decks.length ? (
-            <table>
-              <tbody>
-                {decks.map(deck => (
-                  <tr key={deck.id}>
-                    <td>
-                      <Link to={`/decks/${deck.id}`}>
-                        <button
-                          className="dqpl-button-secondary"
-                          type="button"
-                        >
-                          { deck.deckTitle.length > 40 ? `${deck.deckTitle.slice(0, 40)}…` : deck.deckTitle }
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <ul>
+              {decks.map(deck => (
+                <li key={deck.id}>
+                  <Link to={`/decks/${deck.id}`}>
+                    { deck.deckTitle.length > 40 ? `${deck.deckTitle.slice(0, 40)}…` : deck.deckTitle }
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>You have no decks yet!</p>
           )}
