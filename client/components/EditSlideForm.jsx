@@ -51,6 +51,10 @@ class EditSlideForm extends Component {
           { singleSlide: newSingleSlideAction.singleSlide }));
         return this.props.getDeck(newSingleSlideAction.singleSlide.deckId);
       });
+
+    // Refresh Deque JS whenever the page changes, to activate the title tooltip.
+    const dqplEvt = new Event('dqpl:ready');
+    document.dispatchEvent(dqplEvt);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -218,7 +222,7 @@ class EditSlideForm extends Component {
         <div className="edit-slide-form">
           <h1>Edit Slide</h1>
 
-          <p className="instructions"><em>All text fields on this form accept <a href="https://guides.github.com/features/mastering-markdown/">GitHub-flavored Markdown</a>.</em></p>
+          <p className="instructions"><em>All text fields on this form { this.state.singleSlide.template === 'repl' ? 'except “Code”' : null } accept <a href="https://guides.github.com/features/mastering-markdown/">GitHub-flavored Markdown</a>.</em></p>
 
           {/* positionInDeck -----------------------------------------*/
             this.props.deck && this.props.deck.slides
@@ -271,12 +275,16 @@ class EditSlideForm extends Component {
 
             {/* title - conditional label ------------------------------------*/}
             <div className={`dqpl-field-wrap ${titleVisibility}`}>
-              <label className="dqpl-label" htmlFor="title" id="title-label">Title
-              <button className="dqpl-help-button title-tip" type="button" aria-label="First name help" data-help-text="Note: The contents of this title field are not displayed on slides using this template, but it will be used as the slide title on the deck overview page.">
- -                <div className="fa fa-question-circle" aria-hidden="true" />
- -              </button>
-              </label>
-              <input className="dqpl-text-input" type="text" id="title" value={this.state.singleSlide.title} onChange={this.handleChange} aria-labelledby="title-label" />
+              <label className="dqpl-label" htmlFor="title" id="title-label">Title</label>
+              <div className="dqpl-field-help">
+                <input className="dqpl-text-input" id="title" type="text" aria-labelledby="title-label" value={this.state.singleSlide.title} />
+                <div className="dqpl-help-button-wrap">
+                  <button className="dqpl-help-button" type="button" aria-label="Slide title help" data-help-text="This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field." aria-describedby="title-tooltip-label">
+                    <div className="fa fa-question-circle" aria-hidden="true" />
+                  </button>
+                  <div className="dqpl-tooltip" role="tooltip" id="title-tooltip-label">This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field.</div>
+                </div>
+              </div>
             </div>
 
             {/* firstText --------------------------------*/}
