@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Runkit } from './index';
 import { MarkdownSection } from './Markdown';
 
@@ -17,6 +17,8 @@ export default function SlideView5(props) {
   );
 }
 
+/* -------------- PROP TYPES -------------- */
+
 SlideView5.propTypes = {
   singleSlide: PropTypes.shape({
     id: PropTypes.number,
@@ -33,12 +35,12 @@ SlideView5.propTypes = {
 SlideView5.defaultProps = {
   singleSlide: {
     id: 1,
-    title: 'This is a slide title',
-    firstText: '# Slide text\nThis is the text of a slide, which is in Markdown.!',
-    secondText: 'It has two columns.',
-    template: 'repl',
-    codeText: 'let foo = 6; let bar = 7; let baz = foo + bar; baz();',
+    title: '',
+    firstText: '',
+    secondText: '',
+    template: '',
+    codeText: '',
     positionInDeck: 1,
-    speakerNotes: 'This is a speaker note in Markdown.',
+    speakerNotes: '',
   },
 };

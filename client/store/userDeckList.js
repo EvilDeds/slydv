@@ -1,29 +1,28 @@
 import axios from 'axios';
 
-// action types
+/* ----------------------- ACTION TYPES ------------------------ */
 
 const GET_USER_DECK_LIST = 'GET_USER_DECK_LIST';
 
-// initial state
+/* ----------------------- INITIAL STATE ----------------------- */
 
 const defaultDeckList = [];
 
-// action creators
+/* ---------------------- ACTION CREATORS ---------------------- */
 
 const getUserDeckList = deckList => ({ type: GET_USER_DECK_LIST, deckList });
 
-// thunk creators
+/* ---------------------- THUNK CREATORS ---------------------- */
 
 export function fetchUserDeckList(userId) {
-  console.log('axios USER param', userId);
   return function thunk(dispatch) {
     return axios.get(`/api/users/${userId}/decks`)
       .then(res => dispatch(getUserDeckList(res.data)))
-      .catch((error) => { console.log(error); });
+      .catch(err => console.log(err));
   };
 }
 
-// reducer
+/* -------------------------- REDUCER -------------------------- */
 
 export default function (state = defaultDeckList, action) {
   switch (action.type) {

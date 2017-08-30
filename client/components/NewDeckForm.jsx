@@ -3,24 +3,12 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { postNewDeck, createSlide } from '../store';
 import DumbDeckForm from './DumbDeckForm';
+import { createSlide, postNewDeck } from '../store';
+
+/* -------------- COMPONENT -------------- */
 
 class NewDeckForm extends Component {
-  static propTypes = {
-    sendDeck: PropTypes.func.isRequired,
-    sendSlide: PropTypes.func.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number,
-    }).isRequired,
-  }
-
-  static defaultProps = {
-    user: {
-      id: null,
-    },
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -45,11 +33,8 @@ class NewDeckForm extends Component {
   }
 
   handleRadioChange(e) {
-    // console.log(`e.target.name: ${e.target.name}`);
-    // console.log(`e.target.value: ${e.target.value} (${typeof e.target.value})`);
     let value = e.target.value;
     value = (value === 'true');
-    // console.log(`value: ${value} (${typeof value})`);
     this.setState({
       newDeck: Object.assign({}, this.state.newDeck, { [e.target.name]: value }),
     });
@@ -90,6 +75,8 @@ class NewDeckForm extends Component {
   }
 }
 
+/* -------------- CONTAINER -------------- */
+
 const mapState = state => ({
   user: state.user,
   deck: state.deck,
@@ -101,3 +88,19 @@ const mapDispatch = (dispatch, ownProps) => ({
 });
 
 export default withRouter(connect(mapState, mapDispatch)(NewDeckForm));
+
+/* -------------- PROP TYPES -------------- */
+
+NewDeckForm.propTypes = {
+  sendDeck: PropTypes.func.isRequired,
+  sendSlide: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+}
+
+NewDeckForm.defaultProps = {
+  user: {
+    id: null,
+  },
+};

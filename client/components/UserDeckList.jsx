@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchUserDeckList } from '../store';
 
+/* -------------- COMPONENT -------------- */
+
 class UserDeckList extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +59,8 @@ class UserDeckList extends Component {
   }
 }
 
+/* -------------- CONTAINER -------------- */
+
 const mapState = state => ({
   deckList: state.userDeckList,
   user: state.user,
@@ -79,5 +83,3 @@ UserDeckList.propTypes = {
     email: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-// UserDeckList.defaultProps = {};

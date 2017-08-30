@@ -6,34 +6,9 @@ import { withRouter } from 'react-router';
 import { changeDeck, fetchDeck } from '../store';
 import DumbDeckForm from './DumbDeckForm';
 
+/* -------------- COMPONENT -------------- */
+
 class EditDeckForm extends Component {
-  static propTypes = {
-    deck: PropTypes.shape({
-      deckTitle: PropTypes.string.isRequired,
-      footerText: PropTypes.string,
-      hasFooter: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
-      theme: PropTypes.string.isRequired,
-      userId: PropTypes.number.isRequired,
-      viewable: PropTypes.bool.isRequired,
-    }).isRequired,
-    loadDeck: PropTypes.func.isRequired,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        deckId: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-    saved: PropTypes.bool,
-    updateDeck: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    deck: {
-      footerText: '',
-    },
-    saved: false,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -68,11 +43,8 @@ class EditDeckForm extends Component {
   }
 
   handleRadioChange(e) {
-    // console.log(`e.target.name: ${e.target.name}`);
-    // console.log(`e.target.value: ${e.target.value} (${typeof e.target.value})`);
     let value = e.target.value;
     value = (value === 'true');
-    // console.log(`value: ${value} (${typeof value})`);
     this.setState({
       deck: Object.assign({}, this.state.deck, { [e.target.name]: value }),
     });
@@ -89,8 +61,6 @@ class EditDeckForm extends Component {
   }
 
   render() {
-    // console.log('this.props:', this.props);
-    // console.log('this.state:', this.state);
     return (
       <DocumentTitle title="Edit Deck | SlyDv">
         <div className="edit-deck-form">
@@ -98,13 +68,13 @@ class EditDeckForm extends Component {
 
           <p className="instructions"><em>All text fields on this form accept <a href="https://guides.github.com/features/mastering-markdown/">GitHub-flavored Markdown</a>.</em></p>
 
-          {/* was the form saved? ------------------------------------*/}
+          {/* was the form saved? ------------------------------*/}
           { this.state.saved ? (
             <div className="dqpl-toast dqpl-toast-success">
               <div className="dqpl-toast-message">
-                <div className="fa fa-info-circle" aria-hidden="true" /><span>Changes saved.</span>
+                <div aria-hidden="true" className="fa fa-info-circle" /><span>Changes saved.</span>
               </div>
-              <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleToastClick} />
+              <button aria-label="Dismiss notification" className="dqpl-toast-dismiss fa fa-close" onClick={this.handleToastClick} type="button" />
             </div>
           ) : null
           }
@@ -122,6 +92,8 @@ class EditDeckForm extends Component {
   }
 }
 
+/* -------------- CONTAINER -------------- */
+
 const mapState = state => ({
   deck: state.deck,
 });
@@ -132,3 +104,32 @@ const mapDispatch = dispatch => ({
 });
 
 export default withRouter(connect(mapState, mapDispatch)(EditDeckForm));
+
+/* -------------- PROP TYPES -------------- */
+
+EditDeckForm.propTypes = {
+  deck: PropTypes.shape({
+    deckTitle: PropTypes.string.isRequired,
+    footerText: PropTypes.string,
+    hasFooter: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
+    theme: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+    viewable: PropTypes.bool.isRequired,
+  }).isRequired,
+  loadDeck: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      deckId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  saved: PropTypes.bool,
+  updateDeck: PropTypes.func.isRequired,
+};
+
+EditDeckForm.defaultProps = {
+  deck: {
+    footerText: '',
+  },
+  saved: false,
+};

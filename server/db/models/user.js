@@ -19,22 +19,20 @@ const User = db.define('user', {
   },
 });
 
-module.exports = User;
-
-/* -------------- instanceMethods -------------- */
+/* ---------------------- instanceMethods ---------------------- */
 
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
 };
 
-/* -------------- classMethods -------------- */
+/* ------------------------ classMethods ----------------------- */
 
 User.generateSalt = () => crypto.randomBytes(16).toString('base64');
 
 User.encryptPassword = (plainText, salt) =>
   crypto.createHash('sha1').update(plainText).update(salt).digest('hex');
 
-/* -------------- hooks -------------- */
+/* --------------------------- hooks --------------------------- */
 
 const setSaltAndPassword = (user) => {
   if (user.changed('password')) {
@@ -45,3 +43,5 @@ const setSaltAndPassword = (user) => {
 
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
+
+module.exports = User;

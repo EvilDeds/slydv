@@ -1,17 +1,16 @@
-import React from 'react';
-import marked from 'marked';
 import PropTypes from 'prop-types';
+import marked from 'marked';
+import React from 'react';
 
 marked.setOptions({ sanitize: true });
 // Marked provides this option for parsing Markdown into HTML.
 // Sanitize means that any HTML in the source is interpreted as a string.
 // --> Protects against cross-site scripting
-// --> Means we can use the dangerouslySetInnerHTML safely __after__ we sanitize
-//     the inputs.
+// --> Means we can use the dangerouslySetInnerHTML safely
+//     __after__ we sanitize the inputs.
 
-
-// These components provide different types of enclosing tags with the interior
-// text rendered from Markdown
+// These components provide different types of enclosing tags with
+// the interiortext rendered from Markdown
 
 export function MarkdownSection(props) {
   return (
@@ -46,23 +45,24 @@ export function MarkdownSpeakerNotes(props) {
   );
 }
 
+/* -------------- PROP TYPES -------------- */
+
+MarkdownAside.propTypes = {
+  markdown: PropTypes.string.isRequired,
+};
+
+MarkdownFooter.propTypes = {
+  markdown: PropTypes.string.isRequired,
+};
+
+MarkdownHeader.propTypes = {
+  markdown: PropTypes.string.isRequired,
+};
 
 MarkdownSection.propTypes = {
   markdown: PropTypes.string.isRequired,
 };
-MarkdownHeader.propTypes = {
-  markdown: PropTypes.string.isRequired,
-};
-MarkdownFooter.propTypes = {
-  markdown: PropTypes.string.isRequired,
-};
-MarkdownAside.propTypes = {
-  markdown: PropTypes.string.isRequired,
-};
-MarkdownAside.propTypes = {
-  markdown: PropTypes.string.isRequired,
-};
+
 MarkdownSpeakerNotes.propTypes = {
   markdown: PropTypes.string.isRequired,
 };
-

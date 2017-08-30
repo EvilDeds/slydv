@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Landing() {
   return (
@@ -7,7 +6,7 @@ export default function Landing() {
       <div id="main" className="landing3">
         <section>
           <h1><img src="images/logo.png" alt="slydv" width="100" />SLYDV</h1>
-          <h2>We create <span className="rotating">slides for coders</span></h2>
+          <h2>Presentation slides for coders</h2>
         </section>
         <footer>footer</footer>
       </div>

@@ -1,8 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { logout } from '../store';
+
+/* -------------- COMPONENT -------------- */
 
 const Navbar = (props) => {
   const { handleClick, isLoggedIn } = props;

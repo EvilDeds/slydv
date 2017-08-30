@@ -1,3 +1,4 @@
+/* eslint-env browser */
 import brace from 'brace';
 import 'brace/ext/language_tools';
 import 'brace/mode/javascript';
@@ -11,6 +12,8 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { changeSlide, fetchSingleSlide, createSlide, fetchDeck } from '../store';
 
+/* -------------- COMPONENT -------------- */
+
 class EditSlideForm extends Component {
   constructor(props) {
     super(props);
@@ -23,14 +26,14 @@ class EditSlideForm extends Component {
       dirtyButtonClassName: props.dirtyButtonClassName,
       saved: props.saved,
       singleSlide: {
-        codeText: props.singleSlide.codeText,
-        id: props.singleSlide.id,
-        positionInDeck: props.singleSlide.positionInDeck,
-        presenterNotes: props.singleSlide.presenterNotes,
-        template: props.singleSlide.template,
-        firstText: props.singleSlide.firstText,
-        secondText: props.singleSlide.secondText,
-        title: props.singleSlide.title,
+        codeText: props.singleSlide.codeText || '',
+        id: props.singleSlide.id || null,
+        positionInDeck: props.singleSlide.positionInDeck || null,
+        presenterNotes: props.singleSlide.presenterNotes || '',
+        template: props.singleSlide.template || '',
+        firstText: props.singleSlide.firstText || '',
+        secondText: props.singleSlide.secondText || '',
+        title: props.singleSlide.title || '',
       },
     };
 
@@ -68,18 +71,17 @@ class EditSlideForm extends Component {
     }
   }
 
-  handleChange(evt) {
+  handleChange(e) {
     this.state.saved = false;
     this.state.isDirty = true;
     this.state.dirtyButtonClassName = 'dqpl-button-secondary';
     this.state.cleanButtonClassName = 'dqpl-button-primary';
-    this.state.singleSlide[evt.target.id] = evt.target.value;
+    this.state.singleSlide[e.target.id] = e.target.value;
     this.setState(this.state);
   }
 
   // Close the error toast without making a decision about saving the current slide
   handleErrorToastClick() {
-    // console.log('error toast was closed without resolution');
     this.setState({
       errorToast: false,
       errorType: '',
@@ -114,35 +116,17 @@ class EditSlideForm extends Component {
     }
   }
 
-  // If there was an error toast and the user decided to create a new slide anyway. This doesn't work, so the link is disabled.
-  handleNewClickFromErrorToast() {
-    const position = this.state.deckLength + 1;
-    const deckId = this.props.deck.id;
-    const newSlide = {
-      deckId,
-      title: '',
-      firstText: '',
-      secondText: '',
-      template: 'single-pane',
-      codeText: '',
-      positionInDeck: position,
-      presenterNotes: '',
-    };
-    console.log('newSlide:', newSlide);
-    this.props.sendSlide(newSlide);
-  }
-
-  handleReplChange(evt) {
+  handleReplChange(e) {
     this.state.saved = false;
     this.state.isDirty = true;
     this.state.dirtyButtonClassName = 'dqpl-button-secondary';
     this.state.cleanButtonClassName = 'dqpl-button-primary';
-    this.state.singleSlide.codeText = evt;
+    this.state.singleSlide.codeText = e;
     this.setState(this.state);
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault();
+  handleSubmit(e) {
+    e.preventDefault();
     this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
       .then(() => this.setState({
         errorToast: false,
@@ -162,10 +146,10 @@ class EditSlideForm extends Component {
   }
 
   // If there was an error toast and the user decided to save the current slide
-  handleSubmitFromErrorToast(evt) {
-    evt.preventDefault();
-    const char = evt.which || evt.keyCode;
-    if ((evt.type === 'keydown' && char === 32) || evt.type === 'click') {
+  handleSubmitFromErrorToast(e) {
+    e.preventDefault();
+    const char = e.which || e.keyCode;
+    if ((e.type === 'keydown' && char === 32) || e.type === 'click') {
       this.props.updateSlide(this.state.singleSlide.id, this.state.singleSlide)
         .then(() => this.setState({
           errorToast: false,
@@ -202,17 +186,10 @@ class EditSlideForm extends Component {
   }
 
   render() {
-    // console.log('this.state:', this.state);
-    // console.log('this.props:', this.props);
     let errorContinue = null;
     if (this.state.errorType) {
       if (this.state.errorType === 'view-before-save') {
         errorContinue = <Link to={`/decks/${this.props.deck.id}/static`}>Or discard your changes and preview anyway?</Link>;
-      } { /* else {
-        errorContinue = (<Link
-          onClick={this.handleNewClickFromErrorToast}
-          to={this.props.match.url}
-        >Or create a new slide anyway?</Link>); */
       }
     }
     let titleVisibility;
@@ -223,10 +200,10 @@ class EditSlideForm extends Component {
       titleVisibility = 'hidden-title';
       titleTooltip = (
         <div className="dqpl-help-button-wrap">
-          <button className="dqpl-help-button" type="button" aria-label="Slide title help" data-help-text="This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field." aria-describedby="title-tooltip-label">
-            <div className="fa fa-question-circle" aria-hidden="true" />
+          <button aria-describedby="title-tooltip-label" aria-label="Slide title help" className="dqpl-help-button" data-help-text="This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field." type="button">
+            <div aria-hidden="true" className="fa fa-question-circle" />
           </button>
-          <div className="dqpl-tooltip" role="tooltip" id="title-tooltip-label">This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field.</div>
+          <div className="dqpl-tooltip" id="title-tooltip-label" role="tooltip">This template does not render the contents of the title field, but you will still see this title on the deck overview. To add a visible title to this slide, include a Markdown heading within the first text field.</div>
         </div>
       );
     }
@@ -238,46 +215,45 @@ class EditSlideForm extends Component {
 
           <p className="instructions"><em>All text fields on this form { this.state.singleSlide.template === 'repl' ? 'except “Code”' : null } accept <a href="https://guides.github.com/features/mastering-markdown/">GitHub-flavored Markdown</a>.</em></p>
 
-          {/* positionInDeck -----------------------------------------*/
+          {/* positionInDeck -----------------------------------*/
             this.props.deck && this.props.deck.slides
-              ? <h3><span className="header-label">Deck:</span> <Link to={`/decks/${this.props.deck.id}`} className="deck-title">{this.props.deck.deckTitle}</Link><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h3>
+              ? <h3><span className="header-label">Deck:</span> <Link className="deck-title" to={`/decks/${this.props.deck.id}`}>{this.props.deck.deckTitle}</Link><br /><span className="header-label">Slide:</span> {`${this.state.singleSlide.positionInDeck} of ${this.props.deck.slides.length}`}</h3>
               : null
           }
 
-          {/* did user try to view or new without saving? ---------*/}
+          {/* did user try to view or new without saving? ------*/}
           { this.state.isDirty && this.state.errorToast ? (
             <div className="dqpl-toast dqpl-toast-error">
               <div className="dqpl-toast-message">
-                <div className="fa fa-minus-circle" aria-hidden="true" />
+                <div aria-hidden="true" className="fa fa-minus-circle" />
                 <span>Your changes are not saved.
-                  <Link to={`/editslide/${this.props.singleSlide.id}`} className="save-from-toast" role="button" onClick={this.handleSubmitFromErrorToast} onKeyDown={this.handleSubmitFromErrorToast}>Save now</Link>? {errorContinue}
+                  <Link className="save-from-toast" onClick={this.handleSubmitFromErrorToast} onKeyDown={this.handleSubmitFromErrorToast} role="button" to={`/editslide/${this.props.singleSlide.id}`}>Save now</Link>? {errorContinue}
                 </span>
               </div>
-              <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleErrorToastClick} />
+              <button aria-label="Dismiss notification" className="dqpl-toast-dismiss fa fa-close" onClick={this.handleErrorToastClick} type="button" />
             </div>
           ) : null
           }
 
-          {/* was the form saved? ------------------------------------*/}
+          {/* was the form saved? ----------------------------*/}
           { this.state.saved ? (
             <div className="dqpl-toast dqpl-toast-success">
               <div className="dqpl-toast-message">
-                <div className="fa fa-info-circle" aria-hidden="true" /><span>Changes saved.</span>
+                <div aria-hidden="true" className="fa fa-info-circle" /><span>Changes saved.</span>
               </div>
-              <button className="dqpl-toast-dismiss fa fa-close" type="button" aria-label="Dismiss notification" onClick={this.handleSavedToastClick} />
+              <button aria-label="Dismiss notification" className="dqpl-toast-dismiss fa fa-close" onClick={this.handleSavedToastClick} type="button" />
             </div>
           ) : null
           }
 
           <form
             onSubmit={this.state.handleSubmit}
-            // onChange={this.state.handleChange}
           >
-            {/* template -----------------------------------------------*/}
+            {/* template ---------------------------------------*/}
             <div className="dqpl-field-wrap">
               <div className="dqpl-label" id="template-label">Change slide template</div>
               <div className="dqpl-select">
-                <select id="template" onChange={this.handleChange} aria-labelledby="template-label" value={this.state.singleSlide.template}>
+                <select aria-labelledby="template-label" id="template" onChange={this.handleChange} value={this.state.singleSlide.template}>
                   <option value="mid-page">single pane starting mid-page</option>
                   <option value="single-pane">single pane</option>
                   <option value="columns">2 columns</option>
@@ -287,30 +263,30 @@ class EditSlideForm extends Component {
               </div>
             </div>
 
-            {/* title - conditional label ------------------------------------*/}
+            {/* title - conditional label ----------------------*/}
             <div className={`dqpl-field-wrap ${titleVisibility}`}>
               <label className="dqpl-label" htmlFor="title" id="title-label">Title</label>
               <div className="dqpl-field-help">
-                <input className="dqpl-text-input" id="title" type="text" aria-labelledby="title-label" value={this.state.singleSlide.title} />
+                <input aria-labelledby="title-label" className="dqpl-text-input" id="title" onChange={this.handleChange} type="text" value={this.state.singleSlide.title} />
                 {titleTooltip}
               </div>
             </div>
 
-            {/* firstText --------------------------------*/}
+            {/* firstText --------------------------------------*/}
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="firstText" id="firstText-label">{ this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? 'Left column' : 'Text'}</label>
-              <textarea className="dqpl-textarea" id="firstText" value={this.state.singleSlide.firstText} onChange={this.handleChange} aria-labelledby="firstText-label-label" />
+              <textarea aria-labelledby="firstText-label-label" className="dqpl-textarea" id="firstText" onChange={this.handleChange} value={this.state.singleSlide.firstText} />
             </div>
 
-            {/* secondText - conditional ------------------------------------*/}
+            {/* secondText - conditional -----------------------*/}
             { this.state.singleSlide.template === 'columns' || this.state.singleSlide.template === 'columns-header' ? (
               <div className="dqpl-field-wrap">
                 <label className="dqpl-label" htmlFor="secondText" id="secondText-label">Right column</label>
-                <textarea className="dqpl-textarea" id="secondText" value={this.state.singleSlide.secondText} onChange={this.handleChange} aria-labelledby="secondText-label-label" />
+                <textarea aria-labelledby="secondText-label-label" className="dqpl-textarea" id="secondText" onChange={this.handleChange} value={this.state.singleSlide.secondText} />
               </div>
             ) : null }
 
-            {/* codeText - conditional ---------------------------------*/}
+            {/* codeText - conditional -------------------------*/}
             { this.state.singleSlide.template === 'repl' ? (
               <div className="dqpl-field-wrap">
                 <label className="dqpl-label" htmlFor="codeText" id="codeText-label">Code</label>
@@ -333,32 +309,34 @@ class EditSlideForm extends Component {
                   }}
                   theme="github"
                   value={`${this.state.singleSlide.codeText}`}
-                  width="100%"
+                  width="50%"
                   height="45vh"
                   wrapEnabled
                 />
               </div>
             ) : null }
 
-            {/* presenterNotes -----------------------------------------*/}
+            {/* presenterNotes ---------------------------------*/}
             <div className="dqpl-field-wrap">
               <label className="dqpl-label" htmlFor="presenterNotes" id="presenterNotes-label">Presenter Notes</label>
-              <textarea className="dqpl-textarea" id="presenterNotes" value={this.state.singleSlide.presenterNotes} onChange={this.handleChange} aria-labelledby="presenterNotes-label" />
+              <textarea aria-labelledby="presenterNotes-label" className="dqpl-textarea" id="presenterNotes" onChange={this.handleChange} value={this.state.singleSlide.presenterNotes} />
             </div>
 
             <hr />
 
-            {/* save and clear buttons ---------------------------------*/}
+            {/* save and clear buttons -------------------------*/}
             <div className="button-row">
-              <button className={this.state.cleanButtonClassName} type="button" onClick={this.handleSubmit}>Save</button>
-              <button className={this.state.dirtyButtonClassName} type="button" onClick={this.handleViewClick}>View</button>
-              <button className={`${this.state.dirtyButtonClassName} new-slide`} type="button" onClick={this.handleNewClick}>New Slide</button></div>
+              <button className={this.state.cleanButtonClassName} onClick={this.handleSubmit} type="button">Save</button>
+              <button className={this.state.dirtyButtonClassName} onClick={this.handleViewClick} type="button">View</button>
+              <button className={`${this.state.dirtyButtonClassName} new-slide`} onClick={this.handleNewClick} type="button">New Slide</button></div>
           </form>
         </div>
       </DocumentTitle>
     );
   }
 }
+
+/* -------------- CONTAINER -------------- */
 
 const mapState = state => ({
   deck: state.deck,
@@ -375,7 +353,7 @@ const mapDispatch = (dispatch, ownProps) => ({
 
 export default withRouter(connect(mapState, mapDispatch)(EditSlideForm));
 
-/* ----- PROP TYPES AND DEFAULTS ----- */
+/* -------------- PROP TYPES -------------- */
 
 EditSlideForm.propTypes = {
   deck: PropTypes.shape({
@@ -400,16 +378,7 @@ EditSlideForm.propTypes = {
   dirtyButtonClassName: PropTypes.string,
   saved: PropTypes.bool,
   sendSlide: PropTypes.func.isRequired,
-  singleSlide: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    firstText: PropTypes.string,
-    secondText: PropTypes.string,
-    template: PropTypes.string,
-    codeText: PropTypes.string,
-    positionInDeck: PropTypes.number,
-    presenterNotes: PropTypes.string,
-  }),
+  singleSlide: PropTypes.shape(),
   updateSlide: PropTypes.func.isRequired,
 };
 
@@ -424,18 +393,5 @@ EditSlideForm.defaultProps = {
   cleanButtonClassName: 'dqpl-button-secondary',
   dirtyButtonClassName: 'dqpl-button-primary',
   saved: false,
-  singleSlide: {
-    id: null,
-    title: '',
-    firstText: '',
-    secondText: '',
-    // template: 'mid-page',
-    // template: 'single-pane',
-    // template: 'columns-header',
-    // template: 'columns',
-    template: '',
-    codeText: '',
-    positionInDeck: 1,
-    presenterNotes: '',
-  },
+  singleSlide: {},
 };

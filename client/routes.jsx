@@ -3,26 +3,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
-import history from './history';
-
 import {
+  ChatBox,
+  DeckOverview,
   EditDeckForm,
   EditSlideForm,
+  Landing,
   Login,
   Main,
   NewDeckForm,
+  RemoteControl,
   Runkit,
   Signup,
   SlideViewFrame,
+  SlideViewLive,
   UserDeckList,
   UserHome,
-  Landing,
-  DeckOverview,
-  SlideViewLive,
-  ChatBox,
-  RemoteControl,
 } from './components';
-//import ChatBox from './components/ChatBox';
+import history from './history';
 import { me } from './store';
 
 /* -------------- COMPONENT -------------- */
@@ -72,9 +70,9 @@ class Routes extends Component {
 /* -------------- CONTAINER -------------- */
 
 const mapState = state => ({
-  // Being 'logged in' for our purposes will be defined has having a state.user
-  // that has a truthy id. Otherwise, state.user will be an empty object, and
-  // state.user.id will be falsey.
+  // Being 'logged in' for our purposes will be defined has having
+  // a state.user that has a truthy id. Otherwise, state.user will
+  // be an empty object, and state.user.id will be falsey.
   isLoggedIn: !!state.user.id,
 });
 

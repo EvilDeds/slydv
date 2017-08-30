@@ -1,6 +1,6 @@
 const Bluebird = require('bluebird');
 const db = require('./server/db');
-const { User, Deck, Slide } = require('./server/db/models');
+const { Deck, Slide, User } = require('./server/db/models');
 
 const defaultUser = [
   { email: 'test@gmail.com', password: '1234' },
@@ -29,12 +29,6 @@ const defaultSlide = [
   { title: 'Slide 2', firstText: '![m\'lady](http://i.imgur.com/v8IVDka.jpg)', secondText: 'My second text', template: 'single-pane', codeText: 'console.log(\'hi\');', positionInDeck: 2, presenterNotes: 'Presenter Notes', deckId: '3' },
   { title: 'Slide 3', firstText: 'Paragraphs are separated by a blank line. \n  Two spaces at the end of a line leave a \n\n line break. \n Text attributes _italic_, *italic*, __bold__, **bold**, `monospace`. \n Horizontal rule: \n --- \n A [link](http://example.com).', secondText: 'My second text', template: 'single-pane', codeText: 'console.log(\'hi\');', positionInDeck: 3, presenterNotes: 'Presenter Notes', deckId: '3' },
   { title: 'Slide 4', firstText: 'This is some text \n  --- \n This is some text \n ___ \n This is some text', secondText: 'My second text', template: 'single-pane', codeText: 'console.log(\'hi\');', positionInDeck: 4, presenterNotes: 'Presenter Notes', deckId: '3' },
-
-
-
-
-
-
 ];
 
 db.sync({ force: true })
@@ -42,7 +36,7 @@ db.sync({ force: true })
   .then(() => Bluebird.map(defaultDeck, item => Deck.create(item)))
   .then(() => Bluebird.map(defaultSlide, item => Slide.create(item)))
   .then(() => console.log('hey, it seeded!'))
-  .catch(err => console.log('err seeding', err))
+  .catch(err => console.log('error while seeding :(', err))
   .finally(() => {
     db.close();
     console.log('connection closed!');

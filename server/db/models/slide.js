@@ -38,4 +38,5 @@ const autoTitle = (slide) => {
 
 Slide.beforeCreate(autoTitle);
 Slide.beforeUpdate(autoTitle);
+
 module.exports = Slide;

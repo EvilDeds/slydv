@@ -1,14 +1,20 @@
+/* eslint-env browser */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
-// import Infinite from 'react-infinite';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import ChatBox from './ChatBox';
 import { MarkdownFooter } from './Markdown';
 import SlideViewFrame from './SlideViewFrame';
 import socket from '../socket';
-import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
+import {
+  fetchDeck,
+  getSingleSlide,
+  getSlideAndEmit,
+  viewNavBar,
+} from '../store';
+
+/* -------------- COMPONENT -------------- */
 
 class SlideViewLive extends Component {
   constructor() {
@@ -125,7 +131,7 @@ class SlideViewLive extends Component {
   }
 }
 
-/* -----CONNECT TO STORE AND PROPS----- */
+/* -------------- CONTAINER -------------- */
 
 const mapState = (state, ownProps) => ({
   currentSlide: state.slide.singleSlide,
@@ -152,7 +158,7 @@ const mapDispatch = dispatch => ({
 
 export default connect(mapState, mapDispatch)(SlideViewLive);
 
-/* -----PROP TYPES AND DEFAULT----- */
+/* -------------- PROP TYPES -------------- */
 
 SlideViewLive.propTypes = {
   currentSlide: PropTypes.shape().isRequired,
