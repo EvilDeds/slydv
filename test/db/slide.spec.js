@@ -1,8 +1,12 @@
 /* global describe beforeEach it */
-const { expect } = require('chai');
-const db = require('../../server/db');
+import chai from 'chai';
+import chaiProperties from 'chai-properties';
+import chaiThings from 'chai-things';
+import db from '../../server/db';
 
-
+chai.use(chaiProperties);
+chai.use(chaiThings);
+const expect = chai.expect;
 const Slide = db.model('slide');
 
 describe('Slide Model', () => {
@@ -11,33 +15,60 @@ describe('Slide Model', () => {
     return db.sync({ force: true })
       .then(() => Slide.create({
         title: 'What a slide',
-        text: 'Wow. Much text. Such slide. Amaze.',
+        firstText: 'Wow. Much text. Such slide. Amaze.',
+        secondText: 'MOAR TEXT',
+        codeText: 'console.log("This is a test");',
         template: 'repl',
+        positionInDeck: 1,
+        presenterNotes: 'These are __presenter notes__',
       }))
       .then((newSlide) => { slide = newSlide; });
-  });
-
-  it('has the expected schema definitions', () => {
-    expect(Slide.attributes.title).to.be.an('object');
-    expect(Slide.attributes.text).to.be.an('object');
-    expect(Slide.attributes.template).to.be.an('object');
-    expect(Slide.attributes.codeText).to.be.an('object');
-    expect(Slide.attributes.isHead).to.be.an('object');
-    expect(Slide.attributes.nextId).to.be.an('object');
-    expect(Slide.attributes.prevId).to.be.an('object');
   });
 
   it('has a title', () => {
     expect(slide.title).to.equal('What a slide');
   });
+
+
   it('has text', () => {
-    expect(slide.text).to.equal('Wow. Much text. Such slide. Amaze.');
+    expect(slide.firstText).to.equal('Wow. Much text. Such slide. Amaze.');
+    expect(slide.secondText).to.equal('MOAR TEXT');
+    expect(slide.codeText).to.equal('console.log("This is a test");');
   });
-  it('isHead defaults to false', () => {
-    expect(slide.isHead).to.be.false;
+
+  it('has a template which dafualts to single-pane', () => {
+    expect(slide.template).to.equal('repl');
+    Slide.create({ positionInDeck: 1 })
+      .then(newSlide => expect(newSlide.template).to.equal('single-pane'));
   });
-  it('prevId and nextId default to null', () => {
-    expect(slide.prevId).to.equal(null);
-    expect(slide.nextId).to.equal(null);
+
+  it('requires a positionInDeck property', () => {
+    const tempSlide = Slide.build();
+    return tempSlide.validate()
+      .catch((err) => {
+        expect(err.errors).to.contain.a.thing.with.properties({
+          path: 'positionInDeck',
+          type: 'notNull Violation',
+        });
+      });
+  });
+
+  it('positionInDeck must be positive', () => {
+    const tempSlide = Slide.build({ positionInDeck: -1 });
+    return tempSlide.validate()
+      .catch((err) => {
+        expect(err.errors).to.contain.a.thing.with.properties({
+          path: 'positionInDeck',
+          type: 'Validation error',
+        });
+      });
+  });
+
+  it('empty titles default to Slide # + positionInDeck', () => {
+    Slide.create({ positionInDeck: 2 })
+      .then((emptyTitleSlide) => {
+        expect(emptyTitleSlide.title).to.equal('Slide #2');
+      });
   });
 });
+
