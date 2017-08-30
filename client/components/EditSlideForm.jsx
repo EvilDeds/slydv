@@ -26,14 +26,14 @@ class EditSlideForm extends Component {
       dirtyButtonClassName: props.dirtyButtonClassName,
       saved: props.saved,
       singleSlide: {
-        codeText: props.singleSlide.codeText,
-        id: props.singleSlide.id,
-        positionInDeck: props.singleSlide.positionInDeck,
-        presenterNotes: props.singleSlide.presenterNotes,
-        template: props.singleSlide.template,
-        firstText: props.singleSlide.firstText,
-        secondText: props.singleSlide.secondText,
-        title: props.singleSlide.title,
+        codeText: props.singleSlide.codeText || '',
+        id: props.singleSlide.id || null,
+        positionInDeck: props.singleSlide.positionInDeck || null,
+        presenterNotes: props.singleSlide.presenterNotes || '',
+        template: props.singleSlide.template || '',
+        firstText: props.singleSlide.firstText || '',
+        secondText: props.singleSlide.secondText || '',
+        title: props.singleSlide.title || '',
       },
     };
 
@@ -378,16 +378,7 @@ EditSlideForm.propTypes = {
   dirtyButtonClassName: PropTypes.string,
   saved: PropTypes.bool,
   sendSlide: PropTypes.func.isRequired,
-  singleSlide: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    firstText: PropTypes.string,
-    secondText: PropTypes.string,
-    template: PropTypes.string,
-    codeText: PropTypes.string,
-    positionInDeck: PropTypes.number,
-    presenterNotes: PropTypes.string,
-  }),
+  singleSlide: PropTypes.shape(),
   updateSlide: PropTypes.func.isRequired,
 };
 
@@ -402,14 +393,5 @@ EditSlideForm.defaultProps = {
   cleanButtonClassName: 'dqpl-button-secondary',
   dirtyButtonClassName: 'dqpl-button-primary',
   saved: false,
-  singleSlide: {
-    id: null,
-    title: '',
-    firstText: '',
-    secondText: '',
-    template: 'single-pane',
-    codeText: '',
-    positionInDeck: 1,
-    presenterNotes: '',
-  },
+  singleSlide: {},
 };
