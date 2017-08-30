@@ -1,18 +1,18 @@
-/* -------------- ACTION TYPES -------------- */
+/* ----------------------- ACTION TYPES ------------------------ */
 
 const VIEW_NAVBAR = 'VIEW_NAVBAR';
 
-/* -------------- INITIAL STATE -------------- */
+/* ----------------------- INITIAL STATE ----------------------- */
 
 const initialState = true;
 
-/* -------------- ACTION CREATORS -------------- */
+/* ---------------------- ACTION CREATORS ---------------------- */
 
 export const viewNavBar = bool => ({ type: VIEW_NAVBAR, navBarInView: bool });
 
-/* -------------- REDUCER -------------- */
+/* -------------------------- REDUCER -------------------------- */
 
-export default function showNavBar (state = initialState, action) {
+export default function showNavBar(state = initialState, action) {
   switch (action.type) {
     case VIEW_NAVBAR:
       return action.navBarInView;

@@ -3,7 +3,16 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { fetchDeck, fetchSlideList, getSingleSlide, createSlide, deleteSlide, deleteChatLog } from '../store';
+import {
+  createSlide,
+  deleteChatLog,
+  deleteSlide,
+  fetchDeck,
+  fetchSlideList,
+  getSingleSlide,
+} from '../store';
+
+/* -------------- COMPONENT -------------- */
 
 class DeckOverview extends Component {
   constructor(props) {
@@ -166,6 +175,8 @@ class DeckOverview extends Component {
     );
   }
 }
+
+/* -------------- CONTAINER -------------- */
 
 const mapState = state => ({
   deck: state.deck,

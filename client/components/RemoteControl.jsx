@@ -2,9 +2,16 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import { getSingleSlide, fetchDeck, viewNavBar, getSlideAndEmit } from '../store';
+import {
+  fetchDeck,
+  getSingleSlide,
+  getSlideAndEmit,
+  viewNavBar,
+} from '../store';
 import socket from '../socket';
 import { MarkdownAside } from './Markdown';
+
+/* -------------- COMPONENT -------------- */
 
 class RemoteControl extends Component {
   constructor() {
@@ -47,6 +54,7 @@ class RemoteControl extends Component {
       this.props.history.push(`/decks/${this.props.deck.id}`);
     }
   }
+
   handlePresenter() {
     this.setState({ showNotes: !this.state.showNotes });
   }
@@ -79,7 +87,7 @@ class RemoteControl extends Component {
                   {`${!showNotes ? 'View' : 'Hide'} Speaker Notes`}
                 </button>
               </div>
-              {showNotes && <MarkdownAside markdown={ currentSlide.presenterNotes } />}
+              {showNotes && <MarkdownAside markdown={currentSlide.presenterNotes} />}
             </section>
           </div>
 
@@ -89,7 +97,7 @@ class RemoteControl extends Component {
   }
 }
 
-/* -----CONNECT TO STORE AND PROPS----- */
+/* -------------- CONTAINER -------------- */
 
 const mapState = (state, ownProps) => ({
   slides: state.deck.slides,
@@ -114,7 +122,7 @@ const mapDispatch = dispatch => ({
 
 export default connect(mapState, mapDispatch)(RemoteControl);
 
-/* -----PROP TYPES AND DEFAULT----- */
+/* -------------- PROP TYPES -------------- */
 
 RemoteControl.propTypes = {
   currentSlide: PropTypes.shape().isRequired,
@@ -130,6 +138,7 @@ RemoteControl.propTypes = {
     }).isRequired,
   }).isRequired,
   setSlide: PropTypes.func.isRequired,
+  setSlideAndEmit: PropTypes.func.isRequired,
   showNavBar: PropTypes.func.isRequired,
   slides: PropTypes.arrayOf(PropTypes.shape()),
 };

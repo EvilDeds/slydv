@@ -1,26 +1,19 @@
-const path = require('path');
-const express = require('express');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const express = require('express');
 const session = require('express-session');
-const passport = require('passport');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const db = require('./db');
+const morgan = require('morgan');
+const passport = require('passport');
+const path = require('path');
 const socketio = require('socket.io');
+const db = require('./db');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 const sessionStore = new SequelizeStore({ db });
+
 module.exports = app;
 
-/**
- * In your development environment, you can keep all of your
- * app's secret API keys in a file called `secrets.js`, in your project
- * root. This file is included in the .gitignore - it will NOT be tracked
- * or show up on Github. On your production server, you can add these
- * keys as environment variables, so that they can still be read by the
- * Node process on process.env
- */
 if (process.env.NODE_ENV !== 'production') require('../secrets');
 
 // passport registration
@@ -56,7 +49,7 @@ const createApp = () => {
   // static file-serving middleware
   app.use('/deque-pattern-library', express.static(path.join(__dirname, '..', '/node_modules/deque-pattern-library/dist')));
   app.use(express.static(path.join(__dirname, '..', 'public')));
-  app.use('/bootstrap', express.static(path.join(__dirname,'..', '/node_modules/bootstrap/dist')));
+  app.use('/bootstrap', express.static(path.join(__dirname, '..', '/node_modules/bootstrap/dist')));
 
   // sends index.html
   app.use('*', (req, res) => {
@@ -82,10 +75,11 @@ const startListening = () => {
 
 const syncDb = () => db.sync({ force: false });
 
-// This evaluates as true when this file is run directly from the command line,
-// i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
-// It will evaluate false when this module is required by another module - for example,
-// if we wanted to require our app in a test spec
+// This evaluates as true when this file is run directly from the
+// command line—e.g., when we say 'node server/index.js' (or
+// 'nodemon server/index.js', or 'nodemon server', etc.). It will
+// evaluate false when this module is required by another module—
+// e.g., if we require our app in a test spec.
 if (require.main === module) {
   sessionStore.sync()
     .then(syncDb)

@@ -1,8 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
-import { MarkdownHeader, MarkdownFooter, MarkdownSpeakerNotes } from './Markdown';
-
+import React from 'react';
 import {
   SlideView1,
   SlideView2,
@@ -10,10 +7,17 @@ import {
   SlideView4,
   SlideView5,
 } from './index';
+import {
+  MarkdownFooter,
+  MarkdownHeader,
+  MarkdownSpeakerNotes,
+} from './Markdown';
+
+/* -------------- COMPONENT -------------- */
 
 export default function SlideViewFrame(props) {
   const { title, template, presenterNotes } = props.singleSlide;
-  const { hasFooter, footerText } = props.currentDeck;
+  const { footerText, hasFooter} = props.currentDeck;
 
   const slideBody = (thisTemplate) => {
     switch (thisTemplate) {
@@ -42,6 +46,8 @@ export default function SlideViewFrame(props) {
     </div>
   );
 }
+
+/* -------------- PROP TYPES -------------- */
 
 SlideViewFrame.propTypes = {
   singleSlide: PropTypes.shape({

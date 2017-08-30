@@ -2,14 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { logout } from '../store';
 import NavBar from './NavBar';
+import { logout } from '../store';
 
-/* -------------- COMPONENT --------------
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
+/* -------------- COMPONENT -------------- */
+
 const Main = (props) => {
   const { children, handleClick, isLoggedIn, showNavBar } = props;
 
@@ -41,7 +38,7 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
 /* -------------- PROP TYPES -------------- */
 
 Main.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.shape().isRequired,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };

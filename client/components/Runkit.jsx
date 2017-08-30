@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Embed from 'react-runkit';
 import { connect } from 'react-redux';
+import Embed from 'react-runkit';
 import socket from '../socket';
 import { getSingleSlide } from '../store';
 
@@ -15,7 +16,7 @@ class Runkit extends React.Component {
     // };
   }
 
-  /* These functions are not currently working as we'd like.
+  /* These functions are not currently working as we’d like.
       There is no current obvious way to get Runkit to evaluate
       other than when it loads or when the URL changes.
       onLoad={this.state.loadFunc} */
@@ -50,6 +51,8 @@ class Runkit extends React.Component {
   }
 }
 
+/* -------------- CONTAINER -------------- */
+
 const mapState = state => ({
   currentSlide: state.slide.singleSlide,
 });
@@ -63,3 +66,10 @@ const mapDispatch = dispatch => ({
 });
 
 export default connect(mapState, mapDispatch)(Runkit);
+
+/* -------------- PROP TYPES -------------- */
+
+Runkit.propTypes = {
+  changeSlideCode: PropTypes.func.isRequired,
+  currentSlide: PropTypes.shape().isRequired,
+};
