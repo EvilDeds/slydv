@@ -3,19 +3,23 @@ import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import {spy} from 'sinon';
 
+//mocking a browser so that the socket.io functionality does not throw errors has been a challenge
 
+let DeckOverview;
+let ChatBox;
+let Landing;
+let EditDeckForm;
 
-import { DeckOverview, ChatBox, Landing, EditDeckForm } from '../../client/components'; 
-
-
-
-
+if(!global.window){
+  const MockBrowser = require('mock-browser').mocks.MockBrowser
+  global.window = new MockBrowser().getWindow();
+   DeckOverview = require('../../client/components/DeckOverview').default
+   ChatBox = require('../../client/components/ChatBox').default
+   Landing = require('../../client/components/Landing').default
+   EditDeckForm = require('../../client/components/EditDeckForm').default
+}
 
 describe('React Components', () => {
- 
-  beforeEach('make global window', () => {
-   global.window = {document: {querySelector: function () { return null; }}}
-  })
 
   describe('<DeckOverview /> component', () => {
   	it ('renders without a problem', () => {
