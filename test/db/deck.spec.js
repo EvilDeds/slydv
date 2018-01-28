@@ -1,7 +1,6 @@
 /* global describe beforeEach it */
-const { expect } = require('chai');
-const db = require('../../server/db');
-
+import { expect } from 'chai';
+import db from '../../server/db';
 
 const Deck = db.model('deck');
 
@@ -12,24 +11,32 @@ describe('Deck Model', () => {
       .then(() => Deck.create({
         deckTitle: 'Such deck',
         viewable: true,
-        chats: 'chatty chat chat',
+        hasFooter: true,
+        footerText: 'by Footer McFooterson',
       }))
       .then((newDeck) => { deck = newDeck; });
   });
 
-  it('has the expected schema definitions', () => {
-    expect(Deck.attributes.deckTitle).to.be.an('object');
-    expect(Deck.attributes.viewable).to.be.an('object');
-    expect(Deck.attributes.chats).to.be.an('object');
-    expect(Deck.attributes.userId).to.be.an('object');
-  });
   it('has a deckTitle', () => {
     expect(deck.deckTitle).to.equal('Such deck');
   });
-  it('is viewable', () => {
+
+  it('can be viewable', () => {
     expect(deck.viewable).to.be.true;
   });
-  it('has chats', () => {
-    expect(deck.chats).to.equal('chatty chat chat');
+
+  it('can have a footer and have that footer be viewable', () => {
+    expect(deck.hasFooter).to.be.true;
+    expect(deck.footerText).to.equal('by Footer McFooterson');
+  });
+
+  it('an empty deck defaults to the expected values', () => {
+    Deck.create()
+      .then((newDeck) => {
+        expect(newDeck.deckTitle).to.equal('Untitled Deck');
+        expect(newDeck.theme).to.equal('antique');
+        expect(newDeck.hasFooter).to.be.false;
+        expect(newDeck.footerText).to.equal('');
+      });
   });
 });
