@@ -20,3 +20,5 @@ __SlyDv Brought To You By:__
 * Alice Chuang
 * Georgina Hoagland
 * Leigh Steiner
+
+copyrights @ SLYDV
